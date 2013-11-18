@@ -30,3 +30,4 @@ proguard/
 
 #Mac Shit
 *.DS_Store
+src/*.DS_Store
