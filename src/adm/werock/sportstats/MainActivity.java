@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         return true;
         
         
-        // Fuck all of you bitch!!!
+        // Fuck all of you BITCHEEEEESSSSs!!!
     }
     
 }
