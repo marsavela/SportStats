@@ -96,7 +96,7 @@
                 	android:layout_width="wrap_content"
                		android:layout_height="wrap_content"
 					style="@style/buttonColor"
-       				android:background="@drawable/btn_blue_glossy"
+       				android:background="@drawable/btn_red_matte"
                     android:id="@+id/save"
                     android:layout_span="2" >
                                 
