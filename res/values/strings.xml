@@ -9,5 +9,6 @@
     <string name="username_label">Username :</string>
     <string name="password_label">Password :</string>
     <string name="login_label">LOGIN</string>
+    <string name="logo">Logo</string>
 
 </resources>
