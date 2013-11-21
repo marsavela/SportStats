@@ -1,0 +1,85 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingBottom="30dp"
+    android:background="#e6e6e6">
+    
+	<ImageView
+	    android:id="@+id/imageView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center|top"
+	    android:contentDescription="@string/logo"
+	    android:src="@drawable/main_logo" >
+
+	</ImageView>    
+
+	<EditText
+	    android:id="@+id/screenName"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20dip"
+	    android:layout_marginRight="20dip"
+	    android:layout_weight="1"
+	    android:gravity="center" 
+	    android:inputType="text"
+	    android:hint="@string/hint_name"
+	    android:textSize="25sp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginBottom="20dip"
+        android:layout_weight="1" 
+        android:gravity="center" 
+        android:inputType="textPassword"
+        android:hint="@string/hint_password"
+        android:textSize="25sp">                        
+    </EditText>
+	
+	<Button
+	    android:id="@+id/ButtonLogin"
+	    style="@style/buttonColor"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:background="@drawable/btn_red_matte"
+	    android:clickable="true"
+	    android:text="@string/login_label"
+	    android:textStyle="bold" >
+                         
+    </Button>      
+    
+	<Button
+	    android:id="@+id/ButtonRegister"
+	    style="@style/buttonColor"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:background="@drawable/btn_red_matte"
+	    android:clickable="true"
+	    android:text="@string/register_label" 
+	    android:textStyle="bold">
+	</Button>
+	
+	<Button
+	    android:id="@+id/ButtonSkip"
+	    style="@style/buttonColor"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:background="@drawable/btn_red_matte"
+	    android:clickable="true"
+	    android:text="@string/skip_label" 
+	    android:textStyle="bold">
+    </Button>
+    
+</LinearLayout>
