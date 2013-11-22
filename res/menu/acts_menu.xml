@@ -4,6 +4,6 @@
     <!-- Add Act, should appear as action button -->
     <item
         android:id="@+id/add_new_act"
-        android:title="@string/action_addAct"
+        android:title="@string/actionAddAct"
         android:showAsAction="always"/>
 </menu>

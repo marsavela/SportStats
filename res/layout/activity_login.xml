@@ -27,7 +27,7 @@
 	    android:layout_weight="1"
 	    android:gravity="center" 
 	    android:inputType="text"
-	    android:hint="@string/hint_name"
+	    android:hint="@string/hintName"
 	    android:textSize="25sp">
     </EditText>
 
@@ -41,7 +41,7 @@
         android:layout_weight="1" 
         android:gravity="center" 
         android:inputType="textPassword"
-        android:hint="@string/hint_password"
+        android:hint="@string/hintPassword"
         android:textSize="25sp">                        
     </EditText>
 	
@@ -53,7 +53,7 @@
 	    android:layout_gravity="center"
 	    android:background="@drawable/btn_red_matte"
 	    android:clickable="true"
-	    android:text="@string/login_label"
+	    android:text="@string/labelLogin"
 	    android:textStyle="bold" >
                          
     </Button>      
@@ -66,7 +66,7 @@
 	    android:layout_gravity="center"
 	    android:background="@drawable/btn_red_matte"
 	    android:clickable="true"
-	    android:text="@string/register_label" 
+	    android:text="@string/labelRegister" 
 	    android:textStyle="bold">
 	</Button>
 	
@@ -78,7 +78,7 @@
 	    android:layout_gravity="center"
 	    android:background="@drawable/btn_red_matte"
 	    android:clickable="true"
-	    android:text="@string/skip_label" 
+	    android:text="@string/labelSkip" 
 	    android:textStyle="bold">
     </Button>
     

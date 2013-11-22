@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">SportStats</string>
+    <string name="appName">SportStats</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
 <!-- Para encontrar de forma mas facil los Strings aconsejo que los 
 	 separemos por pantallas, login, mis actas, etc... --> 
 	 
-<!-- Login -->    
-	<string name="title_login">Login</string>
-    <string name="init_label">Insert your username and password to login</string>
-    <string name="username_label">Username :</string>
-    <string name="password_label">Password :</string>
-    <string name="login_label">Sign in</string>
-    <string name="register_label">Register</string>
-    <string name="skip_label">Skip</string>
+	<!-- Login -->    
+	<string name="titleLogin">Login</string>
+    <string name="labelLogin">Sign in</string>
+    <string name="labelRegister">Register</string>
+    <string name="labelSkip">Skip</string>
     <string name="logo">Logo</string>
-    <string name="hint_name">user</string>
-    <string name="hint_password">password</string>
+    <string name="hintName">user</string>
+    <string name="hintPassword">password</string>
   
 
-<!-- My Acts -->  
-	<string name="title_my_acts">My Acts</string>
-	<string name="action_addAct">Add Act</string>
-    
+	<!-- My Acts -->  
+	<string name="titleMyActs">My Acts</string>
+	<string name="actionAddAct">Add Act</string>
+
+	
+	<!-- Create Act -->  
+	<string name="titleCreateAct">New Act</string>
+	<string name="labelSelectSport">Select a Sport</string>
+	<string name="labelStart">Start</string>
+	<string name="ToastSpinnerAdapter">You have selected: </string>
 
 </resources>
