@@ -38,7 +38,7 @@
     <string name="time">Time</string><string name="date">Date</string>
     
     <string name="general">General</string>
-    <string name="teams">Teams</string>
+    <string name="teamA">Team A</string><string name="teamB">Team B</string>
     <string name="start">Start</string>
     <string name="titleBasketData">Basket Data</string>
     <string name="labelStartGame">Start Game!</string>
@@ -55,6 +55,7 @@
     
     <string name="selectCaptain">Select as Captain</string>
     <string name="selectNotPlaying">Player not called</string><string name="selectStartingPlayer">Starting player</string>
+    
     
 
 </resources>
