@@ -1,20 +1,31 @@
 package adm.werock.sportstats;
 
-import android.app.Activity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MyActsActivity extends Activity {
+public class MyActsActivity extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		Act act = new Act("Duncan Your Face","Wake and Blake",170,169,"Hola");
+		List<Act> actsList = new ArrayList<Act>();
+		actsList.add(act);
 		setContentView(R.layout.activity_my_acts);
+		MyActsAdapter acts = new MyActsAdapter(this, actsList);
+		Log.v("ownad", act.getTeamHome());
+		setListAdapter(new MyActsAdapter(this, actsList));
 	}
 
 	@Override
