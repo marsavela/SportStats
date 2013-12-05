@@ -16,7 +16,10 @@
     <string name="logo">Logo</string>
     <string name="hintName">user</string>
     <string name="hintPassword">password</string>
-  
+
+    <!-- Register -->    
+	<string name="titleRegister">Register</string>
+    
 
 	<!-- My Acts -->  
 	<string name="titleMyActs">My Acts</string>

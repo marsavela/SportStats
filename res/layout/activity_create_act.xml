@@ -14,7 +14,8 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/labelSelectSport"
-        android:textSize="20sp"
+        android:textSize="24sp"
+        android:textColor="@color/red"
         android:textStyle="bold" />
 
     <Spinner

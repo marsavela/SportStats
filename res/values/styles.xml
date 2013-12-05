@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -32,4 +32,82 @@
         <item name="android:paddingRight">15dp</item>
     </style>
 
+        
+        
+    <style name="Theme.Example" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Example</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Example</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Example</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Example</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Example</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top</item>
+        
+ 		<item name="android:actionMenuTextColor">@android:color/white</item>
+ 		<item name="android:actionMenuTextAppearance">@style/MyActionBar.MenuTextStyle</item>	
+        <!-- 
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom</item> -->
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Example</item>
+        
+       
+    </style>
+
+    <style name="ActionBar.Solid.Example" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Example</item>
+    	<item name="android:titleTextStyle">@style/MyTextAppearance</item>
+    	<item name="android:subtitleTextStyle">@style/MyTextAppearance</item>
+ 		<!-- <item name="android:actionMenuTextColor">@android:color/white</item>
+ 		<item name="android:actionMenuTextAppearance">@style/MyActionBar.MenuTextStyle</item>	 -->
+ 	</style>
+    
+    <style name="ActionBar.Transparent.Example" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Example</item>
+    </style>
+
+    <style name="PopupMenu.Example" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel</item>	
+    </style>
+
+    <style name="DropDownListView.Example" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Example" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab</item>
+    </style>
+
+    <style name="DropDownNav.Example" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background</item>
+    </style>
+    
+    <style name="ProgressBar.Example" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Example" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done</item>
+        <item name="android:subtitleTextStyle">@style/MyTextAppearance</item>
+    </style>
+    
+    <style name="MyTextAppearance" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+  		<item name="android:textColor">@color/white</item>
+  		<item name="android:textSize">30sp</item>
+  		<item name="android:textStyle">bold</item>
+  		
+	</style>
+	
+    <style name="MyActionBar.MenuTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+    	<item name="android:textColor">#F0F</item>
+    	<item name="android:textStyle">bold</item>
+    	<item name="android:textSize">26sp</item>
+	</style>
+
+        
+        
 </resources>

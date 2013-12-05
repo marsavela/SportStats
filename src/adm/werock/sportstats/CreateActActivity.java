@@ -18,6 +18,8 @@ public class CreateActActivity extends Activity {
 		setContentView(R.layout.activity_create_act);
 		
 		Spinner sp = (Spinner) findViewById(R.id.spinner);
+/*		ArrayAdapter adapter = new ArrayAdapter(this, R.array.sports, R.layout.spinner_item);
+*/
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
                 this, R.array.sports, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -27,7 +29,7 @@ public class CreateActActivity extends Activity {
            
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, 
                             int position, long id) {
-                    Toast.makeText(parentView.getContext(), "@String/ToastSpinnerAdapter" +
+                    Toast.makeText(parentView.getContext(), getResources().getText(R.string.ToastSpinnerAdapter) + " " +
                               parentView.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
                         
             }

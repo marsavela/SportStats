@@ -15,7 +15,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/appName"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Example" >
+        <!-- main activity -->    
         <activity
             android:name="adm.werock.sportstats.MainActivity"
             android:label="@string/appName" >
@@ -24,15 +25,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Login activity -->    
         <activity
             android:name="adm.werock.sportstats.LoginActivity"
-            android:label="@string/titleLogin" 
-           	android:parentActivityName="adm.werock.sportstats.MainActivity">
+            android:label="@string/titleLogin" >
+        </activity>
+        <!-- Register activity -->    
+      	<activity
+            android:name="adm.werock.sportstats.RegisterActivity"
+            android:label="@string/titleRegister" 
+           	android:parentActivityName="adm.werock.sportstats.LoginActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="adm.werock.sportstats.MainActivity" />
+                android:value="adm.werock.sportstats.LoginActivity" />
         </activity>
+        <!-- My acts activity -->    
         <activity
             android:name="adm.werock.sportstats.MyActsActivity"
             android:label="@string/titleMyActs" 
@@ -42,6 +50,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.LoginActivity" />
         </activity>
+        <!-- Create act activity -->    
         <activity
             android:name="adm.werock.sportstats.CreateActActivity"
             android:label="@string/titleCreateAct" 

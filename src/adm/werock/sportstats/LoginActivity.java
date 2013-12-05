@@ -21,10 +21,23 @@ public class LoginActivity extends Activity {
             	launchMyActs();
             }
         });
+		
+		Button bRegister = (Button) findViewById(R.id.ButtonRegister);
+		bRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	launchRegister();
+            }
+        });
 	}
 	
 	private void launchMyActs(){
 		Intent i = new Intent(this, MyActsActivity.class);
+        startActivity(i);
+	}
+	
+	private void launchRegister(){
+		Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
 	}
 
