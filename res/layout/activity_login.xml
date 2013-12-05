@@ -54,8 +54,7 @@
 	    android:background="@drawable/btn_red_matte"
 	    android:clickable="true"
 	    android:text="@string/labelLogin"
-	    android:textStyle="bold" >
-                         
+	    android:textStyle="bold" >                  
     </Button>      
     
 	<Button

@@ -60,6 +60,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.MyActsActivity" />
         </activity>
+        
+             <activity
+            android:name="adm.werock.sportstats.ActivityBasketData"
+            android:label="@string/titleBasketData" 
+           	android:parentActivityName="adm.werock.sportstats.CreateActActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="adm.werock.sportstats.CreateActActivity" />
+        </activity>
+        
+        
+        
+        
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package adm.werock.sportstats;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -40,4 +41,12 @@ public class CreateActActivity extends Activity {
         });        
 	}
 
+	public void newAct(View view){
+		Intent i = new Intent(this, ActivityBasketData.class);
+        startActivity(i);
+		
+		
+	}
+	
+	
 }

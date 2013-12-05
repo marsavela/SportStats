@@ -17,6 +17,7 @@
     <string name="hintName">user</string>
     <string name="hintPassword">password</string>
 
+    
     <!-- Register -->    
 	<string name="titleRegister">Register</string>
     
@@ -24,12 +25,48 @@
 	<!-- My Acts -->  
 	<string name="titleMyActs">My Acts</string>
 	<string name="actionAddAct">Add Act</string>
-
 	
-	<!-- Create Act -->  
-	<string name="titleCreateAct">New Act</string>
-	<string name="labelSelectSport">Select a Sport</string>
-	<string name="labelStart">Start</string>
-	<string name="ToastSpinnerAdapter">You have selected: </string>
+
+    <!-- Create Act -->
+    <string name="titleCreateAct">New Act</string>
+    <string name="labelSelectSport">Select a Sport</string>
+    <string name="labelStart">Start</string>
+    <string name="ToastSpinnerAdapter">You have selected: </string>
+    <string name="localTeam">Local team</string><string name="title_activity_activity_basket_data">ActivityBasketData</string>
+    
+    
+    <!--   -->
+    
+    <string name="visitorTeam">Visitor team</string>
+    <string name="town">Town</string>
+    <string name="mainReferee">Main referee</string>
+    <string name="secondReferee">Second referee</string>
+    <string name="time">Time</string><string name="date">Date</string>
+    
+    
+    <!--  -->
+    
+    <string name="general">General</string>
+    <string name="teamA">Team A</string><string name="teamB">Team B</string>
+    <string name="start">Start</string>
+    <string name="titleBasketData">Basket Data</string>
+    <string name="labelStartGame">Start Game!</string>
+    <string name="coach">Coach</string>
+    <string name="secondCoach">Second Coach</string><string name="secondCoachText">Second coach</string><string name="coachText">Coach </string>
+    
+    
+    <!--  -->
+    
+    <string name="licNum">Lic Nº</string>
+    <string name="playerName">Player name</string>
+    <string name="playerNum">Player Nº</string>
+    <string name="playerDefaultText">Player Name</string>
+    <string name="playerDefaultNumText">00</string>
+    <string name="cancel">Cancel</string><string name="licDeafaultText">000</string>
+    
+    <string name="selectCaptain">Select as Captain</string>
+    <string name="selectNotPlaying">Player not called</string><string name="selectStartingPlayer">Starting player</string>
+    
+    
 
 </resources>

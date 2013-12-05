@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/CaptainPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="@string/selectCaptain"
+        android:textStyle="bold" />
+
+	<TextView
+	    android:id="@+id/StartingPlayer"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="20dp"
+	    android:gravity="center"
+	    android:textSize="20sp"
+	    android:text="@string/selectStartingPlayer"
+	    android:textStyle="bold" />
+
+	<TextView
+	    android:id="@+id/PlayerNotCalled"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="20dp"
+	    android:gravity="center"
+	    android:textSize="20sp"
+	    android:text="@string/selectNotPlaying"
+	    android:textStyle="bold" />
+
+	<TextView
+	    android:id="@+id/TextView01"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="20dp"
+	    android:gravity="center"
+	    android:textSize="20sp"
+	    android:textStyle="bold" />
+
+  <Button
+      android:id="@+id/Cancel"
+      style="@style/buttonColor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="100dp"
+      android:background="@drawable/btn_red_matte"
+      android:clickable="true"
+      android:text="@string/cancel"
+      android:textStyle="bold" />
+
+</LinearLayout>
