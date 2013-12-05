@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TableRow
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/Coach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/coach"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/CoachText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:text="@string/coachText" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+    <TableRow
+        android:id="@+id/SecondCoach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/SecondCoach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:text="@string/secondCoach"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/SecondCoachText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:text="@string/secondCoachText" />
+
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" >
+
+            <TextView
+                android:id="@+id/LicNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20sp"
+                android:text="@string/licNum"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/PlayerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20sp"
+                android:text="@string/playerName"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/PlayerNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="5sp"
+                android:text="@string/playerNum"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte" 
+                android:visibility="invisible"/>
+
+            <EditText
+                android:id="@+id/Lic1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain2"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte" 
+                android:visibility="invisible"/>
+
+            <EditText
+                android:id="@+id/Lic2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain3"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/Lic3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain4"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText"
+                 />
+
+            <EditText
+                android:id="@+id/Player4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain5"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain6"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain7"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain8"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain9"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain10"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain11"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+      <TableRow
+        android:id="@+id/TableRow01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/Captain12"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/btn_green_matte"
+                android:visibility="invisible"  />
+
+            <EditText
+                android:id="@+id/Lic12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.27"
+                android:ems="10"
+                android:text="@string/licDeafaultText" />
+
+            <EditText
+                android:id="@+id/Player12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:onClick="playerPressed"
+                android:text="@string/playerDefaultText" />
+
+            <EditText
+                android:id="@+id/PlayerNum12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1.06"
+                android:ems="10"
+                android:text="@string/playerDefaultNumText" />
+        </LinearLayout>
+    </TableRow>
+          
+    </TableLayout>
+
+</ScrollView>
