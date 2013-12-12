@@ -22,7 +22,7 @@ public class LoginActivity extends Activity {
             }
         });
 		
-		Button bRegister = (Button) findViewById(R.id.ButtonRegister);
+		Button bRegister = (Button) findViewById(R.id.ButtonNewUser);
 		bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

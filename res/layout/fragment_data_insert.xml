@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E6E6E6">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/square_red_64">
+
+        <TextView
+            android:id="@+id/textSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="-"
+            style="@style/HeaderBig" />
+
+        <TextView
+            android:id="@+id/textHomeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/textSeparator"
+            android:text="50"
+            style="@style/HeaderBig" />
+        
+        <TextView
+            android:id="@+id/textAwayScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/textSeparator"
+            android:text="55"
+            style="@style/HeaderBig" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp" >
+        
+        <Button
+        android:id="@+id/buttonSubstractMinute"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:background="@drawable/square_gray_64"
+        android:textAlignment="center"
+        style="@style/HeaderMedium"
+        android:text="-" />
+        
+        <Button
+        android:id="@+id/buttonCurrentMinute"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:background="@drawable/square_gray_64"
+        android:textAlignment="center"
+        style="@style/HeaderMedium"
+        android:text="1Q MIN: 9" />
+        
+        <Button
+        android:id="@+id/buttonAddMinute"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:background="@drawable/square_gray_64"
+        android:textAlignment="center"
+        style="@style/HeaderMedium"
+        android:text="+" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <Button
+        android:id="@+id/buttonHomeTeam"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/square_lightgray_64"
+        style="@style/HeaderSmall"
+        android:text="@string/labelHome" />
+        
+        <Button
+        android:id="@+id/buttonBonusHome"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/square_lightgray_64"
+        style="@style/HeaderSmall"
+        android:textColor="#888888"
+        android:text="@string/labelBonus" />
+        
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+       <TableRow
+            android:id="@+id/tableRowHomeTeamUpper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center" >
+            
+            <Button
+                android:id="@+id/buttonHome1"
+                style = "@style/PlayerButton"
+                android:text="1"/>
+            
+            <Button
+                android:id="@+id/buttonHome2"
+                style = "@style/PlayerButton"
+                android:text="2" />
+            
+            <Button
+                android:id="@+id/buttonHome3"
+                style = "@style/PlayerButton"
+                android:text="3" />
+            
+            <Button
+                android:id="@+id/buttonHome4"
+                style = "@style/PlayerButton"
+                android:text="4" />
+            
+            <Button
+                android:id="@+id/buttonHome5"
+                style = "@style/PlayerButton"
+                android:text="5" />
+            
+            <Button
+                android:id="@+id/buttonHome6"
+                style = "@style/PlayerButton"
+                android:text="6" />
+            
+        </TableRow>
+
+       
+       
+        <TableRow
+            android:id="@+id/tableRowHomeTeamLower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center" >>
+            
+            <Button
+                android:id="@+id/buttonHome7"
+                style = "@style/PlayerButton"
+                android:text="7"/>
+            
+            <Button
+                android:id="@+id/buttonHome8"
+                style = "@style/PlayerButton"
+                android:text="8" />
+            
+            <Button
+                android:id="@+id/buttonHome9"
+                style = "@style/PlayerButton"
+                android:text="9" />
+            
+            <Button
+                android:id="@+id/buttonHome10"
+                style = "@style/PlayerButton"
+                android:text="10" />
+            
+            <Button
+                android:id="@+id/buttonHome11"
+                style = "@style/PlayerButton"
+                android:text="11" />
+            
+            <Button
+                android:id="@+id/buttonHome12"
+                style = "@style/PlayerButton"
+                android:text="12" />
+            
+        </TableRow>
+    </TableLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <Button
+        android:id="@+id/buttonAwayTeam"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/square_lightgray_64"
+        style="@style/HeaderSmall"
+        android:text="@string/labelAway" />
+        
+        <Button
+        android:id="@+id/buttonBonusAway"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/square_lightgray_64"
+        style="@style/HeaderSmall"
+        android:textColor="#888888"
+        android:text="@string/labelBonus" />
+        
+    </LinearLayout>
+    
+     <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+       <TableRow
+            android:id="@+id/tableRowAwayTeamUpper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center" >
+            
+            <Button
+                android:id="@+id/buttonAway1"
+                style = "@style/PlayerButton"
+                android:text="1"/>
+            
+            <Button
+                android:id="@+id/buttonAway2"
+                style = "@style/PlayerButton"
+                android:text="2" />
+            
+            <Button
+                android:id="@+id/buttonAway3"
+                style = "@style/PlayerButton"
+                android:text="3" />
+            
+            <Button
+                android:id="@+id/buttonAway4"
+                style = "@style/PlayerButton"
+                android:text="4" />
+            
+            <Button
+                android:id="@+id/buttonAway5"
+                style = "@style/PlayerButton"
+                android:text="5" />
+            
+            <Button
+                android:id="@+id/buttonAway6"
+                style = "@style/PlayerButton"
+                android:text="6" />
+            
+        </TableRow>
+
+       
+       
+        <TableRow
+            android:id="@+id/tableRowAwayTeamLower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|center" >>
+            
+            <Button
+                android:id="@+id/buttonAway7"
+                style = "@style/PlayerButton"
+                android:text="7"/>
+            
+            <Button
+                android:id="@+id/buttonAway8"
+                style = "@style/PlayerButton"
+                android:text="8" />
+            
+            <Button
+                android:id="@+id/buttonAway9"
+                style = "@style/PlayerButton"
+                android:text="9" />
+            
+            <Button
+                android:id="@+id/buttonAway10"
+                style = "@style/PlayerButton"
+                android:text="10" />
+            
+            <Button
+                android:id="@+id/buttonAway11"
+                style = "@style/PlayerButton"
+                android:text="11" />
+            
+            <Button
+                android:id="@+id/buttonAway12"
+                style = "@style/PlayerButton"
+                android:text="12" />
+            
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

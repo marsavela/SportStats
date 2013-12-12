@@ -2,7 +2,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:padding="30dp"
+    android:background="#e6e6e6">
     
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/textviewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/labelNewUserRegistration"
+        android:textSize="24sp"
+        android:textColor="@color/red"
+        android:textStyle="bold" />
+    
+   	<EditText
+   	    android:layout_marginTop="20dp"
+	    android:id="@+id/registerName"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20dip"
+	    android:layout_marginRight="20dip"
+	    android:gravity="center" 
+	    android:inputType="text"
+	    android:hint="@string/hintName"
+	    android:textSize="25sp">
+    </EditText>
+    
+    <EditText
+        android:id="@+id/registerPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:gravity="center" 
+        android:inputType="textPassword"
+        android:hint="@string/hintPassword"
+        android:textSize="25sp">                        
+    </EditText>
+    
+    <EditText
+        android:id="@+id/registerPassword2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:gravity="center" 
+        android:inputType="textPassword"
+        android:hint="@string/hintPassword2"
+        android:textSize="25sp">                        
+    </EditText>
+    
+    <EditText
+	    android:id="@+id/registerMail"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20dip"
+	    android:layout_marginRight="20dip"
+	    android:gravity="center" 
+	    android:inputType="textEmailAddress"
+	    android:hint="@string/hintMail"
+	    android:textSize="25sp">
+    </EditText>
+
+   	<TableRow
+   	    android:id="@+id/tableRow1"
+   	    android:layout_marginTop="20dip"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content" >
+
+   		<Button
+   		    android:id="@+id/ButtonRegister"
+   		    style="@style/buttonColor"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:background="@drawable/btn_red_matte"
+   		    android:clickable="true"
+   		    android:text="@string/labelRegister"
+   		    android:gravity="center" 
+   		    android:textStyle="bold" />
+
+   		<Button
+   		    android:id="@+id/ButtonCancelRegistration"
+   		    style="@style/buttonColor"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:background="@drawable/btn_red_matte"
+   		    android:clickable="true"
+   		    android:text="@string/labelCancel"
+   		    android:gravity="center" 
+   		    android:textStyle="bold" />
+
+   	</TableRow>
 
 </LinearLayout>

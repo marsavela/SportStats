@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <Button
+        android:id="@+id/headerPlayerName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/square_red_64"
+        style="@style/HeaderSmall"
+        android:text="Jugador X" />
+    
+    <Button
+        android:id="@+id/headerPreviousStats"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/square_gray_64"
+        style="@style/HeaderSmall"
+        android:text="Puntos: 0 Faltas: 0 " />
+    
+    <Button
+        android:id="@+id/headerStatsToAddPointsFouls"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/square_lightgray_64"
+        style="@style/HeaderSmall"
+        android:text="Puntos: 0 Faltas: 0 " />
+    
+    <Button
+        android:id="@+id/headerStatsToAddFreeThrows"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/square_lightgray_64"
+        style="@style/HeaderSmall"
+        android:text="Tiros libres: 0/0 " />
+
+    
+    <!-- Buttons -->
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <Button
+        android:id="@+id/buttonAdd2Points"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelAdd2points"/>
+        
+        <Button
+        android:id="@+id/buttonAdd3Points"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelAdd3points"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <Button
+        android:id="@+id/buttonRemovePoint"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelRemovePoint"/>
+        
+        <Button
+        android:id="@+id/buttonRemove2Points"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelRemove2Points"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <Button
+        android:id="@+id/buttonAddFreeThrowMade"
+        android:layout_weight="0.40"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelAddFreeThrowMade"/>
+        
+        <Button
+        android:id="@+id/buttonAddFreeThrowMissed"
+        android:layout_weight="0.35"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelAddFreeThrowMissed"/>
+        
+        <Button
+        android:id="@+id/buttonRemoveFreeThrowMade"
+        android:layout_weight="0.40"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelRemoveFreeThrowMade"/>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        
+        
+        <Button
+        android:id="@+id/buttonRemoveFreeThrowMissed"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelRemoveFreeThrowMissed"/>
+        
+        <Button
+        android:id="@+id/buttonAddFoul"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelAddFoul"/>
+        
+        <Button
+        android:id="@+id/buttonRemoveFoul"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelRemoveFoul"/>
+    </LinearLayout>
+    
+    
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player_selected"
+        style="@style/ActionButton"
+        android:text="@string/labelConfirm"/>
+
+</LinearLayout>
+

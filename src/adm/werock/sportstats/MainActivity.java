@@ -22,4 +22,15 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;   
     }
+
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+	}
+    
+    
 }

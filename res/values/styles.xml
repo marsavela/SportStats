@@ -97,7 +97,7 @@
     
     <style name="MyTextAppearance" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
   		<item name="android:textColor">@color/white</item>
-  		<item name="android:textSize">30sp</item>
+  		<item name="android:textSize">28sp</item>
   		<item name="android:textStyle">bold</item>
   		
 	</style>
@@ -108,6 +108,62 @@
     	<item name="android:textSize">26sp</item>
 	</style>
 
-        
+<style name="TextWithShadow">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:scaleX">0.95</item>
+        <item name="android:scaleY">0.95</item>
+    </style>
+    
+    <style name="HeaderBig">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="HeaderMedium">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="HeaderSmall">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="PlayerButton">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:scaleX">0.95</item>
+        <item name="android:scaleY">0.95</item>
+        <item name="android:background">@drawable/button_player</item>
+        <item name="android:layout_width">@dimen/player_button_size</item>
+        <item name="android:layout_height">@dimen/player_button_size</item>
+    </style>
+    
+    <style name="ActionButton">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:scaleX">0.95</item>
+        <item name="android:scaleY">0.95</item>
+        <item name="android:background">@drawable/button_player</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/player_button_size</item>
+    </style>
+    
+    <style name="WhiteText">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
         
 </resources>

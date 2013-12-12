@@ -10,13 +10,13 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/appName"
-        android:theme="@style/Theme.Example" >
-        <!-- main activity -->    
+        android:theme="@style/AppTheme" >
+        <!-- MainActivity -->
         <activity
             android:name="adm.werock.sportstats.MainActivity"
             android:label="@string/appName" >
@@ -25,13 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Login activity -->    
+        <!-- LoginActivity -->
         <activity
             android:name="adm.werock.sportstats.LoginActivity"
             android:label="@string/titleLogin" >
         </activity>
-        <!-- Register activity -->    
-      	<activity
+        <!-- RegisterActivity -->
+        <activity
             android:name="adm.werock.sportstats.RegisterActivity"
             android:label="@string/titleRegister" 
            	android:parentActivityName="adm.werock.sportstats.LoginActivity">
@@ -40,7 +40,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.LoginActivity" />
         </activity>
-        <!-- My acts activity -->    
+        <!-- MyActsActivity -->
         <activity
             android:name="adm.werock.sportstats.MyActsActivity"
             android:label="@string/titleMyActs" 
@@ -50,7 +50,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.LoginActivity" />
         </activity>
-        <!-- Create act activity -->    
+        <!-- CreateActsActivity -->
         <activity
             android:name="adm.werock.sportstats.CreateActActivity"
             android:label="@string/titleCreateAct" 
@@ -60,8 +60,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.MyActsActivity" />
         </activity>
-        
-             <activity
+        <!-- BasketDataActivity -->
+        <activity
             android:name="adm.werock.sportstats.ActivityBasketData"
             android:label="@string/titleBasketData" 
            	android:parentActivityName="adm.werock.sportstats.CreateActActivity">
@@ -70,9 +70,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.CreateActActivity" />
         </activity>
-        
-        
-        
+        <!-- BasketStatsActivity -->
+        <activity
+            android:name="adm.werock.sportstats.ActivityBasketStats"
+            android:label="@string/titleActFragment" 
+           	android:parentActivityName="adm.werock.sportstats.ActivityBasketData">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="adm.werock.sportstats.CreateActActivity" />
+        </activity>
         
     </application>
 

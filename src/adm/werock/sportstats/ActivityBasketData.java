@@ -7,12 +7,15 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -28,10 +31,15 @@ public class ActivityBasketData extends Activity {
 	DatePicker datePicker;
 	static final int TIME_DIALOG_ID = 999;
 	static final int DATE_DIALOG_ID = 888;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_basket_data);
+		
+		Button buttonStart = (Button) findViewById(R.id.buttonStartAct);
+		buttonStart.setOnTouchListener(new HandlerButtonStart());
+		
 		///////////////////TABS//////////////////////////////
 		
 		
@@ -621,6 +629,30 @@ private DatePickerDialog.OnDateSetListener datePickerListener
 };
 	////////////////////////END SET DATE/////////////////////////////////
 
+
+	// Start button
+	private class HandlerButtonStart implements OnTouchListener{
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch(event.getAction()){
+				case MotionEvent.ACTION_DOWN:
+					// change the icon background to selected
+					break;
+				case MotionEvent.ACTION_UP:
+					launchActivityBasketStats();
+			        break;
+				default:
+			      	break;
+			}
+			return true;
+		}
+	}
+	
+	private void launchActivityBasketStats(){
+		Intent i = new Intent(this, ActivityBasketStats.class);
+        startActivity(i);
+	}
 }
 
 

@@ -14,13 +14,17 @@
     <string name="labelRegister">Register</string>
     <string name="labelSkip">Skip</string>
     <string name="logo">Logo</string>
-    <string name="hintName">user</string>
+    <string name="hintUser">user</string>
     <string name="hintPassword">password</string>
 
     
     <!-- Register -->    
 	<string name="titleRegister">Register</string>
-    
+	<string name="labelNewUserRegistration">New User Registration</string>
+	<string name="hintName">name</string>
+	<string name="hintPassword2">retype password</string>
+	<string name="hintMail">mail</string>
+    <string name="labelCancel">Cancel</string>
 
 	<!-- My Acts -->  
 	<string name="titleMyActs">My Acts</string>
@@ -55,7 +59,6 @@
     <string name="secondCoach">Second Coach</string><string name="secondCoachText">Second coach</string><string name="coachText">Coach </string>
     
     
-    <!--  -->
     
     <string name="licNum">Lic Nº</string>
     <string name="playerName">Player name</string>
@@ -68,5 +71,28 @@
     <string name="selectNotPlaying">Player not called</string><string name="selectStartingPlayer">Starting player</string>
     
     
+    <!-- Act Fragment -->
+	<string name="titleActFragment">Match</string>
+	<string name="labelHome">HOME</string>
+	<string name="labelAway">AWAY</string>
+	<string name="labelBonus">BONUS</string>
+	
+	
+	<!-- Player Fragment -->
+	<string name="titlePlayerFragment">Event input</string>
+	<string name="labelAdd2points">+2 Points</string>
+	<string name="labelAdd3points">+3 Points</string>
+	<string name="labelRemove2Points">-2 Points</string>
+	<string name="labelRemovePoint">-1 Point</string>
+	<string name="labelAddFreeThrowMade">+1 FT in</string>
+	<string name="labelAddFreeThrowMissed">+1 FT out</string>
+	<string name="labelRemoveFreeThrowMade">-1 FT in</string>
+	<string name="labelRemoveFreeThrowMissed">-1 FT out</string>
+	<string name="labelAddFoul">+1 Foul</string>
+	<string name="labelRemoveFoul">-1 Foul</string>
+	<string name="labelConfirm">Confirm</string>
+	<string name="labelPoints">"Points: "</string>
+	<string name="labelFouls">"Fouls: "</string>
+	<string name="labelFreeThrows">"Free Throws: "</string>
 
 </resources>
