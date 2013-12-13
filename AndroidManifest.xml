@@ -15,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/appName"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.Example" >
         <!-- MainActivity -->
         <activity
             android:name="adm.werock.sportstats.MainActivity"
