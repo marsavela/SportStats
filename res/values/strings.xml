@@ -5,9 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="app_id">192418660947338</string>  
-    <string name="bienvenido">¡Bienvenido!</string>
     
-<!-- Para encontrar de forma mas facil los Strings aconsejo que los 
+	<!-- Para encontrar de forma mas facil los Strings aconsejo que los 
 	 separemos por pantallas, login, mis actas, etc... --> 
 	 
 	<!-- Login -->    
