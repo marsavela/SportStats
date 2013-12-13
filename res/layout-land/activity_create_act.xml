@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:padding="30dp"
+    android:background="#e6e6e6" >
+    
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/labelSelectSport"
+        android:textSize="24sp"
+        android:textColor="@color/red"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:layout_marginTop="20dp"
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:gravity="center" 
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+    	
+    <Button    
+		android:layout_marginTop="40dp"
+	    android:id="@+id/ButtonStart"
+	    style="@style/buttonColor"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:background="@drawable/btn_red_matte"
+	    android:clickable="true"
+	    android:onClick="newAct"
+	    android:text="@string/labelStart"
+	    android:textStyle="bold" >
+                         
+    </Button>   
+
+
+</LinearLayout>

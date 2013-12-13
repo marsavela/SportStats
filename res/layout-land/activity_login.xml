@@ -1,0 +1,86 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:background="#e6e6e6">
+    
+	<ImageView
+	    android:id="@+id/imageView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="-10dip"
+	    android:layout_gravity="center|top"
+	    android:contentDescription="@string/logo"
+	    android:src="@drawable/main_logo" >
+
+	</ImageView>    
+
+	<EditText
+	    android:id="@+id/screenName"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="50dip"
+	    android:layout_marginRight="50dip"
+	    android:gravity="center" 
+	    android:inputType="text"
+	    android:hint="@string/hintUser"
+	    android:textSize="25sp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dip"
+        android:layout_marginRight="50dip"
+        android:layout_marginBottom="10dip"
+        android:gravity="center" 
+        android:inputType="textPassword"
+        android:hint="@string/hintPassword"
+        android:textSize="25sp">                        
+    </EditText>
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/ButtonLogin"
+            style="@style/buttonColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_red_matte"
+            android:clickable="true"
+            android:text="@string/labelLogin"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/ButtonNewUser"
+            style="@style/buttonColor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_red_matte"
+            android:clickable="true"
+            android:text="@string/labelRegister"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/ButtonSkip"
+            style="@style/buttonColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_red_matte"
+            android:clickable="true"
+            android:text="@string/labelSkip"
+            android:textStyle="bold" />
+
+    </TableRow>
+    
+</LinearLayout>
