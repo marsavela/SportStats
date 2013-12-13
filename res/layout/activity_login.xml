@@ -14,6 +14,8 @@
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center|top"
 	    android:contentDescription="@string/logo"
+	    android:layout_marginTop="20dip"
+	    android:layout_marginBottom="20dip"
 	    android:src="@drawable/main_logo" >
 
 	</ImageView>    
@@ -24,7 +26,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="20dip"
 	    android:layout_marginRight="20dip"
-	    android:layout_weight="1"
+	    android:layout_marginBottom="20dip"
 	    android:gravity="center" 
 	    android:inputType="text"
 	    android:hint="@string/hintUser"
@@ -37,8 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
-        android:layout_marginBottom="20dip"
-        android:layout_weight="1" 
+        android:layout_marginBottom="40dip"
         android:gravity="center" 
         android:inputType="textPassword"
         android:hint="@string/hintPassword"
