@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Intent;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.View;
 import android.widget.EditText;
 
 public class RegisterActivity extends Activity{
@@ -32,13 +34,15 @@ public class RegisterActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		
-		final EditText myTextBox = (EditText) findViewById(R.id.registerMail);
-		  myTextBox.addTextChangedListener(new TextWatcher() {
+		
+		// Comprobar formato del mail
+		final EditText mailEditText = (EditText) findViewById(R.id.registerMail);
+		  mailEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
 				// TODO Auto-generated method stub
-				String answerString = myTextBox.getText().toString();
+				String answerString = mailEditText.getText().toString();
 				EditText mail = (EditText)findViewById(R.id.registerMail);
 				if( mail.getText().toString().length() == 0 )
 					mail.setError( "Mail is required!" );
@@ -56,13 +60,12 @@ public class RegisterActivity extends Activity{
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 				// TODO Auto-generated method stub
-		//		String answerString = myTextBox.getText().toString();
-		//		EditText email = (EditText)findViewById(R.id.registerMail);
-		//		if( !isEmailValid(answerString) )
-		//			email.setError( "Mail format not correct!" );
 			}
 		  });
 
+		  // Comprobar que los passwords sean iguales
+		  EditText userName = (EditText) findViewById(R.id.registerName);
+		  EditText userMail = (EditText) findViewById(R.id.registerMail);
 		final EditText password = (EditText) findViewById(R.id.registerPassword);
 		final EditText password2 = (EditText) findViewById(R.id.registerPassword2);
 		password2.addTextChangedListener(new TextWatcher() {
@@ -90,7 +93,29 @@ public class RegisterActivity extends Activity{
 			}
 		});
 		
+		
+		Button bCancel = (Button) findViewById(R.id.ButtonCancelRegistration);
+		bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	launchCancelRegistration();
+            }
+        });
+		
+		// Obtener los datos para guardarlos en la base de datos
+		String userNameString=userName.getText().toString();
+        String passwordString=password.getText().toString();
+        String mailString=userMail.getText().toString();
+        
+		
 	
+	}
+
+
+
+	protected void launchCancelRegistration() {
+		// TODO Auto-generated method stub
+		this.finish();
 	}
 
 

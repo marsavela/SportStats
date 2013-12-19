@@ -15,7 +15,7 @@
     <string name="labelRegister">Register</string>
     <string name="labelSkip">Skip</string>
     <string name="logo">Logo</string>
-    <string name="hintUser">user</string>
+    <string name="hintLoginMail">mail</string>
     <string name="hintPassword">password</string>
 
     

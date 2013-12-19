@@ -19,12 +19,14 @@ public class MyActsActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 		Act act = new Act("Duncan Your Face","Wake and Blake",170,169,"Hola");
 		List<Act> actsList = new ArrayList<Act>();
 		actsList.add(act);
 		setContentView(R.layout.activity_my_acts);
 		MyActsAdapter acts = new MyActsAdapter(this, actsList);
 		Log.v("ownad", act.getTeamHome());
+		
 		setListAdapter(new MyActsAdapter(this, actsList));
 	}
 
@@ -56,6 +58,7 @@ public class MyActsActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Crear nueva acta
 	private void addNewAct() {
         Intent i = new Intent(this, CreateActActivity.class);
         startActivity(i);

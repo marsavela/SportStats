@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -26,6 +27,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		// Boton Login
 		Button bLogin = (Button) findViewById(R.id.ButtonLogin);
 		bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,7 @@ public class LoginActivity extends Activity {
             }
         });
 		
+		// Boton Registrar
 		Button bRegister = (Button) findViewById(R.id.ButtonNewUser);
 		bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,8 +45,18 @@ public class LoginActivity extends Activity {
             }
         });
 		
+		// Boton Skip
+		Button bSkip = (Button) findViewById(R.id.ButtonSkip);
+		bSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	launchMyActs();
+            }
+        });
+		
 		//	final TextView txtSaludo = (TextView)findViewById(R.id.txtSaludo);
 		  
+		// Boton Login mediante Facebook
 		LoginButton authButton = (LoginButton) findViewById(R.id.login_button);
 	      authButton.setOnErrorListener(new OnErrorListener() {
 	       
@@ -79,9 +92,18 @@ public class LoginActivity extends Activity {
 	          }
 	         }
 	        });
+	    
+	 
+	    // Obtener los datos para guardarlos en la base de datos
+	    EditText userMail = (EditText) findViewById(R.id.loginMail);
+	    EditText userPassword = (EditText) findViewById(R.id.loginPassword);
+	 	String userMailString=userMail.getText().toString();
+	 	String userPasswordString=userPassword.getText().toString();
+	 	
 		
 	}
 	
+	// Sesion Facebook 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
