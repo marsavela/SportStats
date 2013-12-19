@@ -90,51 +90,10 @@ public class RegisterActivity extends Activity{
 			}
 		});
 		
-	//	final TextView txtSaludo = (TextView)findViewById(R.id.txtSaludo);
-		  
-		LoginButton authButton = (LoginButton) findViewById(R.id.login_button);
-	      authButton.setOnErrorListener(new OnErrorListener() {
-	       
-	       @Override
-	       public void onError(FacebookException error) {
-	         
-	       }
-	    });
-	      
-	    authButton.setReadPermissions(Arrays.asList("basic_info","email"));
-	  
-	    authButton.setSessionStatusCallback(new Session.StatusCallback() {
-	         
-	        
-			@Override
-	         public void call(Session session, SessionState state, Exception exception) {
-	          
-	          if (session.isOpened()) {  
-	        	  		Request.newMeRequest(session,
-	                            new Request.GraphUserCallback() {
-	                                @Override
-	                                public void onCompleted(GraphUser user,Response response) {
-	                                    if (user != null) {
-	                     //                 txtSaludo.setText("!Bienvenido " + user.getFirstName() + "!");   
-	                                      Toast.makeText(null, user.getFirstName(), Toast.LENGTH_LONG).show();
-	                                    }
-	                                }
-	                            });
-	          }else if(session.isClosed()) {
-	//        	  txtSaludo.setText("!Bienvenido!");
-	          }
-	         }
-	        });
 	
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		Session.getActiveSession().onActivityResult(this, requestCode,
-				resultCode, data);
-	
-	}
+
 
 	public static boolean isEmailValid(String email) {
 	    boolean isValid = false;
@@ -154,6 +113,11 @@ public class RegisterActivity extends Activity{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	private void launchMyActs(){
+		Intent i = new Intent(this, MyActsActivity.class);
+        startActivity(i);
 	}
 	
 }

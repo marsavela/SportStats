@@ -27,6 +27,7 @@
 	<string name="hintMail">mail</string>
     <string name="labelCancel">Cancel</string>
 
+    
 	<!-- My Acts -->  
 	<string name="titleMyActs">My Acts</string>
 	<string name="actionAddAct">Add Act</string>
@@ -41,7 +42,6 @@
     
     
     <!-- pantalla...  -->
-    
     <string name="visitorTeam">Visitor team</string>
     <string name="town">Town</string>
     <string name="mainReferee">Main referee</string>
@@ -50,7 +50,6 @@
     
     
     <!-- pantalla.... -->
-    
     <string name="general">General</string>
     <string name="teamA">Team A</string><string name="teamB">Team B</string>
     <string name="start">Start</string>
@@ -61,7 +60,6 @@
     
     
     <!-- pantalla..... -->
-    
     <string name="licNum">Lic Nº</string>
     <string name="playerName">Player name</string>
     <string name="playerNum">Player Nº</string>
@@ -74,7 +72,6 @@
     
     
     <!-- Act Fragment -->
-    
 	<string name="titleActFragment">Match</string>
 	<string name="labelHome">HOME</string>
 	<string name="labelAway">AWAY</string>
@@ -82,7 +79,6 @@
 	
 	
 	<!-- Player Fragment -->
-	
 	<string name="titlePlayerFragment">Event input</string>
 	<string name="labelAdd2points">+2 Points</string>
 	<string name="labelAdd3points">+3 Points</string>
