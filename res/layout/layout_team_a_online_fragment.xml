@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center|center_horizontal|left|right"
+    android:orientation="vertical" >
+
+    <GridLayout
+        android:id="@+id/Coach1"
+        android:layout_width="match_parent"
+        android:layout_height="53dp" >
+
+        <TextView
+            android:id="@+id/Coach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coach"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/CoachText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:layout_marginRight="10dp"
+            android:ems="10"
+            android:text="@string/coachText" />
+    </GridLayout>
+
+    <GridLayout
+        android:id="@+id/Coach2"
+        android:layout_width="match_parent"
+        android:layout_height="53dp" >
+
+        <TextView
+            android:id="@+id/SecondCoach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="@string/secondCoach"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/SecondCoachText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:ems="10"
+            android:text="@string/secondCoachText" />
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/legend"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:orientation="horizontal"
+        android:showDividers="middle" >
+
+        <TextView
+            android:id="@+id/LicNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:text="@string/licNum"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/PlayerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="right"
+            android:text="@string/playerName"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/PlayerNum"
+           android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="right"
+            android:text="@string/playerNum"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/teamAplayers"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#000000"
+        android:scrollingCache="false" />
+
+</LinearLayout>

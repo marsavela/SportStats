@@ -1,4 +1,4 @@
-package adm.werock.sportstats;
+/*package adm.werock.sportstats;
 
 import java.util.Calendar;
 
@@ -655,5 +655,5 @@ private DatePickerDialog.OnDateSetListener datePickerListener
 	}
 }
 
-
+*/
 

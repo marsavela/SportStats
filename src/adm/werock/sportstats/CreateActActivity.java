@@ -42,7 +42,7 @@ public class CreateActActivity extends Activity {
 	}
 
 	public void newAct(View view){
-		Intent i = new Intent(this, ActivityBasketData.class);
+		Intent i = new Intent(this, ActivityBasketAct.class);
         startActivity(i);
 		
 		

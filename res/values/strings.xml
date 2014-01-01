@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string name="appName">SportStats</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="app_id">192418660947338</string>  
-    
-	<!-- Para encontrar de forma mas facil los Strings aconsejo que los 
-	 separemos por pantallas, login, mis actas, etc... --> 
-	 
-	<!-- Login -->    
-	<string name="titleLogin">Login</string>
+    <string name="app_id">192418660947338</string>
+
+    <!--
+     Para encontrar de forma mas facil los Strings aconsejo que los 
+	 separemos por pantallas, login, mis actas, etc...
+    -->
+
+
+    <!-- Login -->
+    <string name="titleLogin">Login</string>
     <string name="labelLogin">Sign in</string>
     <string name="labelRegister">Register</string>
     <string name="labelSkip">Skip</string>
@@ -18,82 +21,80 @@
     <string name="hintLoginMail">mail</string>
     <string name="hintPassword">password</string>
 
-    
-    <!-- Register -->    
-	<string name="titleRegister">Register</string>
-	<string name="labelNewUserRegistration">New User Registration</string>
-	<string name="hintName">name</string>
-	<string name="hintPassword2">retype password</string>
-	<string name="hintMail">mail</string>
+    <!-- Register -->
+    <string name="titleRegister">Register</string>
+    <string name="labelNewUserRegistration">New User Registration</string>
+    <string name="hintName">name</string>
+    <string name="hintPassword2">retype password</string>
+    <string name="hintMail">mail</string>
     <string name="labelCancel">Cancel</string>
 
-    
-	<!-- My Acts -->  
-	<string name="titleMyActs">My Acts</string>
-	<string name="actionAddAct">Add Act</string>
-	
+    <!-- My Acts -->
+    <string name="titleMyActs">My Acts</string>
+    <string name="actionAddAct">Add Act</string>
 
     <!-- Create Act -->
     <string name="titleCreateAct">New Act</string>
     <string name="labelSelectSport">Select a Sport</string>
     <string name="labelStart">Start</string>
     <string name="ToastSpinnerAdapter">You have selected: </string>
-    <string name="localTeam">Local team</string><string name="title_activity_activity_basket_data">ActivityBasketData</string>
-    
-    
-    <!-- pantalla...  -->
+    <string name="localTeam">Local team</string>
+    <string name="title_activity_activity_basket_data">ActivityBasketData</string>
+
+    <!-- pantalla... -->
     <string name="visitorTeam">Visitor team</string>
     <string name="town">Town</string>
     <string name="mainReferee">Main referee</string>
     <string name="secondReferee">Second referee</string>
-    <string name="time">Time</string><string name="date">Date</string>
-    
-    
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+
     <!-- pantalla.... -->
     <string name="general">General</string>
-    <string name="teamA">Team A</string><string name="teamB">Team B</string>
+    <string name="teamA">Team A</string>
+    <string name="teamB">Team B</string>
     <string name="start">Start</string>
     <string name="titleBasketData">Basket Data</string>
     <string name="labelStartGame">Start Game!</string>
     <string name="coach">Coach</string>
-    <string name="secondCoach">Second Coach</string><string name="secondCoachText">Second coach</string><string name="coachText">Coach </string>
-    
-    
+    <string name="secondCoach">Second Coach</string>
+    <string name="secondCoachText">Second coach</string>
+    <string name="coachText">Coach </string>
+
     <!-- pantalla..... -->
     <string name="licNum">Lic Nº</string>
     <string name="playerName">Player name</string>
     <string name="playerNum">Player Nº</string>
     <string name="playerDefaultText">Player Name</string>
     <string name="playerDefaultNumText">00</string>
-    <string name="cancel">Cancel</string><string name="licDeafaultText">000</string>
-    
+    <string name="cancel">Cancel</string>
+    <string name="licDeafaultText">000</string>
     <string name="selectCaptain">Select as Captain</string>
-    <string name="selectNotPlaying">Player not called</string><string name="selectStartingPlayer">Starting player</string>
-    
-    
+    <string name="selectNotPlaying">Player not called</string>
+    <string name="selectStartingPlayer">Starting player</string>
+
     <!-- Act Fragment -->
-	<string name="titleActFragment">Match</string>
-	<string name="labelHome">HOME</string>
-	<string name="labelAway">AWAY</string>
-	<string name="labelBonus">BONUS</string>
-	
-	
-	<!-- Player Fragment -->
-	<string name="titlePlayerFragment">Event input</string>
-	<string name="labelAdd2points">+2 Points</string>
-	<string name="labelAdd3points">+3 Points</string>
-	<string name="labelRemove2Points">-2 Points</string>
-	<string name="labelRemovePoint">-1 Point</string>
-	<string name="labelAddFreeThrowMade">+1 FT in</string>
-	<string name="labelAddFreeThrowMissed">+1 FT out</string>
-	<string name="labelRemoveFreeThrowMade">-1 FT in</string>
-	<string name="labelRemoveFreeThrowMissed">-1 FT out</string>
-	<string name="labelAddFoul">+1 Foul</string>
-	<string name="labelRemoveFoul">-1 Foul</string>
-	<string name="labelConfirm">Confirm</string>
-	<string name="labelPoints">"Points: "</string>
-	<string name="labelFouls">"Fouls: "</string>
-	<string name="labelFreeThrows">"Free Throws: "</string>
+    <string name="titleActFragment">Match</string>
+    <string name="labelHome">HOME</string>
+    <string name="labelAway">AWAY</string>
+    <string name="labelBonus">BONUS</string>
+
+    <!-- Player Fragment -->
+    <string name="titlePlayerFragment">Event input</string>
+    <string name="labelAdd2points">+2 Points</string>
+    <string name="labelAdd3points">+3 Points</string>
+    <string name="labelRemove2Points">-2 Points</string>
+    <string name="labelRemovePoint">-1 Point</string>
+    <string name="labelAddFreeThrowMade">+1 FT in</string>
+    <string name="labelAddFreeThrowMissed">+1 FT out</string>
+    <string name="labelRemoveFreeThrowMade">-1 FT in</string>
+    <string name="labelRemoveFreeThrowMissed">-1 FT out</string>
+    <string name="labelAddFoul">+1 Foul</string>
+    <string name="labelRemoveFoul">-1 Foul</string>
+    <string name="labelConfirm">Confirm</string>
+    <string name="labelPoints">"Points: "</string>
+    <string name="labelFouls">"Fouls: "</string>
+    <string name="labelFreeThrows">"Free Throws: "</string>
+    <string name="title_activity_activity_basket">ActivityBasketAct</string>
 
 </resources>
-

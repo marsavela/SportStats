@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/buttonStartAct"
+        android:id="@+id/ButtonStartGame"
         style="@style/buttonColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
