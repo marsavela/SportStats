@@ -27,7 +27,8 @@ import android.widget.SimpleAdapter;
 
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
-	
+	public int captainCounter = 0;
+	public int activeCounter = 0;
 	public void clickedPlayer(){
 
 		Log.i("asdasd", "masidaisad");
@@ -187,11 +188,32 @@ parent	The AdapterView where the click happened.
 view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
 position	The position of the view in the adapter.
 id	The row id of the item that was clicked.*/
+				activeCounter = 0;
+				captainCounter = 0;
+				int state = 0;
+				states[position]++;	
+				for(int i=0;i<states.length; i++){
+					if(states[i]==2) activeCounter++;
+					if(states[i]==3) captainCounter++;
+				}
+				if (activeCounter > 5 && captainCounter==1){
+					states[position] = 4;
+					Log.i("Cuenta0", states[position]+"");
+				}
+				else if (activeCounter > 5){
+					states[position]++;
+					Log.i("Cuenta1", states[position]+"");
+				}
+					
 				
-				states[position]++;				
+				if(captainCounter > 1 ){
+					 states[position]++;
+					 Log.i("Cuenta2", states[position]+"");
+				}
+		
 				if(states[position]>3) states[position] =0;
-				int state = states[position];
-
+					state = states[position];
+					Log.i("Cuenta3", states[position]+"");
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
 				
@@ -206,10 +228,8 @@ id	The row id of the item that was clicked.*/
 				  */
 				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player); break;
 				case 1 :  icon.setImageResource(R.drawable.ic_suplent); break;
-				case 2 :  icon.setImageResource(R.drawable.ic_active_player); break;
-				case 3 :  icon.setImageResource(R.drawable.ic_captain); break;
-			
-				
+				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 3 :  icon.setImageResource(R.drawable.ic_captain); break;					
 				}
 				
 				
