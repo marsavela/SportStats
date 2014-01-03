@@ -10,6 +10,8 @@ import java.util.Map;
 import adm.werock.sportstats.R;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,7 +30,8 @@ import android.widget.SimpleAdapter;
 
 public class TeamBOnlineFragment extends Fragment {
 	private int[] states;
-	
+	int activeCounter = 0;
+	int captainCounter = 0;
 
 	
 	@Override
@@ -41,8 +44,6 @@ public class TeamBOnlineFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-		
 		
 		class myAdapter extends SimpleAdapter{
 
@@ -146,13 +147,29 @@ public class TeamBOnlineFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
+				onPause();
 				/*Parameters
 parent	The AdapterView where the click happened.
 view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
 position	The position of the view in the adapter.
 id	The row id of the item that was clicked.*/
+				activeCounter = 0;
+				captainCounter = 0;
+				states[position]++;		
 				
-				states[position]++;				
+				for(int i=0;i<states.length; i++){
+					if(states[i]==2) activeCounter++;
+					if(states[i]==3) captainCounter++;
+				}
+				if (activeCounter > 5 && captainCounter==1)
+					states[position] = 4;
+				else{
+					if (activeCounter > 5)
+						states[position]++;
+					if(captainCounter > 1 )
+						states[position]++;
+				}
+				
 				if(states[position]>3) states[position] =0;
 				int state = states[position];
 
@@ -169,13 +186,12 @@ id	The row id of the item that was clicked.*/
 				 
 				  */
 				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  icon.setImageResource(R.drawable.ic_suplent); break;
-				case 2 :  icon.setImageResource(R.drawable.ic_active_player); break;
+				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
+				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
 				case 3 :  icon.setImageResource(R.drawable.ic_captain); break;
-			
 				
 				}
-				
+				onPause();
 				
 			}
 		
@@ -188,5 +204,15 @@ id	The row id of the item that was clicked.*/
 		
 		return rootView;
 	}
-
+	public void onPause(){
+		super.onPause();
+		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+		Editor editor = pref.edit();
+		editor.putInt("prefCaptainCounterVisitor", captainCounter);
+		editor.putInt("prefActiveCounterVisitor", activeCounter);
+//		Log.i("captainCounterB", captainCounter+"");
+//		Log.i("activeCounterB", activeCounter+"");
+		editor.commit();
+		super.onResume();
+	}
 }

@@ -9,6 +9,8 @@ import java.util.Map;
 import adm.werock.sportstats.R;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,9 +23,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
@@ -46,7 +50,7 @@ public class TeamAOnlineFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+		onPause();
 		
 		
 		class myAdapter extends SimpleAdapter{
@@ -94,6 +98,7 @@ public class TeamAOnlineFragment extends Fragment {
 		item = new HashMap<String, Object>();
 		item.put("License", "1");
 		item.put("Name", "Erving Julius");
+		item.put("Number", "39");
 		data.add(item);
 		item = new HashMap<String, Object>();
 		item.put("License", "2");
@@ -166,8 +171,8 @@ public class TeamAOnlineFragment extends Fragment {
 		myAdapter adapter = new myAdapter
 				(this.getActivity(), 
 						data, R.layout.team_item,
-						new String[]{"License", "Name"}, 
-						new int[]{R.id.license, R.id.player_name});
+						new String[]{"License", "Name", "Number"	}, 
+						new int[]{R.id.license, R.id.player_name, R.id.player_number});
 		list.setAdapter(adapter);
 		list.setItemsCanFocus(true);
 		list.setClickable(false);
@@ -178,8 +183,9 @@ public class TeamAOnlineFragment extends Fragment {
 			
 		
 		}
+
 		list.setOnItemClickListener(new OnItemClickListener() {
-		
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
@@ -188,35 +194,32 @@ parent	The AdapterView where the click happened.
 view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
 position	The position of the view in the adapter.
 id	The row id of the item that was clicked.*/
+				/* EditText yourEditText = (EditText) view.findViewById(R.id.player_number);
+				    parent.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); 
+				    yourEditText.requestFocus(); */
 				activeCounter = 0;
 				captainCounter = 0;
 				int state = 0;
 				states[position]++;	
+				
 				for(int i=0;i<states.length; i++){
 					if(states[i]==2) activeCounter++;
 					if(states[i]==3) captainCounter++;
 				}
-				if (activeCounter > 5 && captainCounter==1){
+				if (activeCounter > 5 && captainCounter==1)
 					states[position] = 4;
-					Log.i("Cuenta0", states[position]+"");
+				else{
+					if (activeCounter > 5)
+						states[position]++;
+					if(captainCounter > 1 )
+						states[position]++;
 				}
-				else if (activeCounter > 5){
-					states[position]++;
-					Log.i("Cuenta1", states[position]+"");
-				}
-					
 				
-				if(captainCounter > 1 ){
-					 states[position]++;
-					 Log.i("Cuenta2", states[position]+"");
-				}
-		
 				if(states[position]>3) states[position] =0;
 					state = states[position];
-					Log.i("Cuenta3", states[position]+"");
+					
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
-				
 				
 				switch(state){
 				/*
@@ -226,23 +229,32 @@ id	The row id of the item that was clicked.*/
 				 3. Capitán
 				 
 				  */
-				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  icon.setImageResource(R.drawable.ic_suplent); break;
+				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player);break;
+				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
 				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
-				case 3 :  icon.setImageResource(R.drawable.ic_captain); break;					
+				case 3 :  icon.setImageResource(R.drawable.ic_captain);break;					
 				}
-				
-				
+				onPause();
 			}
-		
 		 
 		 });
 
 		
 
-
 		
 		return rootView;
 	}
-
+	
+	public void onPause(){
+		super.onPause();
+		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+		Editor editor = pref.edit();
+		Log.i("captainCounter", captainCounter+"");
+		Log.i("activeCounter", activeCounter+"");
+		editor.putInt("prefCaptainCounterHome", captainCounter);
+		editor.putInt("prefActiveCounterHome", activeCounter);
+		editor.commit();
+		super.onResume();
+	}
+	
 }

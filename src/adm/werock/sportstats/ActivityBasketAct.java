@@ -63,6 +63,7 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
+		viewPager.setOffscreenPageLimit(4);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 		
@@ -98,6 +99,7 @@ So I just stored all the tab names in a String array and added them to action ba
 			public void onPageSelected(int position) {
 				// on changing the page
 				// make respected tab selected
+				
 				actionBar.setSelectedNavigationItem(position);
 			}
 
