@@ -204,7 +204,7 @@ id	The row id of the item that was clicked.*/
 		
 		return rootView;
 	}
-	public void onPause(){
+	/*public void onPause(){
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
@@ -214,5 +214,5 @@ id	The row id of the item that was clicked.*/
 //		Log.i("activeCounterB", activeCounter+"");
 		editor.commit();
 		super.onResume();
-	}
+	}*/
 }

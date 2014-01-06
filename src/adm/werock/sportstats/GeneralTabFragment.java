@@ -1,6 +1,5 @@
 package adm.werock.sportstats;
 
-
 import java.util.Calendar;
 
 import adm.werock.sportstats.R;
@@ -24,15 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class GeneralTabFragment extends Fragment {
-
-
-	private int hour, minute, year = 2013, month, day;	
-	TimePicker timePicker;
-	TextView timeText, dateText;
-	DatePicker datePicker;	
-	static final int TIME_DIALOG_ID = 999;
-	static final int DATE_DIALOG_ID = 888;
-
+	
 
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
@@ -41,7 +32,6 @@ public class GeneralTabFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
 	//	setContentView(R.layout.layout_general_tab);
 	}
 
@@ -54,6 +44,8 @@ public class GeneralTabFragment extends Fragment {
 
 		return rootView;
 	}
+	
+
 
 	@Override
 	public void onPause() {
@@ -62,14 +54,13 @@ public class GeneralTabFragment extends Fragment {
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
-		editor.putString("prefLocalTeamEditText", ((EditText) this.getActivity().findViewById(R.id.LocalTeamEditText)).getText().toString());
-		editor.putString("prefVisitorTeamEditText", ((EditText) getActivity().findViewById(R.id.VisitorTeamEditText)).getText().toString());
-		editor.putString("prefTownEditText", ((EditText) getActivity().findViewById(R.id.TownEditText)).getText().toString());
-		editor.putString("prefMainRefereeEditText", ((EditText) getActivity().findViewById(R.id.MainRefereeEditText)).getText().toString());
-		editor.putString("prefSecondRefereeText", ((EditText) getActivity().findViewById(R.id.SecondRefereeText)).getText().toString());
-		//editor.putString("prefDateEditText", ((EditText) getActivity().findViewById(R.id.DateEditText)).getText().toString());
-		//editor.putString("prefTimeEditText", ((EditText) getActivity().findViewById(R.id.TimeEditText)).getText().toString());
-//		Log.i("hooooooooola", ((EditText) this.getActivity().findViewById(R.id.LocalTeamEditText)).getText().toString()+"");
+		editor.putString("prefLocalTeamEditText", ((EditText) getView().findViewById(R.id.LocalTeamText)).getText().toString());
+		editor.putString("prefVisitorTeamEditText", ((EditText) getView().findViewById(R.id.VisitorTeamText)).getText().toString());
+		editor.putString("prefTownEditText", ((EditText) getView().findViewById(R.id.TownText)).getText().toString());
+		editor.putString("prefMainRefereeEditText", ((EditText) getView().findViewById(R.id.MainRefereeText)).getText().toString());
+		editor.putString("prefSecondRefereeText", ((EditText) getView().findViewById(R.id.SecondRefereeText)).getText().toString());
+		editor.putString("prefDateEditText", ((EditText) getView().findViewById(R.id.DateText)).getText().toString());
+		editor.putString("prefTimeEditText", ((EditText) getView().findViewById(R.id.TimeText)).getText().toString());
 		editor.commit();
 		//putPref("prefLocalTeamEditText", ((EditText) this.getActivity().findViewById(R.id.LocalTeamEditText)).getText().toString(), getActivity().getApplicationContext());
 	}
@@ -81,13 +72,13 @@ public class GeneralTabFragment extends Fragment {
 		super.onResume();
 		//((EditText)this.getActivity().findViewById(R.id.LocalTeamEditText)).setText(getPref("prefLocalTeamEditText", getActivity().getApplicationContext()));
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
-		((EditText)this.getActivity().findViewById(R.id.LocalTeamEditText)).setText(pref.getString("prefLocalTeamEditText", ""));
-		((EditText)getActivity().findViewById(R.id.VisitorTeamEditText)).setText(pref.getString("prefVisitorTeamEditText", ""));
-		((EditText)getActivity().findViewById(R.id.TownEditText)).setText(pref.getString("prefTownEditText", ""));
-		((EditText)getActivity().findViewById(R.id.MainRefereeEditText)).setText(pref.getString("prefMainRefereeEditText", ""));
-		((EditText)getActivity().findViewById(R.id.SecondRefereeText)).setText(pref.getString("prefSecondRefereeText", ""));
-		((EditText)getActivity().findViewById(R.id.DateEditText)).setText(pref.getString("prefDateEditText", ""));
-		((EditText)getActivity().findViewById(R.id.TimeEditText)).setText(pref.getString("prefTimeEditText", ""));
+		((EditText)this.getView().findViewById(R.id.LocalTeamText)).setText(pref.getString("prefLocalTeamEditText", ""));
+		((EditText)getView().findViewById(R.id.VisitorTeamText)).setText(pref.getString("prefVisitorTeamEditText", ""));
+		((EditText)getView().findViewById(R.id.TownText)).setText(pref.getString("prefTownEditText", ""));
+		((EditText)getView().findViewById(R.id.MainRefereeText)).setText(pref.getString("prefMainRefereeEditText", ""));
+		((EditText)getView().findViewById(R.id.SecondRefereeText)).setText(pref.getString("prefSecondRefereeText", ""));
+		((EditText)getView().findViewById(R.id.DateText)).setText(pref.getString("prefDateEditText", ""));
+		((EditText)getView().findViewById(R.id.TimeText)).setText(pref.getString("prefTimeEditText", ""));
 	
 	}
 	
