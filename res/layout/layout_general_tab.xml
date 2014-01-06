@@ -1,206 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/TableLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-
-    <TableRow
-        android:id="@+id/tableRow1"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp" >
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/LocalTeam"
+        <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/localTeam"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginLeft="5dip" >
 
-        <EditText
-            android:id="@+id/LocalTeamText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
-        </EditText>
-    </TableRow>
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp" >
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
+                <TextView
+                    android:id="@+id/LocalTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/localTeam"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/VisitorTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/visitorTeam"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/LocalTeamEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" >
 
-        <EditText
-            android:id="@+id/VisitorTeamText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
+                    <requestFocus />
+                </EditText>
+            </TableRow>
 
-            <requestFocus />
-        </EditText>
-    </TableRow>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
 
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
+                <TextView
+                    android:id="@+id/VisitorTeam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visitorTeam"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/Town"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/town"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/VisitorTeamEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" />
+            </TableRow>
 
-        <EditText
-            android:id="@+id/TownText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
 
-            <requestFocus />
-        </EditText>
-    </TableRow>
+                <TextView
+                    android:id="@+id/Town"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/town"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
+                <EditText
+                    android:id="@+id/TownEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" />
+            </TableRow>
 
-        <TextView
-            android:id="@+id/MainReferee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mainReferee"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
 
-        <EditText
-            android:id="@+id/MainRefereeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
+                <TextView
+                    android:id="@+id/MainReferee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mainReferee"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <requestFocus />
-        </EditText>
-    </TableRow>
+                <EditText
+                    android:id="@+id/MainRefereeEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" />
+            </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
 
-        <TextView
-            android:id="@+id/SecondReferee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/secondReferee"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/SecondReferee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secondReferee"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/SecondRefereeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
+                <EditText
+                    android:id="@+id/SecondRefereeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" />
+            </TableRow>
 
-            <requestFocus />
-        </EditText>
-    </TableRow>
+            <TableRow
+                android:id="@+id/tableRow7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
 
-    <TableRow
-        android:id="@+id/tableRow7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
+                <TextView
+                    android:id="@+id/Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/date"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/DateEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:onClick="setDate" />
 
-        <EditText
-            android:id="@+id/DateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" 
-            android:onClick="setDate"/>
+                <DatePicker
+                    android:id="@+id/datePicker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </TableRow>
 
-        <DatePicker
-            android:id="@+id/datePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" >
 
-    </TableRow>
+                <TextView
+                    android:id="@+id/Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-    <TableRow
-        android:id="@+id/tableRow6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
+                <EditText
+                    android:id="@+id/TimeEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusableInTouchMode="true"
+                    android:onClick="setTime" />
 
-        <TextView
-            android:id="@+id/Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+                <TimePicker
+                    android:id="@+id/timePicker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </TableRow>
+        </TableLayout>
 
-        <EditText
-            android:id="@+id/TimeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:onClick="setTime" 
-            android:clickable="true"
-            android:focusableInTouchMode="true"/>
-
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-    </TableRow>
-
-</TableLayout>
+    </ScrollView>

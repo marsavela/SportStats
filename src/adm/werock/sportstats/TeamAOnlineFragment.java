@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -33,6 +34,9 @@ public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
 	public int captainCounter = 0;
 	public int activeCounter = 0;
+	 View view1;
+	int state1;
+	ImageView icon1;
 	public void clickedPlayer(){
 
 		Log.i("asdasd", "masidaisad");
@@ -189,6 +193,7 @@ public class TeamAOnlineFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
+				  view1 = view;
 				/*Parameters
 parent	The AdapterView where the click happened.
 view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
@@ -220,7 +225,8 @@ id	The row id of the item that was clicked.*/
 					
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
-				
+				icon1 = icon;
+				state1 = state;
 				switch(state){
 				/*
 				 0: Jugador inactivo.
@@ -247,14 +253,40 @@ id	The row id of the item that was clicked.*/
 	
 	public void onPause(){
 		super.onPause();
-		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
 		Editor editor = pref.edit();
 		Log.i("captainCounter", captainCounter+"");
 		Log.i("activeCounter", activeCounter+"");
+		switch(state1){
+				/*
+				 0: Jugador inactivo.
+				 1: Jugador activo (suplente).
+				 2. Titular
+				 3. Capitán
+				 
+				  */
+				case 0 :  editor.putInt("prefIcon", R.drawable.ic_inactive_player);break;
+				case 1 :  editor.putInt("prefIcon", R.drawable.ic_suplent);break;
+				case 2 :  editor.putInt("prefIcon", R.drawable.ic_active_player);break;
+				case 3 :  editor.putInt("prefIcon", R.drawable.ic_captain);break;					
+				}
+	
 		editor.putInt("prefCaptainCounterHome", captainCounter);
 		editor.putInt("prefActiveCounterHome", activeCounter);
+		editor.putInt("prefState",state1 );
+		Log.i("prefState", state1+"");
 		editor.commit();
 		super.onResume();
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+//		ImageView hola;
+//		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
+//		hola = ((ImageView) getActivity().findViewById(R.id.player_icon));
+//		hola.setImageResource(pref.getInt("prefIcon", 0));
 	}
 	
 }
