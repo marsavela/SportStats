@@ -54,6 +54,7 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
+		viewPager.setOffscreenPageLimit(4);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 

@@ -7,7 +7,8 @@
     <GridLayout
         android:id="@+id/Coach1"
         android:layout_width="match_parent"
-        android:layout_height="53dp" >
+        android:layout_height="53dp"
+        android:layout_marginLeft="5dip" >
 
         <TextView
             android:id="@+id/Coach"
@@ -25,13 +26,14 @@
             android:layout_gravity="fill_horizontal"
             android:layout_marginRight="10dp"
             android:ems="10"
-            android:text="@string/coachText" />
+            android:hint="@string/coachText" />
     </GridLayout>
 
     <GridLayout
         android:id="@+id/Coach2"
         android:layout_width="match_parent"
-        android:layout_height="53dp" >
+        android:layout_height="53dp"
+        android:layout_marginLeft="5dip" >
 
         <TextView
             android:id="@+id/SecondCoach"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:ems="10"
-            android:text="@string/secondCoachText" />
+            android:hint="@string/secondCoachText" />
     </GridLayout>
 
     <LinearLayout
