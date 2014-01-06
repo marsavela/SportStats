@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -47,17 +48,30 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basket_act);
-
+		
 
 		// Tab titles
 		String[] tabs = { this.getString(R.string.general), this.getString(R.string.teamA), this.getString(R.string.teamB), this.getString(R.string.start) };
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		viewPager.setOffscreenPageLimit(4);
+		
+		//Check the wifi and 3g connection//////////////
+		ConnectivityManager manager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
+		CheckConnection check = new CheckConnection();
+		//For 3G check
+		boolean is3g = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+		            .isConnectedOrConnecting();
+		//For WiFi Check
+		boolean isWifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+		            .isConnectedOrConnecting();
+		check.setWifi(isWifi);
+		check.setThreeG(is3g);
+		///////////////////////////////////////////////
+		
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
+			mAdapter.myCheck(check);
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
