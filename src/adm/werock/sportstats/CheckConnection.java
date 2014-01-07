@@ -6,7 +6,7 @@ public class CheckConnection {
 	public boolean isWifi;
 	public boolean is3g;
 	
-	public void CheckConnection(){
+	public CheckConnection(){
 		isWifi = true;
 		is3g = true;
 	}
