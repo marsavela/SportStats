@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <ImageView
+            android:id="@+id/player_icon_offline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_suplent"
+            android:focusableInTouchMode="false" />
+
+        <EditText
+            android:id="@+id/license_offline"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="True"
+            android:layout_weight="0.09"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="000"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/player_name_offline"
+            android:layout_width="111dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="True"
+            android:layout_weight="0.04"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:hint="Name"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/player_number_offline"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="True"
+            android:ems="10"
+            android:hint="00"
+            android:focusable="false"
+            
+            android:focusableInTouchMode="True"
+            android:inputType="number"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+</LinearLayout>

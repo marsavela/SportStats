@@ -1,279 +1,272 @@
 package adm.werock.sportstats;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import adm.werock.sportstats.R;
-import android.app.Dialog;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.webkit.WebView.FindListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
-public class TeamBFragment extends Fragment implements OnClickListener{
-
-
-
-	public void playerPressed(View view, EditText playerArg, TextView licArg, 
-			TextView numArg, ImageView captainArg){
-		getActivity().setContentView(R.layout.layout_team_a_tab);
-		final EditText player;
-		final TextView  lic, num;
-		final ImageView captain;
-		player = playerArg;
-		lic = licArg;
-		num = numArg;
-		captain = captainArg;
-		// custom dialog
-		final Dialog dialog = new Dialog(this.getActivity());
-		dialog.setContentView(R.layout.layout_custom_dialog);
-		dialog.setTitle("Player Options");
-
-		// click on starting player in dialog
-		TextView startingPlayer = (TextView) dialog.findViewById(R.id.StartingPlayer);
-		startingPlayer.setOnClickListener(new View.OnClickListener() {
-		
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-			
-			//	setStartingPlayer(v,player,lic,num);
-				dialog.dismiss();
-			}
-		});
-
-		// click on not called player in dialog
-		TextView playerNotCalled = (TextView) dialog.findViewById(R.id.PlayerNotCalled);
-		playerNotCalled.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Que la función setNotCalledPlayer modifique la interfaz
-			//	setNotCalledPlayer(v,player,lic,num);
-				dialog.dismiss();
-			}
-		});
-
-		// click on select captain player in dialog
-		TextView captainPlayer = (TextView) dialog.findViewById(R.id.CaptainPlayer);
-		captainPlayer.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO  Que la funciones siguientes modifiquen la interfaz
-				//otherCaptainAlready(v);
-				//setCaptainPlayer(v,captain);
-				dialog.dismiss();
-			}
-		});
-
-		//Action for Cancel button
-		Button cancelButton = (Button) dialog.findViewById(R.id.Cancel);	
-		cancelButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				dialog.dismiss();       
-			}
-		});
-
-		dialog.show();
-	}
-	public void otherCaptainAlready(View v){
-		ImageView captain1, captain2, captain3, captain4,
-		captain5, captain6, captain7, captain8,
-		captain9, captain10, captain11, captain12;
-		captain1 = (ImageView) (v.findViewById(R.id.Captain1));
-		captain2 = (ImageView) (v.findViewById(R.id.Captain2));
-		captain3 = (ImageView) (v.findViewById(R.id.Captain3));
-		captain4 = (ImageView) (v.findViewById(R.id.Captain4));
-		captain5 = (ImageView) (v.findViewById(R.id.Captain5));
-		captain6 = (ImageView) (v.findViewById(R.id.Captain6));
-		captain7 = (ImageView) (v.findViewById(R.id.Captain7));
-		captain8 = (ImageView) (v.findViewById(R.id.Captain8));
-		captain9 = (ImageView) (v.findViewById(R.id.Captain9));
-		captain10 = (ImageView) (v.findViewById(R.id.Captain10));
-		captain11 = (ImageView) (v.findViewById(R.id.Captain11));
-		captain12 = (ImageView) (v.findViewById(R.id.Captain12));
-		captain1.setVisibility(View.INVISIBLE);
-		captain2.setVisibility(View.INVISIBLE);
-		captain3.setVisibility(View.INVISIBLE);
-		captain4.setVisibility(View.INVISIBLE);
-		captain5.setVisibility(View.INVISIBLE);
-		captain6.setVisibility(View.INVISIBLE);
-		captain7.setVisibility(View.INVISIBLE);
-		captain8.setVisibility(View.INVISIBLE);
-		captain9.setVisibility(View.INVISIBLE);
-		captain10.setVisibility(View.INVISIBLE);
-		captain11.setVisibility(View.INVISIBLE);
-		captain12.setVisibility(View.INVISIBLE);
-
-	}
-
-	public void setStartingPlayer(View view, EditText playerArg, TextView licArg, TextView numArg){
-		EditText playerName;
-		TextView playerLic, playerNum;
-		playerName = playerArg;
-		playerLic = licArg;
-		playerNum = numArg;
-		playerName.setBackgroundColor(Color.YELLOW);
-		playerLic.setBackgroundColor(Color.YELLOW);
-		playerNum.setBackgroundColor(Color.YELLOW);
-	}
-	public void setNotCalledPlayer(View view, EditText playerArg, TextView licArg, TextView numArg){
-		EditText playerName;
-		TextView playerLic, playerNum;
-		playerName = playerArg;
-		playerLic = licArg;
-		playerNum = numArg;
-		playerName.setTextColor(Color.GRAY);
-		playerLic.setTextColor(Color.GRAY);
-		playerNum.setTextColor(Color.GRAY);
-		playerName.invalidate();	
-	}
-	public void setCaptainPlayer(View view, ImageView captainArg){
-		ImageView captain = captainArg;
-		if(captain.getVisibility() == View.INVISIBLE)
-			captain.setVisibility(View.VISIBLE);
-		else
-			captain.setVisibility(View.INVISIBLE);
-	}
+public class TeamBFragment extends Fragment {
+	private int[] states;
+	public int captainCounter = 0;
+	public int activeCounter = 0;
 
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+
+	}
+
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-		View v = inflater.inflate(adm.werock.sportstats.R.layout.layout_team_b_tab, container, false);
-
-		
-		EditText player1 = (EditText) v.findViewById(R.id.Player1b);
-		player1.setOnClickListener(this);
-		EditText player2 = (EditText) v.findViewById(R.id.Player2b);
-		player2.setOnClickListener(this);
-		EditText player3 = (EditText) v.findViewById(R.id.Player3b);
-		player3.setOnClickListener(this);
-		EditText player4 = (EditText) v.findViewById(R.id.Player4b);
-		player4.setOnClickListener(this);
-		EditText player5 = (EditText) v.findViewById(R.id.Player5b);
-		player5.setOnClickListener(this);
-		EditText player6 = (EditText) v.findViewById(R.id.Player6b);
-		player6.setOnClickListener(this);
-		EditText player7 = (EditText) v.findViewById(R.id.Player7b);
-		player7.setOnClickListener(this);
-		EditText player8 = (EditText) v.findViewById(R.id.Player8b);
-		player8.setOnClickListener(this);
-		EditText player9 = (EditText) v.findViewById(R.id.Player9b);
-		player9.setOnClickListener(this);
-		EditText player10 = (EditText) v.findViewById(R.id.Player10b);
-		player10.setOnClickListener(this);
-		EditText player11 = (EditText) v.findViewById(R.id.Player11b);
-		player11.setOnClickListener(this);
-		EditText player12 = (EditText) v.findViewById(R.id.Player12b);
-		player12.setOnClickListener(this);
+		//onPause();
 
 
-		return v;
-	}
+		class myAdapter extends SimpleAdapter{
 
-	@Override
-	public void onClick(View v) {
-		
-		final TextView lic1, lic2, lic3, lic4, 
-		lic5, lic6, lic7, lic8,
-		lic9, lic10, lic11, lic12;
-	
-		final TextView num1, num2, num3, num4, 
-		num5, num6, num7, num8,
-		num9, num10, num11, num12;
-		final ImageView captain1, captain2, captain3, captain4,
-		captain5, captain6, captain7, captain8, captain9,
-		captain10, captain11, captain12;
-	
+			public myAdapter(Context context,
+					List<? extends Map<String, ?>> data, int resource,
+							String[] from, int[] to) {
+				super(context, data, resource, from, to);
+				// TODO Auto-generated constructor stub
+			}
 
-		
-		
-		
-		lic1 = (TextView) v.findViewById(R.id.Lic1b);
-		num1 = (TextView)v.findViewById(R.id.PlayerNum1b);
-		lic2 = (TextView) v.findViewById(R.id.Lic2b);
-		num2 = (TextView)v.findViewById(R.id.PlayerNum2b);
-		lic3 = (TextView) v.findViewById(R.id.Lic3b);
-		num3 = (TextView)v.findViewById(R.id.PlayerNum3b);
-		lic4 = (TextView) v.findViewById(R.id.Lic4b);
-		num4 = (TextView)v.findViewById(R.id.PlayerNum4b);
-		lic5 = (TextView) v.findViewById(R.id.Lic5b);
-		num5 = (TextView)v.findViewById(R.id.PlayerNum5b);
-		lic6 = (TextView) v.findViewById(R.id.Lic6b);
-		num6 = (TextView)v.findViewById(R.id.PlayerNum6b);
-		lic7 = (TextView) v.findViewById(R.id.Lic7b);
-		num7 = (TextView)v.findViewById(R.id.PlayerNum7b);
-		lic8 = (TextView) v.findViewById(R.id.Lic8b);
-		num8 = (TextView)v.findViewById(R.id.PlayerNum8b);
-		lic9 = (TextView) v.findViewById(R.id.Lic9b);
-		num9  = (TextView)v.findViewById(R.id.PlayerNum9b);
-		lic10 = (TextView) v.findViewById(R.id.Lic10b);
-		num10 = (TextView)v.findViewById(R.id.PlayerNum10b);
-		lic11 = (TextView) v.findViewById(R.id.Lic11b);
-		num11 = (TextView)v.findViewById(R.id.PlayerNum11b);
-		lic12 = (TextView) v.findViewById(R.id.Lic12b);
-		num12 = (TextView)v.findViewById(R.id.PlayerNum12b);
-		
-	
-		captain1 = (ImageView) (v.findViewById(R.id.Captain1));
-		captain2 = (ImageView) (v.findViewById(R.id.Captain2));
-		captain3 = (ImageView) (v.findViewById(R.id.Captain3));
-		captain4 = (ImageView) (v.findViewById(R.id.Captain4));
-		captain5 = (ImageView) (v.findViewById(R.id.Captain5));
-		captain6 = (ImageView) (v.findViewById(R.id.Captain6));
-		captain7 = (ImageView) (v.findViewById(R.id.Captain7));
-		captain8 = (ImageView) (v.findViewById(R.id.Captain8));
-		captain9 = (ImageView) (v.findViewById(R.id.Captain9));
-		captain10 = (ImageView) (v.findViewById(R.id.Captain10));
-		captain11 = (ImageView) (v.findViewById(R.id.Captain11));
-		captain12 = (ImageView) (v.findViewById(R.id.Captain12));
-		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.Player1b: playerPressed(v,(EditText)v.findViewById(R.id.Player1b),lic1,num1,captain1);
-		break;
-		case R.id.Player2b:playerPressed(v,(EditText)v.findViewById(R.id.Player2b),lic1,num1,captain1);
-			break;
-		case R.id.Player3b:playerPressed(v,(EditText)v.findViewById(R.id.Player3b),lic1,num1,captain1);
-			break;
-		case R.id.Player4b:playerPressed(v,(EditText)v.findViewById(R.id.Player4b),lic1,num1,captain1);
-			break;
-		case R.id.Player5b:playerPressed(v,(EditText)v.findViewById(R.id.Player5b),lic1,num1,captain1);
-			break;
-		case R.id.Player6b:playerPressed(v,(EditText)v.findViewById(R.id.Player6b),lic1,num1,captain1);
-			break;
-		case R.id.Player7b:playerPressed(v,(EditText)v.findViewById(R.id.Player7b),lic1,num1,captain1);
-			break;
-		case R.id.Player8b:playerPressed(v,(EditText)v.findViewById(R.id.Player8b),lic1,num1,captain1);
-			break;
-		case R.id.Player9b:playerPressed(v,(EditText)v.findViewById(R.id.Player9b),lic1,num1,captain1);
-			break;
-		case R.id.Player10b:playerPressed(v,(EditText)v.findViewById(R.id.Player10b),lic1,num1,captain1);
-			break;
-		case R.id.Player11b:playerPressed(v,(EditText)v.findViewById(R.id.Player11b),lic1,num1,captain1);
-			break;
-		case R.id.Player12b:playerPressed(v,(EditText)v.findViewById(R.id.Player12b),lic1,num1,captain1);
-			break;   		
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				View itemView = super.getView(position, convertView, parent);
+				ImageView imageView = (ImageView) itemView.findViewById(R.id.player_icon_offline);
+
+
+				switch(states[position]){
+				/*
+				 0: Jugador inactivo.
+				 1: Jugador activo (suplente).
+				 2. Titular
+				 3. Capitán
+
+				 */
+				case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
+				case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
+				case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
+				case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
+
+				}
+
+
+				return itemView;
+			}
+
 		}
+		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_team_b_tab, container, false);
+		final ListView list = (ListView) rootView.findViewById(R.id.teamBplayersOffline);
+		HashMap<String, Object> item = null;
+		ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
+
+		for(int i=0; i<12; i++){
+			item = new HashMap<String, Object>();
+			item.put("Licence", "");
+			item.put("Name", "");
+			item.put("Number", "");
+			data.add(item);
+		}
+		///////////////Introducción manual (de momento) de datos
+
+//		item = new HashMap<String, Object>();
+//		item.put("License", "1");
+//		item.put("Name", "Erving Julius");
+//		item.put("Number", "39");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "2");
+//		item.put("Name", "Juanito Sánchez");
+//		data.add(item);
+//
+//		item = new HashMap<String, Object>();
+//		item.put("License", "3");
+//		item.put("Name", "Pepito pérez");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "4");
+//		item.put("Name", "John Corr");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "5");
+//		item.put("Name", "Peter File");
+//		data.add(item);
+//
+//		item = new HashMap<String, Object>();
+//		item.put("License", "6");
+//		item.put("Name", "Jose Cristo");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "7");
+//		item.put("Name", "Isadora Duncan");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "8");
+//		item.put("Name", "Poncho Sánchez");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "9");
+//		item.put("Name", "Luke Ase");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "21");
+//		item.put("Name", "Pepepepe Dodododo");
+//		data.add(item);
+//
+//		item = new HashMap<String, Object>();
+//		item.put("License", "32");
+//		item.put("Name", "Sublime Text");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "142");
+//		item.put("Name", "Michael Jackson");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "242");
+//		item.put("Name", "Kyre Olding");
+//		data.add(item);
+//
+//		item = new HashMap<String, Object>();
+//		item.put("License", "123");
+//		item.put("Name", "Flask Flisk");
+//		data.add(item);
+//
+//
+//		item = new HashMap<String, Object>();
+//		item.put("License", "312");
+//		item.put("Name", "Follatra Dexs");
+//		data.add(item);
+//		item = new HashMap<String, Object>();
+//		item.put("License", "232");
+//		item.put("Name", "Asta pata pota");
+//		data.add(item);
+//		///////////////////////////////
+
+		myAdapter adapter = new myAdapter
+				(this.getActivity(), 
+						data, R.layout.team_item_offline,
+						new String[]{"License", "Name", "Number"}, 
+						new int[]{R.id.license_offline, R.id.player_name_offline, R.id.player_number_offline});
+		list.setAdapter(adapter);
+		list.setItemsCanFocus(true);
+		list.setFocusable(true);
+		list.setClickable(false);
+		states = new int [adapter.getCount()];
+		for(int i = 0; i<states.length;i++){
+
+			states[i] = 0;
+
+
+		}
+
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				/*Parameters
+parent	The AdapterView where the click happened.
+view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
+position	The position of the view in the adapter.
+id	The row id of the item that was clicked.*/
+				/* EditText yourEditText = (EditText) view.findViewById(R.id.player_number);
+				    parent.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); 
+				    yourEditText.requestFocus(); */
+				activeCounter = 0;
+				captainCounter = 0;
+				int state = 0;
+				states[position]++;	
+
+				for(int i=0;i<states.length; i++){
+					if(states[i]==2) activeCounter++;
+					if(states[i]==3) captainCounter++;
+				}
+				if (activeCounter > 5 && captainCounter==1)
+					states[position] = 4;
+				else{
+					if (activeCounter > 5)
+						states[position]++;
+					if(captainCounter > 1 )
+						states[position]++;
+				}
+
+				if(states[position]>3) states[position] =0;
+				state = states[position];
+
+				View row = parent.findViewById((int) id);
+				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon_offline);
+				switch(state){
+				/*
+				 0: Jugador inactivo.
+				 1: Jugador activo (suplente).
+				 2. Titular
+				 3. Capitán
+
+				 */
+				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player);break;
+				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
+				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 3 :  icon.setImageResource(R.drawable.ic_captain);break;					
+				}
+				onPause();
+			}
+
+		});
+
+
+
+
+		return rootView;
 	}
 
 
+	public void onPause(){
+		super.onPause();
+		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+		Editor editor = pref.edit();
+		editor.putInt("prefCaptainCounterVisitor", captainCounter);
+		editor.putInt("prefActiveCounterVisitor", activeCounter);
+//		Log.i("captainCounterB", captainCounter+"");
+//		Log.i("activeCounterB", activeCounter+"");
+		editor.commit();
+		super.onResume();
+	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+				//SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
+			//	hola = ((ImageView) getView().findViewById(R.id.player_icon));
+				//hola.setImageResource(  R.drawable.ic_inactive_player	);
+	}
 
 }
-
-
