@@ -9,6 +9,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -49,6 +52,12 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basket_act);
 		
+		//cleaning the preferences each time we create a new act
+		SharedPreferences pref = getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
+		Editor editor = pref.edit();
+		editor.remove("myPref");
+		editor.commit();
+	
 
 		// Tab titles
 		String[] tabs = { this.getString(R.string.general), this.getString(R.string.teamA), this.getString(R.string.teamB), this.getString(R.string.start) };
@@ -69,6 +78,7 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		check.setThreeG(is3g);
 		///////////////////////////////////////////////
 		
+		viewPager.setOffscreenPageLimit(4);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 			mAdapter.myCheck(check);

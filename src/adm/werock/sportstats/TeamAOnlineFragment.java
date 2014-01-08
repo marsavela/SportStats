@@ -7,28 +7,33 @@ import java.util.List;
 import java.util.Map;
 
 import adm.werock.sportstats.R;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
 	public int captainCounter = 0;
 	public int activeCounter = 0;
-	View view1;
-	int state1;
-	ImageView icon1;
 
 
 	@Override
@@ -166,21 +171,19 @@ public class TeamAOnlineFragment extends Fragment {
 						new int[]{R.id.license, R.id.player_name, R.id.player_number});
 		list.setAdapter(adapter);
 		list.setItemsCanFocus(true);
-		list.setClickable(false);
+		list.setClickable(false);	
 		states = new int [adapter.getCount()];
-		for(int i = 0; i<states.length;i++){
-
+		for(int i = 0; i<states.length;i++)
 			states[i] = 0;
 
 
-		}
+		
 
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
-				view1 = view;
 				/*Parameters
 parent	The AdapterView where the click happened.
 view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
@@ -212,8 +215,6 @@ id	The row id of the item that was clicked.*/
 
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
-				icon1 = icon;
-				state1 = state;
 				switch(state){
 				/*
 				 0: Jugador inactivo.
@@ -246,24 +247,8 @@ id	The row id of the item that was clicked.*/
 		Editor editor = pref.edit();
 		Log.i("captainCounter", captainCounter+"");
 		Log.i("activeCounter", activeCounter+"");
-		switch(state1){
-		/*
-				 0: Jugador inactivo.
-				 1: Jugador activo (suplente).
-				 2. Titular
-				 3. Capitán
-
-		 */ 
-		case 0 :  editor.putInt("prefIcon", R.drawable.ic_inactive_player);break;
-		case 1 :  editor.putInt("prefIcon", R.drawable.ic_suplent);break;
-		case 2 :  editor.putInt("prefIcon", R.drawable.ic_active_player);break;
-		case 3 :  editor.putInt("prefIcon", R.drawable.ic_captain);break;					
-		}
-
 		editor.putInt("prefCaptainCounterHome", captainCounter);
 		editor.putInt("prefActiveCounterHome", activeCounter);
-		editor.putInt("prefState",state1 );
-		Log.i("prefState", state1+"");
 		editor.commit();
 		super.onResume();
 	}
@@ -272,10 +257,9 @@ id	The row id of the item that was clicked.*/
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		//		ImageView hola;
-		//		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
-		//		hola = ((ImageView) getActivity().findViewById(R.id.player_icon));
-		//		hola.setImageResource(pref.getInt("prefIcon", 0));
+				SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
+			//	hola = ((ImageView) getView().findViewById(R.id.player_icon));
+				//hola.setImageResource(  R.drawable.ic_inactive_player	);
 	}
 
 }

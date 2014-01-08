@@ -7,9 +7,12 @@ package adm.werock.sportstats;
  Create a class called TabsPagerAdapter.java under adapter package. 
  This adapter provides fragment views to tabs which we are going to create them later in this tutorial.*/
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+import android.view.View;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 	public CheckConnection check = new CheckConnection();

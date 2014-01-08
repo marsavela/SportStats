@@ -8,10 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 import adm.werock.sportstats.R;
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -196,7 +204,7 @@ id	The row id of the item that was clicked.*/
 		
 		return rootView;
 	}
-	/*public void onPause(){
+	public void onPause(){
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
@@ -206,5 +214,5 @@ id	The row id of the item that was clicked.*/
 //		Log.i("activeCounterB", activeCounter+"");
 		editor.commit();
 		super.onResume();
-	}*/
+	}
 }
