@@ -18,6 +18,8 @@ import android.util.Log;
  *
  */
 public class DAOUsers {
+
+    private JSONParser jsonParser;
 	
 	private static final String TAG_SUCCESS = "success";
 	private String email = new String();
@@ -25,6 +27,12 @@ public class DAOUsers {
 	private String password = new String();
 
 	
+	
+	public DAOUsers() {
+
+        jsonParser = new JSONParser();
+	}
+
 	//calls the server to add the following user
 	public Boolean addUser(String email, String name, String pass) {
 		
@@ -58,7 +66,7 @@ public class DAOUsers {
 	}
 	
 	//calls the server to check if the pair user - password are right.
-	public Boolean checkUser(String email, String pass) {
+	public JSONObject checkUser(String email, String pass) {
 
 		// url to create new product
 		String url_check_user = "http://sergiu.es/sportstats/check_user.php";
@@ -77,7 +85,7 @@ public class DAOUsers {
 		Log.d("Create Response", json.toString());
 		
 		// check for success tag
-		try {
+		/*try {
 			int success = json.getInt(TAG_SUCCESS);
 			if (success == 1) {
 				return true;
@@ -85,6 +93,7 @@ public class DAOUsers {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return false;*/
+		return json;
 	}
 }
