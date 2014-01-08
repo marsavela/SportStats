@@ -57,8 +57,6 @@ public class GeneralTabFragment extends Fragment {
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
-		editor.putString("prefLocalTeamEditText", ((EditText) getView().findViewById(R.id.LocalTeamText)).getText().toString());
-		editor.putString("prefVisitorTeamEditText", ((EditText) getView().findViewById(R.id.VisitorTeamText)).getText().toString());
 		editor.putString("prefTownEditText", ((EditText) getView().findViewById(R.id.TownText)).getText().toString());
 		editor.putString("prefMainRefereeEditText", ((EditText) getView().findViewById(R.id.MainRefereeText)).getText().toString());
 		editor.putString("prefSecondRefereeText", ((EditText) getView().findViewById(R.id.SecondRefereeText)).getText().toString());
@@ -72,17 +70,14 @@ public class GeneralTabFragment extends Fragment {
 	public void onResume() {
 //		// TODO Auto-generated method stub
 //		 this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-		super.onResume();
-		//((EditText)this.getActivity().findViewById(R.id.LocalTeamEditText)).setText(getPref("prefLocalTeamEditText", getActivity().getApplicationContext()));
+		
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
-		((EditText)this.getView().findViewById(R.id.LocalTeamText)).setText(pref.getString("prefLocalTeamEditText", ""));
-		((EditText)getView().findViewById(R.id.VisitorTeamText)).setText(pref.getString("prefVisitorTeamEditText", ""));
 		((EditText)getView().findViewById(R.id.TownText)).setText(pref.getString("prefTownEditText", ""));
 		((EditText)getView().findViewById(R.id.MainRefereeText)).setText(pref.getString("prefMainRefereeEditText", ""));
 		((EditText)getView().findViewById(R.id.SecondRefereeText)).setText(pref.getString("prefSecondRefereeText", ""));
 		((EditText)getView().findViewById(R.id.DateText)).setText(pref.getString("prefDateEditText", ""));
 		((EditText)getView().findViewById(R.id.TimeText)).setText(pref.getString("prefTimeEditText", ""));
-	
+		super.onResume();
 	}
 	
 

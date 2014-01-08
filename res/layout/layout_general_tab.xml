@@ -5,58 +5,6 @@
     android:layout_height="wrap_content" >
 
     <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp" >
-
-        <TextView
-            android:id="@+id/LocalTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/localTeam"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/LocalTeamText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
-        </EditText>
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" >
-
-        <TextView
-            android:id="@+id/VisitorTeam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/visitorTeam"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/VisitorTeamText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10" >
-
-            <requestFocus />
-        </EditText>
-    </TableRow>
-
-    <TableRow
         android:id="@+id/tableRow3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

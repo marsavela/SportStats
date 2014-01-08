@@ -8,7 +8,7 @@
 
     <!--
      Para encontrar de forma mas facil los Strings aconsejo que los 
-	 separemos por pantallas, login, mis actas, etc...
+	 separemos por pantallas, login, mis actas, etc...
     -->
 
 
@@ -96,5 +96,11 @@
     <string name="labelFouls">"Fouls: "</string>
     <string name="labelFreeThrows">"Free Throws: "</string>
     <string name="title_activity_activity_basket">ActivityBasketAct</string>
+    <string name="title_activity_activity_choose_team_online">ActivityChooseTeamOnline</string>
+    <string name="labelSelectLeague">Select league</string>
+    <string name="labelSelectLocalTeam">Select local team</string>
+    <string name="labelSelectAwayTeam">Select away team</string>
+    <string name="title_activity_activity_choose_team_offline">ActivityChooseTeamOffline</string>
+    <string name="sameTeams">Choose different teams!</string>
 
 </resources>
