@@ -27,6 +27,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,8 +39,8 @@ public class LoginActivity extends Activity {
 	EditText userPassword;
 
 //	private static DAOUsers daoUser;
-	String userMailString;
- 	String userPasswordString;
+	String userMailString="null";
+ 	String userPasswordString="null";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,16 +49,7 @@ public class LoginActivity extends Activity {
 		
         final DAOUsers daoUser = new DAOUsers(this);
 		
-		// Boton Login
-		Button bLogin = (Button) findViewById(R.id.ButtonLogin);
-		bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-       //     	if(daoUser.checkUser(new User("franjmaca@gmail.com","123")))
-            	if(daoUser.checkUser(new User(userMailString,userPasswordString)))
-            		launchMyActs();
-            }
-        });
+
 		
 		// Boton Registrar
 		Button bRegister = (Button) findViewById(R.id.ButtonNewUser);
@@ -118,11 +110,29 @@ public class LoginActivity extends Activity {
 	    
 	 
 	    // Obtener los datos para guardarlos en la base de datos
-	    EditText userMail = (EditText) findViewById(R.id.loginMail);
-	    EditText userPassword = (EditText) findViewById(R.id.loginPassword);
-	 	String userMailString=userMail.getText().toString();
-	 	String userPasswordString=userPassword.getText().toString();
+	    userMail = (EditText) findViewById(R.id.loginMail);
+	    userPassword = (EditText) findViewById(R.id.loginPassword);
+	 //   if (userMail.getText().toString().length() != 0) {
+	  //  	userMailString = String.valueOf(userMail.getText());
+	  //  }
+	 //	userMailString=userMail.getText().toString().trim();
+	 //	userPasswordString=userPassword.getText().toString();
 	 	
+	 	
+		// Boton Login
+		Button bLogin = (Button) findViewById(R.id.ButtonLogin);
+		bLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            //	if(daoUser.checkUser(new User("franjmaca@gmail.com","123"))){
+        //    	Log.i("hola", userMailString);
+            	if(daoUser.checkUser(new User(userMail.getText().toString().trim(), userPassword.getText().toString().trim())))
+            		launchMyActs();
+            	}
+            
+        });
+		
+		
 		
 	}
 	

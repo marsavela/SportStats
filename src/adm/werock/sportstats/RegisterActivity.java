@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import adm.werock.sportstats.basics.User;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,14 +32,15 @@ import android.widget.EditText;
 
 public class RegisterActivity extends Activity{
 
-	String userNameString;
-	String passwordString;
-	String mailString;
+	EditText userMail;
+	EditText userName;
+	EditText userPassword;
+	EditText userPassword2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		DAOUsers daoUser;
+		final DAOUsers daoUser = new DAOUsers(this);
 		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -46,18 +48,18 @@ public class RegisterActivity extends Activity{
 		
 		
 		// Comprobar formato del mail
-		final EditText mailEditText = (EditText) findViewById(R.id.registerMail);
-		  mailEditText.addTextChangedListener(new TextWatcher() {
+		userMail = (EditText) findViewById(R.id.registerMail);
+		userMail.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
 				// TODO Auto-generated method stub
-				String answerString = mailEditText.getText().toString();
-				EditText mail = (EditText)findViewById(R.id.registerMail);
-				if( mail.getText().toString().length() == 0 )
-					mail.setError( "Mail is required!" );
+				String answerString = userMail.getText().toString();
+				EditText userMail = (EditText)findViewById(R.id.registerMail);
+				if( userMail.getText().toString().length() == 0 )
+					userMail.setError( "Mail is required!" );
 				else if( !isEmailValid(answerString) )
-					mail.setError( "Mail format not correct!" );
+					userMail.setError( "Mail format not correct!" );
 			}
 
 			@Override
@@ -74,20 +76,18 @@ public class RegisterActivity extends Activity{
 		  });
 
 		  // Comprobar que los passwords sean iguales
-		  EditText userName = (EditText) findViewById(R.id.registerName);
-		  EditText userMail = (EditText) findViewById(R.id.registerMail);
-		final EditText password = (EditText) findViewById(R.id.registerPassword);
-		final EditText password2 = (EditText) findViewById(R.id.registerPassword2);
-		password2.addTextChangedListener(new TextWatcher() {
-
+		  userName = (EditText) findViewById(R.id.registerName);
+		  userPassword = (EditText) findViewById(R.id.registerPassword);
+		  userPassword2 = (EditText) findViewById(R.id.registerPassword2);
+		  
+		  userPassword2.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void afterTextChanged(Editable arg0) {
 				// TODO Auto-generated method stub
-				String passwordString = password.getText().toString();
-				String password2String = password2.getText().toString();
-
+				String passwordString = userPassword.getText().toString();
+				String password2String = userPassword2.getText().toString();
 				if (!password2String.equals(passwordString))
-					password2.setError("Passwords are not the same!");
+					userPassword2.setError("Passwords are not the same!");
 			}
 
 			@Override
@@ -112,17 +112,20 @@ public class RegisterActivity extends Activity{
             }
         });
 		
-		// Obtener los datos para guardarlos en la base de datos
+/*		// Obtener los datos para guardarlos en la base de datos
 		userNameString=userName.getText().toString();
         passwordString=password.getText().toString();
-        mailString=userMail.getText().toString();
+        mailString=userMail.getText().toString();*/
         
         
         Button bRegister = (Button) findViewById(R.id.ButtonRegister);
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	launchRegistration(mailString, userNameString, passwordString);
+            	if(daoUser.addUser(new User(userMail.getText().toString().trim(), userName.getText().toString().trim(), userPassword.getText().toString().trim())))
+            		launchMyActs();
+            	
+       //     	launchRegistration(mailString, userNameString, passwordString);
             }
         });
 	
