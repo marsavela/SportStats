@@ -125,7 +125,6 @@ public class RegisterActivity extends Activity{
             	if(daoUser.addUser(new User(userMail.getText().toString().trim(), userName.getText().toString().trim(), userPassword.getText().toString().trim())))
             		launchMyActs();
             	
-       //     	launchRegistration(mailString, userNameString, passwordString);
             }
         });
 	
