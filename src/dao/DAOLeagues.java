@@ -32,7 +32,7 @@ public class DAOLeagues {
 	// league JSONArray
 	JSONArray leagues = null;
 	
-	ArrayList<League> leaguesList = null;
+	ArrayList<League> leaguesList = new ArrayList<League>();
 
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_LEAGUES = "leagues";
@@ -63,7 +63,7 @@ public class DAOLeagues {
             
             pDialog = new ProgressDialog(activity);
             pDialog.setTitle("Contacting Servers");
-            pDialog.setMessage("Logging in ...");
+            pDialog.setMessage("Downloading Leagues...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
