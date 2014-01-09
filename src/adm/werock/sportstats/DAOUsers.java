@@ -47,60 +47,37 @@ public class DAOUsers {
 	}
 
 	//calls the server to add the following user
-<<<<<<< HEAD
 	public Boolean addUser(User user) {
-=======
-	public static Boolean addUser(String email, String name, String pass) {
->>>>>>> refs/heads/master
-		
-		// url to create new product
-		String url_create_user = "http://sergiu.es/sportstats/new_user.php";
-
-		// Building Parameters
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("name", user.getName()));
-		params.add(new BasicNameValuePair("email", user.getEmail()));
-		params.add(new BasicNameValuePair("password", user.getPassword()));
-
 		// getting JSON Object
 		// Note that create product url accepts POST method
-		JSONParser jsonParser = new JSONParser();
-		JSONObject json = jsonParser.makeHttpRequest(url_create_user,"POST", params);
-		
-		// check log cat from response
-		Log.d("Create Response", json.toString());
-		
-		// check for success tag
 		try {
+			JSONObject json = new AddUser().execute(user).get();
+			
+			// check log cat from response
+			Log.d("Create Response", json.toString());
+			
+			// check for success tag
+		
 			int success = json.getInt(TAG_SUCCESS);
 			if (success == 1) {
 				return true;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
 		return false;
 	}
 	
 	//calls the server to check if the pair user - password are right.
-<<<<<<< HEAD
+
 	public Boolean checkUser(User user) {
-=======
-	public static Boolean checkUser(String email, String pass) {
->>>>>>> refs/heads/master
-
-		/*// url to create new product
-		String url_check_user = "http://sergiu.es/sportstats/check_user.php";
-		
-		// Building Parameters
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("email", user.getEmail()));
-		params.add(new BasicNameValuePair("password", user.getPassword()));
-
-		// getting JSON Object
-		// Note that create product url accepts POST method
-		JSONParser jsonParser = new JSONParser();
-		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);*/
 		
 		try {
 			JSONObject json = new CheckUser().execute(user).get();
@@ -171,4 +148,53 @@ public class DAOUsers {
 	       }
 	        
 	    }
+	    
+	    /**
+	     * Async Task to get and send data to My Sql database through JSON respone.
+	     **/
+	    private class AddUser extends AsyncTask<User, Void, JSONObject> {
+
+
+	        private ProgressDialog pDialog;
+	        @Override
+	        protected void onPreExecute() {
+	            super.onPreExecute();
+	            
+	            //activity.finish();
+	            
+	            pDialog = new ProgressDialog(activity);
+	            pDialog.setTitle("Contacting Servers");
+	            pDialog.setMessage("Logging in ...");
+	            pDialog.setIndeterminate(false);
+	            pDialog.setCancelable(true);
+	            pDialog.show();
+	        }
+
+	        @Override
+	        protected JSONObject doInBackground(User... user) {
+
+	        	// url to create new product
+	    		String url_check_user = "http://sergiu.es/sportstats/new_user.php";
+	    		
+	    		// Building Parameters
+	    		List<NameValuePair> params = new ArrayList<NameValuePair>();
+	    		params.add(new BasicNameValuePair("email", user[0].getEmail()));
+	    		params.add(new BasicNameValuePair("name", user[0].getName()));
+	    		params.add(new BasicNameValuePair("password", user[0].getPassword()));
+
+	    		// getting JSON Object
+	    		// Note that create product url accepts POST method
+	    		JSONParser jsonParser = new JSONParser();
+	    		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
+	    		
+	            return json;
+	        }
+
+	        @Override
+	        protected void onPostExecute(JSONObject json) {
+	        	pDialog.dismiss();
+	       }
+	        
+	    }
+	    
 }

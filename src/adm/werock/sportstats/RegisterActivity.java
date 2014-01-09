@@ -180,7 +180,7 @@ public class RegisterActivity extends Activity{
         @Override
         protected Void doInBackground(Void... params) {
         // TODO Auto-generated method stub
-        	DAOUsers.addUser(mailString, userNameString, passwordString);
+        	//DAOUsers.addUser(mailString, userNameString, passwordString);
 			return null;
             
         }
