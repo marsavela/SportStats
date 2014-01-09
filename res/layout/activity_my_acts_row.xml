@@ -2,78 +2,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
+        style="@style/ActItemWithShadow" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" >
+        android:layout_weight="1"
+        android:orientation="vertical"
+         >
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small Text"
+            android:textSize="20sp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/teamHome"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/homeTeamLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="C.B. Sports"
-                android:textAppearance="?android:attr/textAppearanceLarge" 
-                android:gravity="center"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" 
+                android:paddingRight="10dp">
 
-            <TextView
-                android:id="@+id/pointsHome"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/teamHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="26sp"
+                    android:text="@string/labelTeamHome"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/pointsHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="@string/labelTeamHomeScore"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+            
+<!--             <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@android:color/darker_gray"
+                android:gravity="center" /> -->
+                
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/square_gray_32" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="114"
-                android:textAppearance="?android:attr/textAppearanceLarge" 
-                android:gravity="center"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/teamGuest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="26sp"
+                    android:text="@string/labelTeamGuest"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:background="@android:color/darker_gray"
-            android:gravity="center"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/teamGuest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="C.B. Stats"
-                android:textAppearance="?android:attr/textAppearanceLarge" 
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/pointsGuest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="110"
-                android:textAppearance="?android:attr/textAppearanceLarge" 
-                android:gravity="center"/>
-
+                <TextView
+                    android:id="@+id/pointsGuest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:layout_gravity="left"
+                    android:text="@string/labelTeamGuestScore"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/imageActStatus"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/square_online_available" />
+    
 </LinearLayout>

@@ -19,12 +19,16 @@ public class MyActsActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		ActProv act = new ActProv("Duncan Your Face","Wake and Blake",170,169,"Hola");
 		List<ActProv> actsList = new ArrayList<ActProv>();
+		ActProv act = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
 		actsList.add(act);
+		ActProv act1 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
+		actsList.add(act1);
+		ActProv act2 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
+		actsList.add(act2);
 		setContentView(R.layout.activity_my_acts);
 		MyActsAdapter acts = new MyActsAdapter(this, actsList);
-		Log.v("ownad", act.getTeamHome());
+		
 		
 		setListAdapter(new MyActsAdapter(this, actsList));
 	}

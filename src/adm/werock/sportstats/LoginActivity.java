@@ -53,7 +53,8 @@ public class LoginActivity extends Activity {
 		bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	if(daoUser.checkUser(new User("franjmaca@gmail.com","123")))
+       //     	if(daoUser.checkUser(new User("franjmaca@gmail.com","123")))
+            	if(daoUser.checkUser(new User(userMailString,userPasswordString)))
             		launchMyActs();
             }
         });

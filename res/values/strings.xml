@@ -32,6 +32,10 @@
     <!-- My Acts -->
     <string name="titleMyActs">My Acts</string>
     <string name="actionAddAct">Add Act</string>
+    <string name="labelTeamHome">C.B. Sports</string>
+    <string name="labelTeamHomeScore">130</string>
+    <string name="labelTeamGuest">C.B. Stats</string>
+    <string name="labelTeamGuestScore">100</string>
 
     <!-- Create Act -->
     <string name="titleCreateAct">New Act</string>
