@@ -13,6 +13,7 @@ import com.facebook.widget.LoginButton.OnErrorListener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +21,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
-
+	
+//	private static DAOUsers daoUser;
+	String userMailString;
+ 	String userPasswordString;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -32,7 +37,8 @@ public class LoginActivity extends Activity {
 		bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	launchMyActs();
+            	loginUser();
+        //    	launchMyActs();
             }
         });
 		
@@ -112,6 +118,14 @@ public class LoginActivity extends Activity {
 	
 	}
 	
+	private void loginUser(){
+		
+		DAOUsers.checkUser(userMailString, userPasswordString);
+		GetUserTask task = new GetUserTask();
+        task.execute();
+		
+	}
+	
 	private void launchMyActs(){
 		Intent i = new Intent(this, MyActsActivity.class);
         startActivity(i);
@@ -122,4 +136,21 @@ public class LoginActivity extends Activity {
         startActivity(i);
 	}
 
+	
+	private class GetUserTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+        // TODO Auto-generated method stub
+        	DAOUsers.checkUser(userMailString, userPasswordString);
+			return null;
+            
+        }
+
+    }
 }

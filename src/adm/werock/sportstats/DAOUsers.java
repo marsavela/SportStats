@@ -26,7 +26,7 @@ public class DAOUsers {
 
 	
 	//calls the server to add the following user
-	public Boolean addUser(String email, String name, String pass) {
+	public static Boolean addUser(String email, String name, String pass) {
 		
 		// url to create new product
 		String url_create_user = "http://sergiu.es/sportstats/new_user.php";
@@ -58,7 +58,7 @@ public class DAOUsers {
 	}
 	
 	//calls the server to check if the pair user - password are right.
-	public Boolean checkUser(String email, String pass) {
+	public static Boolean checkUser(String email, String pass) {
 
 		// url to create new product
 		String url_check_user = "http://sergiu.es/sportstats/check_user.php";

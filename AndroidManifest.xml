@@ -18,20 +18,14 @@
         android:label="@string/appName"
         android:theme="@style/Theme.Example" >
 
-        <!-- MainActivity -->
-        <activity
-            android:name="adm.werock.sportstats.MainActivity"
-            android:label="@string/appName" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!-- LoginActivity -->
         <activity
             android:name="adm.werock.sportstats.LoginActivity"
             android:label="@string/titleLogin" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- RegisterActivity -->
         <activity
