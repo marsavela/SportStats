@@ -18,6 +18,8 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
 
+import dao.DAOUsers;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;

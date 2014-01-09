@@ -1,12 +1,8 @@
 /**
- * 
+ * Functions to manage the Users of the DB.
  */
-package adm.werock.sportstats;
+package dao;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -16,15 +12,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import adm.werock.sportstats.JSONParser;
 import adm.werock.sportstats.basics.User;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.EditText;
 
 /**
  * @author SergiuDaniel
@@ -35,11 +28,6 @@ public class DAOUsers {
 	private Activity activity;
 	
 	private static final String TAG_SUCCESS = "success";
-	
-	private String email = new String();
-	private String name = new String();
-	private String password = new String();
-
 	
 	public DAOUsers(Activity activity) {
 		
