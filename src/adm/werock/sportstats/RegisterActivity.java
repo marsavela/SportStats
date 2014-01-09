@@ -19,6 +19,7 @@ import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,10 +27,19 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+
+
 public class RegisterActivity extends Activity{
 
+	String userNameString;
+	String passwordString;
+	String mailString;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		DAOUsers daoUser;
+		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
@@ -103,11 +113,18 @@ public class RegisterActivity extends Activity{
         });
 		
 		// Obtener los datos para guardarlos en la base de datos
-		String userNameString=userName.getText().toString();
-        String passwordString=password.getText().toString();
-        String mailString=userMail.getText().toString();
+		userNameString=userName.getText().toString();
+        passwordString=password.getText().toString();
+        mailString=userMail.getText().toString();
         
-		
+        
+        Button bRegister = (Button) findViewById(R.id.ButtonRegister);
+        bRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	launchRegistration(mailString, userNameString, passwordString);
+            }
+        });
 	
 	}
 
@@ -116,6 +133,13 @@ public class RegisterActivity extends Activity{
 	protected void launchCancelRegistration() {
 		// TODO Auto-generated method stub
 		this.finish();
+	}
+	
+	protected void launchRegistration(String email, String name, String pass){
+		
+		PostNewUserTask task = new PostNewUserTask();
+        task.execute();
+		
 	}
 
 
@@ -144,5 +168,23 @@ public class RegisterActivity extends Activity{
 		Intent i = new Intent(this, MyActsActivity.class);
         startActivity(i);
 	}
+	
+	
+	private class PostNewUserTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+        // TODO Auto-generated method stub
+        	DAOUsers.addUser(mailString, userNameString, passwordString);
+			return null;
+            
+        }
+
+    }
 	
 }

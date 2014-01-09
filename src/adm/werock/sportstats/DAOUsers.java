@@ -47,7 +47,11 @@ public class DAOUsers {
 	}
 
 	//calls the server to add the following user
+<<<<<<< HEAD
 	public Boolean addUser(User user) {
+=======
+	public static Boolean addUser(String email, String name, String pass) {
+>>>>>>> refs/heads/master
 		
 		// url to create new product
 		String url_create_user = "http://sergiu.es/sportstats/new_user.php";
@@ -79,7 +83,11 @@ public class DAOUsers {
 	}
 	
 	//calls the server to check if the pair user - password are right.
+<<<<<<< HEAD
 	public Boolean checkUser(User user) {
+=======
+	public static Boolean checkUser(String email, String pass) {
+>>>>>>> refs/heads/master
 
 		/*// url to create new product
 		String url_check_user = "http://sergiu.es/sportstats/check_user.php";

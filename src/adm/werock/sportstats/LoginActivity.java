@@ -23,8 +23,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+=======
+>>>>>>> refs/heads/master
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -34,9 +37,16 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	
+<<<<<<< HEAD
 	EditText userMail;
 	EditText userPassword;
 
+=======
+//	private static DAOUsers daoUser;
+	String userMailString;
+ 	String userPasswordString;
+	
+>>>>>>> refs/heads/master
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -50,9 +60,14 @@ public class LoginActivity extends Activity {
 		bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
 
             	if(daoUser.checkUser(new User("franjmaca@gmail.com","123")))
             		launchMyActs();
+=======
+            	loginUser();
+        //    	launchMyActs();
+>>>>>>> refs/heads/master
             }
         });
 		
@@ -132,6 +147,14 @@ public class LoginActivity extends Activity {
 	
 	}
 	
+	private void loginUser(){
+		
+		DAOUsers.checkUser(userMailString, userPasswordString);
+		GetUserTask task = new GetUserTask();
+        task.execute();
+		
+	}
+	
 	private void launchMyActs(){
 		Intent i = new Intent(this, MyActsActivity.class);
         startActivity(i);
@@ -142,4 +165,21 @@ public class LoginActivity extends Activity {
         startActivity(i);
 	}
 
+	
+	private class GetUserTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+        // TODO Auto-generated method stub
+        	DAOUsers.checkUser(userMailString, userPasswordString);
+			return null;
+            
+        }
+
+    }
 }
