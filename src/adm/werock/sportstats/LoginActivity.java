@@ -18,6 +18,7 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
 
+import adm.werock.sportstats.basics.User;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -40,15 +41,18 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_login);  
+		
+        final DAOUsers daoUser = new DAOUsers(this);
 		
 		// Boton Login
 		Button bLogin = (Button) findViewById(R.id.ButtonLogin);
 		bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            		//launchMyActs();
-            	NetAsync(view);
+
+            	if(daoUser.checkUser(new User("franjmaca@gmail.com","123")))
+            		launchMyActs();
             }
         });
 		
@@ -137,123 +141,5 @@ public class LoginActivity extends Activity {
 		Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
 	}
-	
-
-/**
- * Async Task to check whether internet connection is working.
- **/
-
-    private class NetCheck extends AsyncTask<String,String,Boolean>
-    {
-        private ProgressDialog nDialog;
-
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            nDialog = new ProgressDialog(LoginActivity.this);
-            nDialog.setTitle("Checking Network");
-            nDialog.setMessage("Loading..");
-            nDialog.setIndeterminate(false);
-            nDialog.setCancelable(true);
-            nDialog.show();
-        }
-        /**
-         * Gets current device state and checks for working internet connection by trying Google.
-        **/
-        @Override
-        protected Boolean doInBackground(String... args){
-
-
-
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnected()) {
-                try {
-                    URL url = new URL("http://www.google.com");
-                    HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                    urlc.setConnectTimeout(3000);
-                    urlc.connect();
-                    if (urlc.getResponseCode() == 200) {
-                        return true;
-                    }
-                } catch (MalformedURLException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            return false;
-
-        }
-        @Override
-        protected void onPostExecute(Boolean th){
-
-            if(th == true){
-                nDialog.dismiss();
-                new ProcessLogin().execute();
-            }
-            else{
-                nDialog.dismiss();
-                //loginErrorMsg.setText("Error in Network Connection");
-            }
-        }
-    }
-
-    /**
-     * Async Task to get and send data to My Sql database through JSON respone.
-     **/
-    private class ProcessLogin extends AsyncTask<String, String, JSONObject> {
-
-
-        private ProgressDialog pDialog;
-
-    	private static final String TAG_SUCCESS = "success";
-
-        String userMailString,userPasswordString;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            userMail = (EditText) findViewById(R.id.loginMail);
-    	    userPassword = (EditText) findViewById(R.id.loginPassword);
-    	 	userMailString=userMail.getText().toString();
-    	 	userPasswordString=userPassword.getText().toString();
-            
-            pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setTitle("Contacting Servers");
-            pDialog.setMessage("Logging in ...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... args) {
-
-        	DAOUsers daoUsers = new DAOUsers();
-            JSONObject json = daoUsers.checkUser("franjmaca@gmail.com", "123");
-            return json;
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            try {
-               int success = json.getInt(TAG_SUCCESS);
-       			if (success == 1) {
-       				launchMyActs();
-       				pDialog.dismiss();
-                    
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-       }
-    }
-    public void NetAsync(View view){
-        new NetCheck().execute();
-    }
 
 }

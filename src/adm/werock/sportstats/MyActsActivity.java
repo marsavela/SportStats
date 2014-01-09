@@ -19,8 +19,8 @@ public class MyActsActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		Act act = new Act("Duncan Your Face","Wake and Blake",170,169,"Hola");
-		List<Act> actsList = new ArrayList<Act>();
+		ActProv act = new ActProv("Duncan Your Face","Wake and Blake",170,169,"Hola");
+		List<ActProv> actsList = new ArrayList<ActProv>();
 		actsList.add(act);
 		setContentView(R.layout.activity_my_acts);
 		MyActsAdapter acts = new MyActsAdapter(this, actsList);

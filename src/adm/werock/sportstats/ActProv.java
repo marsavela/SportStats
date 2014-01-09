@@ -1,6 +1,6 @@
 package adm.werock.sportstats;
 
-public class Act {
+public class ActProv {
 	
 	//TODO Hay que aclarar esto. Problemas al leer la informacion del servidor.
 	//Se lee toda la informacion o se lee solo lo necesario?
@@ -10,7 +10,7 @@ public class Act {
 	private int pointsGuest;
 	private String date;
 	
-	public Act(String teamHome, String teamGuest, int pointsHome,
+	public ActProv(String teamHome, String teamGuest, int pointsHome,
 			int pointsGuest, String date) {
 		super();
 		this.teamHome = teamHome;

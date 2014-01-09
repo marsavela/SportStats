@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 public class MyActsAdapter extends BaseAdapter {
 	private final Activity activity;
-    private List<Act> list;
+    private List<ActProv> list;
 
-    public MyActsAdapter(Activity activity, List<Act> scoreList) {
+    public MyActsAdapter(Activity activity, List<ActProv> scoreList) {
         super();
         this.activity = activity;
         this.list = scoreList;
