@@ -6,17 +6,18 @@
     android:layout_height="fill_parent"
     android:background="#e6e6e6"
     android:orientation="vertical"
+    android:padding="30dp"
     android:paddingLeft="30dp"
     android:paddingRight="30dp" >
 
-    <ImageView
+<!--     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
         android:contentDescription="@string/logo"
         android:src="@drawable/main_logo" >
-    </ImageView>
+    </ImageView> -->
 
     <LinearLayout
         android:baselineAligned="false"
