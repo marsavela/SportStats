@@ -1,55 +1,57 @@
+/**
+ * 
+ */
 package dao;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import adm.werock.sportstats.JSONParser;
-import adm.werock.sportstats.basics.League;
+import adm.werock.sportstats.basics.Team;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
 /**
- * Funciones para controlar el acceso de ligas a la base de datos.
- */
-
-/**
  * @author SergiuDaniel
  *
  */
-public class DAOLeagues {
-	
+public class DAOTeams {
+
 	private Activity activity;
 	
 	// league JSONArray
-	JSONArray leagues = null;
+	JSONArray teams = null;
 	
-	ArrayList<League> leaguesList = new ArrayList<League>();
+	ArrayList<Team> teamsList = new ArrayList<Team>();
 
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_LEAGUES = "leagues";
-	private static final String TAG_PID = "id";
+	private static final String TAG_TID = "id";
 	private static final String TAG_NAME = "name";
+	private static final String TAG_LID = "id";
 
-	public DAOLeagues(Activity activity) {
+	public DAOTeams(Activity activity) {
 		this.activity = activity;
 	}
 	
-	public ArrayList<League> getAllLeagues() {
+	public ArrayList<Team> getAllTeams() {
 
-		new GetAllLeagues().execute();
+		new GetAllTeams().execute();
 		
-		return leaguesList;
+		return teamsList;
 	}
 	
 	/**
      * Async Task to get and send data to My Sql database through JSON respone.
      **/
-    private class GetAllLeagues extends AsyncTask<Void, Void, JSONObject> {
+    private class GetAllTeams extends AsyncTask<Void, Void, JSONObject> {
 
         private ProgressDialog pDialog;
         
@@ -59,7 +61,7 @@ public class DAOLeagues {
             
             pDialog = new ProgressDialog(activity);
             pDialog.setTitle("Contacting Servers");
-            pDialog.setMessage("Downloading Leagues...");
+            pDialog.setMessage("Downloading Teams...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -69,7 +71,7 @@ public class DAOLeagues {
         protected JSONObject doInBackground(Void... string) {
 
         	// url to create new product
-    		String url_check_user = "http://sergiu.es/sportstats/check_leagues.php";
+    		String url_check_user = "http://sergiu.es/sportstats/check_teams.php";
     		
     		// Building Parameters
     		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -95,17 +97,18 @@ public class DAOLeagues {
     			if (success == 1) {
     				// products found
     				// Getting Array of Products
-    				leagues = json.getJSONArray(TAG_LEAGUES);
+    				teams = json.getJSONArray(TAG_LEAGUES);
 
     				// looping through All Products
-    				for (int i = 0; i < leagues.length(); i++) {
-    					JSONObject c = leagues.getJSONObject(i);
+    				for (int i = 0; i < teams.length(); i++) {
+    					JSONObject c = teams.getJSONObject(i);
 
     					// Storing each json item in variable
-    					int id = c.getInt(TAG_PID);
+    					int id = c.getInt(TAG_TID);
     					String name = c.getString(TAG_NAME);
+    					int idLeague = c.getInt(TAG_LID);
     					
-    					leaguesList.add(new League(id, name));
+    					teamsList.add(new Team(id, name, idLeague));
     				}
     			}
     			
