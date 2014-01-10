@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import adm.werock.sportstats.JSONParser;
+import adm.werock.sportstats.basics.League;
 import adm.werock.sportstats.basics.Team;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -41,9 +43,9 @@ public class DAOTeams {
 		this.activity = activity;
 	}
 	
-	public ArrayList<Team> getAllTeams() {
+	public ArrayList<Team> getAllTeams(League league) {
 
-		new GetAllTeams().execute();
+		new GetAllTeams().execute(league);
 		
 		return teamsList;
 	}
@@ -51,7 +53,7 @@ public class DAOTeams {
 	/**
      * Async Task to get and send data to My Sql database through JSON respone.
      **/
-    private class GetAllTeams extends AsyncTask<Void, Void, JSONObject> {
+    private class GetAllTeams extends AsyncTask<League, Void, JSONObject> {
 
         private ProgressDialog pDialog;
         
@@ -68,18 +70,19 @@ public class DAOTeams {
         }
 
         @Override
-        protected JSONObject doInBackground(Void... string) {
+        protected JSONObject doInBackground(League... league) {
 
         	// url to create new product
     		String url_check_user = "http://sergiu.es/sportstats/check_teams.php";
-    		
+
     		// Building Parameters
     		List<NameValuePair> params = new ArrayList<NameValuePair>();
+    		params.add(new BasicNameValuePair("id_leagues", Integer.toString(league[0].getLeagueId())));
 
     		// getting JSON Object
     		// Note that create product url accepts POST method
     		JSONParser jsonParser = new JSONParser();
-    		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"GET", params);
+    		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
     		
             return json;
         }
