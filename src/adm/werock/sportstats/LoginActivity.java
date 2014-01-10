@@ -1,13 +1,24 @@
 package adm.werock.sportstats;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import adm.werock.sportstats.basics.League;
+import adm.werock.sportstats.basics.Team;
+import adm.werock.sportstats.basics.User;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.FacebookException;
 import com.facebook.Request;
@@ -18,22 +29,9 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
 
+import dao.DAOLeagues;
+import dao.DAOTeams;
 import dao.DAOUsers;
-
-import adm.werock.sportstats.basics.User;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	
@@ -43,12 +41,16 @@ public class LoginActivity extends Activity {
 //	private static DAOUsers daoUser;
 	String userMailString="null";
  	String userPasswordString="null";
+
+	ArrayList<League> leaguesList = new ArrayList<League>();
+	ArrayList<Team> teamsList = new ArrayList<Team>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);  
-		
+
         final DAOUsers daoUser = new DAOUsers(this);
 		
 
@@ -67,7 +69,8 @@ public class LoginActivity extends Activity {
 		bSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	launchMyActs();
+            	//launchMyActs();
+            	new TaskLeagues().execute();
             }
         });
 		
@@ -150,7 +153,7 @@ public class LoginActivity extends Activity {
 	private void loginUser(){
 		
 		//DAOUsers.checkUser(userMailString, userPasswordString);
-		GetUserTask task = new GetUserTask();
+		TaskLeagues task = new TaskLeagues();
         task.execute();
 		
 	}
@@ -164,22 +167,40 @@ public class LoginActivity extends Activity {
 		Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
 	}
-
 	
-	private class GetUserTask extends AsyncTask<Void, Void, Void> {
-
+	private class TaskLeagues extends AsyncTask<Void, Void, Void> {
+        
+        private ProgressDialog pDialog;
+        
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
+            super.onPreExecute();
+            
+            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog.setTitle("Contacting Servers");
+            pDialog.setMessage("Downloading data...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
         // TODO Auto-generated method stub
-        	//DAOUsers.checkUser(userMailString, userPasswordString);
+        	//leaguesList = daoLeagues.getAllLeagues();
+
+            //DAOLeagues daoLeagues = new DAOLeagues();
+        	leaguesList = DAOLeagues.getAllLeagues();
+        	Log.v("LIGAS: ",Integer.toString(leaguesList.size()));
+        	teamsList = DAOTeams.getAllTeams(new League(1, "ACB"));
+        	Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
 			return null;
-            
         }
+
+        @Override
+        protected void onPostExecute(Void params) {
+        	pDialog.dismiss();
+       }
 
     }
 }
