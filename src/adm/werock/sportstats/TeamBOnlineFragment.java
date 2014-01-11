@@ -30,9 +30,10 @@ import android.widget.SimpleAdapter;
 
 public class TeamBOnlineFragment extends Fragment {
 	private int[] states;
-	int activeCounter = 0;
+	int starterCounter = 0;
 	int captainCounter = 0;
-
+	int activeCounter = 0;
+	int totalPlayers = 0;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class TeamBOnlineFragment extends Fragment {
 				 
 				  */
 				case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
-				case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
+				case 1 :  imageView.setImageResource(R.drawable.ic_active_player); break;
+				case 2 :  imageView.setImageResource(R.drawable.ic_suplent); break;
 				case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
 				
 				}
@@ -153,25 +154,31 @@ parent	The AdapterView where the click happened.
 view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
 position	The position of the view in the adapter.
 id	The row id of the item that was clicked.*/
-				activeCounter = 0;
+				starterCounter = 0;
 				captainCounter = 0;
+				activeCounter = 0;
+				totalPlayers = 0;
+				
+				int state = 0;
 				states[position]++;		
 				
 				for(int i=0;i<states.length; i++){
-					if(states[i]==2) activeCounter++;
+					if(states[i]==1) activeCounter++;
+					if(states[i]==2) starterCounter++;
 					if(states[i]==3) captainCounter++;
+
 				}
-				if (activeCounter > 5 && captainCounter==1)
+				if (starterCounter > 5 && captainCounter==1)
 					states[position] = 4;
 				else{
-					if (activeCounter > 5)
+					if (starterCounter > 5)
 						states[position]++;
 					if(captainCounter > 1 )
 						states[position]++;
 				}
 				
 				if(states[position]>3) states[position] =0;
-				int state = states[position];
+				state = states[position];
 
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
@@ -186,11 +193,12 @@ id	The row id of the item that was clicked.*/
 				 
 				  */
 				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
-				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 1 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 2 :  icon.setImageResource(R.drawable.ic_suplent);break;
 				case 3 :  icon.setImageResource(R.drawable.ic_captain); break;
 				
 				}
+				totalPlayers = starterCounter+captainCounter+activeCounter;;
 				onPause();
 				
 			}
@@ -209,9 +217,10 @@ id	The row id of the item that was clicked.*/
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
 		editor.putInt("prefCaptainCounterVisitor", captainCounter);
-		editor.putInt("prefActiveCounterVisitor", activeCounter);
-//		Log.i("captainCounterB", captainCounter+"");
-//		Log.i("activeCounterB", activeCounter+"");
+		editor.putInt("prefStarterCounterVisitor", starterCounter);
+		editor.putInt("prefTotalPlayersVisitor", totalPlayers);
+		Log.i("captainCounterB", captainCounter+"");
+		Log.i("activeCounterB", activeCounter+"");
 		editor.commit();
 		super.onResume();
 	}

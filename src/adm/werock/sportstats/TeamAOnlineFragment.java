@@ -33,9 +33,10 @@ import android.widget.Spinner;
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
 	public int captainCounter = 0;
+	public int starterCounter = 0;
 	public int activeCounter = 0;
-
-
+	public int totalPlayers = 0;
+	public EditText playerNumber;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class TeamAOnlineFragment extends Fragment {
 			public View getView(int position, View convertView, ViewGroup parent) {
 				View itemView = super.getView(position, convertView, parent);
 				ImageView imageView = (ImageView) itemView.findViewById(R.id.player_icon);
-
+				
 
 				switch(states[position]){
 				/*
@@ -73,12 +74,11 @@ public class TeamAOnlineFragment extends Fragment {
 
 				 */
 				case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
-				case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
+				case 1 :  imageView.setImageResource(R.drawable.ic_active_player); break;
+				case 2 :  imageView.setImageResource(R.drawable.ic_suplent); break;
 				case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
 
 				}
-
 
 				return itemView;
 			}
@@ -192,19 +192,23 @@ id	The row id of the item that was clicked.*/
 				/* EditText yourEditText = (EditText) view.findViewById(R.id.player_number);
 				    parent.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); 
 				    yourEditText.requestFocus(); */
-				activeCounter = 0;
+				starterCounter = 0;
 				captainCounter = 0;
+				activeCounter = 0;
+				totalPlayers = 0;
+				
 				int state = 0;
 				states[position]++;	
 
 				for(int i=0;i<states.length; i++){
-					if(states[i]==2) activeCounter++;
-					if(states[i]==3) captainCounter++;
+					if(states[i] == 1) activeCounter++;
+					if(states[i] == 2) starterCounter++;
+					if(states[i] == 3) captainCounter++;
 				}
-				if (activeCounter > 5 && captainCounter==1)
+				if (starterCounter > 5 && captainCounter==1)
 					states[position] = 4;
 				else{
-					if (activeCounter > 5)
+					if (starterCounter > 5)
 						states[position]++;
 					if(captainCounter > 1 )
 						states[position]++;
@@ -215,6 +219,17 @@ id	The row id of the item that was clicked.*/
 
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
+				playerNumber = (EditText) view.findViewById(R.id.player_number);
+				playerNumber.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						//playerNumber.setFocusable(true);
+						playerNumber.setFocusableInTouchMode(true);
+						//playerNumber.setClickable(true
+					}
+				});
+				
 				switch(state){
 				/*
 				 0: Jugador inactivo.
@@ -224,12 +239,14 @@ id	The row id of the item that was clicked.*/
 
 				 */
 				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player);break;
-				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
-				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 1 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 2 :  icon.setImageResource(R.drawable.ic_suplent);break;
 				case 3 :  icon.setImageResource(R.drawable.ic_captain);break;					
 				}
+				totalPlayers = starterCounter+captainCounter+activeCounter;
 				onPause();
 			}
+			
 
 		});
 
@@ -246,9 +263,11 @@ id	The row id of the item that was clicked.*/
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
 		Editor editor = pref.edit();
 		Log.i("captainCounter", captainCounter+"");
+		Log.i("starterCounter", starterCounter+"");
 		Log.i("activeCounter", activeCounter+"");
 		editor.putInt("prefCaptainCounterHome", captainCounter);
-		editor.putInt("prefActiveCounterHome", activeCounter);
+		editor.putInt("prefStarterCounterHome", starterCounter);
+		editor.putInt("prefTotalPlayersHome", totalPlayers);
 		editor.commit();
 		super.onResume();
 	}
@@ -257,7 +276,6 @@ id	The row id of the item that was clicked.*/
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-				SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
 			//	hola = ((ImageView) getView().findViewById(R.id.player_icon));
 				//hola.setImageResource(  R.drawable.ic_inactive_player	);
 	}

@@ -106,5 +106,6 @@
     <string name="labelSelectAwayTeam">Select away team</string>
     <string name="title_activity_activity_choose_team_offline">ActivityChooseTeamOffline</string>
     <string name="sameTeams">Choose different teams!</string>
+    <string name="emptyTeams">You cannot have empty teams</string>
 
 </resources>
