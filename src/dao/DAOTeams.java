@@ -81,4 +81,39 @@ public class DAOTeams {
 
 		return teamsList;
 	}
+	
+	public static Team getTeamByID(int id) {
+
+		// url to create new product
+		String url_check_user = "http://sergiu.es/sportstats/check_team_by_id.php";
+
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("id", Integer.toString(id)));
+
+		// getting JSON Object
+		// Note that create product url accepts POST method
+		JSONParser jsonParser = new JSONParser();
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
+		
+
+		// Check your log cat for JSON reponse
+		Log.d("Team: ", json.toString());
+		
+		try {
+			if (json.getInt(TAG_SUCCESS) == 1) {
+				// products found
+				// Storing each json item in variable
+				String name;
+					name = json.getString(TAG_NAME);
+				int idLeague = json.getInt(TAG_LID);
+				
+				return new Team(id, name, idLeague);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -63,12 +63,12 @@ public class DAOPlayers {
 					JSONObject c = teams.getJSONObject(i);
 
 					// Storing each json item in variable
-					int id = c.getInt(TAG_LICENSE);
+					int licensnumber = c.getInt(TAG_LICENSE);
 					String name = c.getString(TAG_NAME);
 					String surname = c.getString(TAG_SURNAME);
 					int idTeam = c.getInt(TAG_TID);
 
-					playersList.add(new Player(id, name, surname, idTeam));
+					playersList.add(new Player(licensnumber, name, surname, idTeam));
 				}
 			}
 
@@ -78,6 +78,41 @@ public class DAOPlayers {
 
 		return playersList;
 	}
+	
 
+	public static Player getTeamByID(int licensnumber) {
+
+		// url to create new product
+		String url_check_user = "http://sergiu.es/sportstats/check_player_by_license.php";
+
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("licensnumber", Integer.toString(licensnumber)));
+
+		// getting JSON Object
+		// Note that create product url accepts POST method
+		JSONParser jsonParser = new JSONParser();
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
+		
+
+		// Check your log cat for JSON reponse
+		Log.d("Player: ", json.toString());
+		
+		try {
+			if (json.getInt(TAG_SUCCESS) == 1) {
+				// products found
+				// Storing each json item in variable
+				String name = json.getString(TAG_NAME);
+				String surname = json.getString(TAG_SURNAME);
+				int idTeam = json.getInt(TAG_TID);
+				
+				return new Player(licensnumber, name, surname, idTeam);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
