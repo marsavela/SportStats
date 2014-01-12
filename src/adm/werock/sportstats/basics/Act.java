@@ -3,20 +3,20 @@
  */
 package adm.werock.sportstats.basics;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author SergiuDaniel
  *
  */
 public class Act {
-	
+
 	private int id;
+	private Date date;
+	private String emailUser;
 	private int teamHomeId;
 	private int idTeamGuest;
-	private Timestamp date;
-	private String emailUser;
-	
+
 	/**
 	 * @param id
 	 * @param idTeamHome
@@ -24,8 +24,7 @@ public class Act {
 	 * @param date
 	 * @param emailUser
 	 */
-	public Act(int id, int idTeamHome, int idTeamGuest, Timestamp date,
-			String emailUser) {
+	public Act(int id, Date date, String emailUser, int idTeamHome, int idTeamGuest) {
 		super();
 		this.id = id;
 		this.teamHomeId = idTeamHome;
@@ -58,11 +57,11 @@ public class Act {
 		this.idTeamGuest = idTeamGuest;
 	}
 
-	public Timestamp getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

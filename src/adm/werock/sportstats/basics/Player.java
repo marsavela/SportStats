@@ -8,20 +8,23 @@ package adm.werock.sportstats.basics;
  *
  */
 public class Player {
-	
+
 	private int licenseNumber;
 	private String name;
+	private String surname;
 	private int teamId;
-	
+
 	/**
 	 * @param licenseNumber
 	 * @param name
+	 * @param surname
 	 * @param teamId
 	 */
-	public Player(int licenseNumber, String name, int teamId) {
+	public Player(int licenseNumber, String name, String surname, int teamId) {
 		super();
 		this.licenseNumber = licenseNumber;
 		this.name = name;
+		this.surname = surname;
 		this.teamId = teamId;
 	}
 
@@ -41,6 +44,14 @@ public class Player {
 		this.name = name;
 	}
 
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
 	public int getTeamId() {
 		return teamId;
 	}
@@ -48,5 +59,5 @@ public class Player {
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
-	
+
 }

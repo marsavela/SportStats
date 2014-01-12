@@ -13,14 +13,14 @@ package adm.werock.sportstats.basics;
 // -------------------
 
 public class Event {
-	
+
 	private int id;
 	private int actId;
 	private int minute;
-	private int type;
+	private String type;
 	private String value;
 	private int player;
-	
+
 	/**
 	 * @param id
 	 * @param actId
@@ -28,7 +28,7 @@ public class Event {
 	 * @param type
 	 * @param value
 	 */
-	public Event(int id, int actId, int type, int minute, String value) {
+	public Event(int id, int actId, String type, int minute, String value) {
 		super();
 		this.id = id;
 		this.actId = actId;
@@ -36,7 +36,7 @@ public class Event {
 		this.type = type;
 		this.value = value;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -55,10 +55,10 @@ public class Event {
 	public void setMinute(int minute) {
 		this.minute = minute;
 	}
-	public int getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public String getValue() {
@@ -73,5 +73,5 @@ public class Event {
 	public void setPlayer(int player) {
 		this.player = player;
 	}
-	
+
 }
