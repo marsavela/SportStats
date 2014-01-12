@@ -3,10 +3,20 @@
  */
 package adm.werock.sportstats.basics;
 
+//     Event types
+// -------------------
+//  A - Assign number
+//  S - Score
+//  F - Foul
+// FI - Free Throw In
+// FO - Free Throw Out
+// -------------------
+
 public class Event {
 	
 	private int id;
 	private int actId;
+	private int minute;
 	private int type;
 	private String value;
 	private int player;
@@ -14,13 +24,15 @@ public class Event {
 	/**
 	 * @param id
 	 * @param actId
+	 * @param minute
 	 * @param type
 	 * @param value
 	 */
-	public Event(int id, int actId, int type, String value) {
+	public Event(int id, int actId, int type, int minute, String value) {
 		super();
 		this.id = id;
 		this.actId = actId;
+		this.minute = minute;
 		this.type = type;
 		this.value = value;
 	}
@@ -36,6 +48,12 @@ public class Event {
 	}
 	public void setActId(int actId) {
 		this.actId = actId;
+	}
+	public int getMinute() {
+		return minute;
+	}
+	public void setMinute(int minute) {
+		this.minute = minute;
 	}
 	public int getType() {
 		return type;
