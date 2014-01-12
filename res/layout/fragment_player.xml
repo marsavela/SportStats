@@ -69,15 +69,6 @@
         android:layout_height="wrap_content" >
         
         <Button
-        android:id="@+id/buttonRemovePoint"
-        android:layout_weight="0.5"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/action_button_size"
-        android:background="@drawable/button_player"
-        style="@style/ActionButton"
-        android:text="@string/labelRemovePoint"/>
-        
-        <Button
         android:id="@+id/buttonRemove2Points"
         android:layout_weight="0.5"
         android:layout_width="fill_parent"
@@ -85,6 +76,15 @@
         android:background="@drawable/button_player"
         style="@style/ActionButton"
         android:text="@string/labelRemove2Points"/>
+        
+        <Button
+        android:id="@+id/buttonRemove3Points"
+        android:layout_weight="0.5"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_button_size"
+        android:background="@drawable/button_player"
+        style="@style/ActionButton"
+        android:text="@string/labelRemove3Points"/>
     </LinearLayout>
     
     <LinearLayout

@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 
 public class ActivityBasketStats extends FragmentActivity
@@ -15,6 +21,8 @@ public class ActivityBasketStats extends FragmentActivity
 	// Fragments
 	private InsertBasketDataFragment insertDataFragment = (InsertBasketDataFragment) InsertBasketDataFragment.newInstance();
 	private PreviewBasketStatsFragment previewStatsFragment = (PreviewBasketStatsFragment) PreviewBasketStatsFragment.newInstance();
+	private FragmentHelpDataInsert fragmentHelp = (FragmentHelpDataInsert) FragmentHelpDataInsert.newInstance();
+	private FragmentBasketEventList fragmentEventList = (FragmentBasketEventList) FragmentBasketEventList.newInstance();
 	
 	ViewPager pager = null;
 	
@@ -27,17 +35,25 @@ public class ActivityBasketStats extends FragmentActivity
     private ArrayList<ActPlayer> homePlayers = new ArrayList<ActPlayer>();
     private ArrayList<ActPlayer> awayPlayers = new ArrayList<ActPlayer>();
     private ActPlayer selectedPlayer = null;
+    private int selectedPlayerIndex;
     private boolean bSelectedHomePlayer;
  
     // Time
     private int currentMinute = 0;
     private int currentQuarter = 1;
+    private int maximumMinute = 0;
     
     // Others
     private int homeTeamScore = 0;
     private int awayTeamScore = 0;
     private int homeTeamFouls = 0;
     private int awayTeamFouls = 0;
+    
+    // Pages & Help
+    private boolean bHelpEnabled = false;
+    
+    // Events
+    private ArrayList<ActEvent> events = new ArrayList<ActEvent>();
     
     @Override
     protected void onCreate(Bundle arg0) {
@@ -49,26 +65,205 @@ public class ActivityBasketStats extends FragmentActivity
  
         // Create an adapter with the fragments we show on the ViewPager
         pagerAdapter = new ActFragmentPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment((Fragment)fragmentEventList);
         pagerAdapter.addFragment((Fragment)previewStatsFragment);
         pagerAdapter.addFragment((Fragment)insertDataFragment);
         
         this.pager.setAdapter(pagerAdapter);
         this.pager.setOnPageChangeListener(new PageListener());
-        this.pager.setCurrentItem(1);
+        this.pager.setCurrentItem(2);
         
         setPlayers();
     }
     
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_basket_stats, menu);
+        return true;
+    }
+    
+    @Override
+	protected void onResume() {
+		super.onResume();
+		
+		// Intitialize Events Array
+		// Read from DB
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+        case R.id.action_help:
+            if(bHelpEnabled){
+            	disableHelp();
+            	bHelpEnabled = false;
+            }else{
+            	enableHelp();
+            	bHelpEnabled = true;
+            }
+            return true;
+        default:
+            return true;
+     }
+	}
+	
+	public void rebuild(){
+		pager.setAdapter(pagerAdapter);
+	}
+    
+    @Override
 	public void onBackPressed() {
-		if(pager.getCurrentItem() == 1){
+		if(pager.getCurrentItem() == 2){
 			super.onBackPressed();
 		}else{
-			pager.setCurrentItem(1);
+			pager.setCurrentItem(2);
 		}
 	}
     
-    // TODO: provisional
+    // TODO: HELP
+    
+    public void enableHelp()
+    {
+    	FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        
+        ft.add(R.id.overlayFragment,fragmentHelp);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+    }
+    
+    public void disableHelp()
+    {
+    	FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        
+        ft.remove(fragmentHelp);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+    }
+    
+    // TODO: EVENTS
+    
+    public boolean addEvent(ActEvent event){
+    	
+    	String type = event.getType();
+    	int value = event.getValue();
+    	
+    	if(type.equals("P")){
+    		if(value > 0){
+    			events.add(event);
+    			return true;
+    		}else{
+    			event.setValue(-value);
+    			return searchAndRemoveEvent(event);
+    		}
+    	}
+    	else if(type.equals("F")){
+    		if(value > 0){
+    			events.add(event);
+    			return true;
+    		}else{
+    			event.setValue(-value);
+    			return searchAndRemoveEvent(event);
+    		}
+    	}
+    	else if(type.equals("FTI")){
+    		if(value > 0){
+    			events.add(event);
+    			return true;
+    		}else{
+    			event.setValue(-value);
+    			return searchAndRemoveEvent(event);
+    		}
+    	}
+    	else if(type.equals("FTO")){
+    		if(value > 0){
+    			events.add(event);
+    			return true;
+    		}else{
+    			event.setValue(-value);
+    			return searchAndRemoveEvent(event);
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    public boolean searchAndRemoveEvent(ActEvent e){
+    	for(int i=events.size()-1; i>=0; i--){
+    		ActEvent event = events.get(i);
+    		if(event.isHomePlayer() == e.isHomePlayer() &&
+    		   event.getPlayerPosition() == e.getPlayerPosition() &&
+    		   event.getValue() == e.getValue() &&
+    		   event.getType().equals(e.getType())){
+    			events.remove(i);
+    			Log.d("ActivityBasketStats","Event deleted");
+    			return true;
+    		}
+    	}
+    	Log.e("ActivityBasketStats","Event not found");
+    	return false;
+    }
+    
+    public ArrayList<ActEvent> getEvents(){
+    	return events;
+    }
+    
+    public void rebuildFromEvents(){
+    	for(int i=0; i<homePlayers.size(); i++){
+    		homePlayers.get(i).resetStats();
+    	}
+    	for(int i=0; i<awayPlayers.size(); i++){
+    		awayPlayers.get(i).resetStats();
+    	}
+    	
+    	homeTeamScore = 0;
+    	awayTeamScore = 0;
+    	
+    	for(int i=0; i<events.size(); i++){
+    		ActEvent event = events.get(i);
+    		
+    		if(event.getType().equals("P")){
+    			if(event.isHomePlayer()){
+    				homePlayers.get(event.getPlayerPosition()).addPoints(event.getValue());
+    				homeTeamScore += event.getValue();
+    			}else{
+    				awayPlayers.get(event.getPlayerPosition()).addPoints(event.getValue());
+    				awayTeamScore += event.getValue();
+    			}
+    		}
+    		
+    		else if(event.getType().equals("FTI")){
+    			if(event.isHomePlayer()){
+    				homePlayers.get(event.getPlayerPosition()).addFreeThrowsMade(event.getValue());
+    				homeTeamScore += event.getValue();
+    			}else{
+    				awayPlayers.get(event.getPlayerPosition()).addFreeThrowsMade(event.getValue());
+    				awayTeamScore += event.getValue();
+    			}
+    		}
+    		
+    		else if(event.getType().equals("FTO")){
+    			if(event.isHomePlayer()){
+    				homePlayers.get(event.getPlayerPosition()).addFreeThrowsMissed(event.getValue());
+    			}else{
+    				awayPlayers.get(event.getPlayerPosition()).addFreeThrowsMissed(event.getValue());
+    			}
+    		}
+    		
+    		else if(event.getType().equals("F")){
+    			if(event.isHomePlayer()){
+    				homePlayers.get(event.getPlayerPosition()).addFouls(event.getValue());
+    			}else{
+    				awayPlayers.get(event.getPlayerPosition()).addFouls(event.getValue());
+    			}
+    		}
+    	}
+    }
+    
+    // TODO: PLAYERS
+    
     public void setPlayers(){
     	homePlayers.add(new ActPlayer(4,"Sergiu", "Marsavela","001"));
     	homePlayers.add(new ActPlayer(5,"Fran", "Martin","002"));
@@ -94,6 +289,18 @@ public class ActivityBasketStats extends FragmentActivity
     
     public ActPlayer getSelectedPlayer(){
     	return selectedPlayer;
+    }
+    
+    public ActPlayer getPlayer(boolean bHome, int index){
+    	if(bHome){
+    		return homePlayers.get(index);
+    	}else{
+    		return awayPlayers.get(index);
+    	}
+    }
+    
+    public int getSelectedPlayerIndex(){
+    	return selectedPlayerIndex;
     }
 	
 	public boolean isHomePlayerSelected(){
@@ -141,30 +348,32 @@ public class ActivityBasketStats extends FragmentActivity
 		if(bHome){
 			bSelectedHomePlayer = true;
 			selectedPlayer = homePlayers.get(number);
+			selectedPlayerIndex = number;
 		}else{
 			bSelectedHomePlayer = false;
-			selectedPlayer = awayPlayers.get(number); 
+			selectedPlayer = awayPlayers.get(number);
+			selectedPlayerIndex = number;
 		}
 		pagerAdapter.addFragment(PlayerBasketDataFragment.newInstance());
 		pagerAdapter.notifyDataSetChanged();
-		pager.setCurrentItem(2);
+		pager.setCurrentItem(3);
 	}
 	
 	public void playerActionsConfirmed(){
 		bActionsConfirmed=true;
-		pagerAdapter.deleteFragment(pagerAdapter.getItem(2));
+		pagerAdapter.deleteFragment(pagerAdapter.getItem(3));
 		pagerAdapter.notifyDataSetChanged();
 		
-		pager.setCurrentItem(1);
+		pager.setCurrentItem(2);
 		pager.postDelayed(deletePlayerFragment, 200);
 		bActionsConfirmed=false;
 	}
 	
 	public void playerActionsDiscarded(){
-		pagerAdapter.deleteFragment(pagerAdapter.getItem(2));
+		pagerAdapter.deleteFragment(pagerAdapter.getItem(3));
 		pagerAdapter.notifyDataSetChanged();
 		
-		pager.setCurrentItem(1);
+		pager.setCurrentItem(2);
 		pager.postDelayed(deletePlayerFragment, 200);
 	}
 	
@@ -173,7 +382,7 @@ public class ActivityBasketStats extends FragmentActivity
 	    public void run() 
 	    {
 	    	pager.setAdapter(pagerAdapter);
-	    	pager.setCurrentItem(1);
+	    	pager.setCurrentItem(2);
 	    }
 	};
 	
@@ -189,52 +398,54 @@ public class ActivityBasketStats extends FragmentActivity
 	private class PageListener implements OnPageChangeListener{
 
 		@Override
-		public void onPageScrollStateChanged(int arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onPageScrollStateChanged(int arg0) {}
 
 		@Override
-		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void onPageScrolled(int arg0, float arg1, int arg2) {}
 
 		@Override
 		public void onPageSelected(int page) {
 			switch(page){
 				case 0:
-					setTitle("Stats preview");
+					setTitle("Events");
 					break;
 				case 1:
-					setTitle("Match");
+					setTitle("Stats preview");
 					break;
 				case 2:
+					setTitle("Match");
+					break;
+				case 3:
 					setTitle("Player actions");
 					break;
 				default:
 					break;
 			}
 			
-			if(previousPage == 2 && bActionsConfirmed == false){
+			if(previousPage == 3 && bActionsConfirmed == false){
 				playerActionsDiscarded();
 			}
 			previousPage = page;
 		}
 	}
 	
+	public int getCurrentPage(){
+		return previousPage;
+	}
+	
+	// TODO:  TIME
+	
 	/**
 	 * This method increments the current minute of the game and checks for quarter transitions.
 	 * @return true if the game has ended, false otherwise
 	 * @author Josep
 	 */
-	public boolean addMinute(){
-		currentMinute ++;
+	public void addMinute(){
+		/*currentMinute ++;
 		
 		if(currentMinute == 10){
 			currentMinute = 0;
 			currentQuarter ++;
-			// TODO: provisional
 			homeTeamFouls = 0;
 			awayTeamFouls = 0;
 			insertDataFragment.updateFouls();
@@ -245,7 +456,16 @@ public class ActivityBasketStats extends FragmentActivity
 				return true;
 			}
 		}
-		return false;
+		return false;*/
+		currentMinute++;
+		if(currentQuarter <= 4){
+			currentQuarter = (currentMinute/10)+1;
+		}else{
+			currentQuarter = ((currentMinute%40)/5)+5;
+		}
+		
+		if(currentMinute > maximumMinute)
+			maximumMinute = currentMinute;
 	}
 	
 	/**
@@ -253,7 +473,7 @@ public class ActivityBasketStats extends FragmentActivity
 	 * @author Josep
 	 */
 	public void substractMinute(){
-		currentMinute --;
+		/*currentMinute --;
 		
 		if(currentMinute == -1){
 			currentMinute = 9;
@@ -262,7 +482,26 @@ public class ActivityBasketStats extends FragmentActivity
 				currentMinute = 0;
 				currentQuarter = 1;
 			}
+		}*/
+		currentMinute--;
+		
+		if(currentQuarter <= 4){
+			currentQuarter = (currentMinute/10)+1;
+		}else{
+			currentQuarter = ((currentMinute%40)/5)+5;
 		}
+	}
+	
+	public int getCurrentMinute(){
+		return currentMinute;
+	}
+	
+	public int getCurrentQuarter(){
+		return currentQuarter;
+	}
+	
+	public int getMaximumMinute(){
+		return maximumMinute;
 	}
 	
 	
@@ -272,10 +511,10 @@ public class ActivityBasketStats extends FragmentActivity
 	 * @return string with the form "Q" + currentQuarter + " - MIN. " + currentMinute.
 	 */
 	public String getTimeString(){
-		if(currentQuarter == 4 && currentMinute == 10){
-			return new String("END");
+		if(currentQuarter <= 4){
+			return new String("Q"+currentQuarter+" - MIN. "+(currentMinute%10));
 		}else{
-			return new String("Q"+currentQuarter+" - MIN. "+currentMinute);
+			return new String("OT"+String.valueOf(currentQuarter-4)+" - MIN. "+(currentMinute%5));
 		}
 	}
 	

@@ -1,18 +1,10 @@
 package adm.werock.sportstats;
 
-import java.util.ArrayList;
-
-import dao.DAOLeagues;
-import dao.DAOTeams;
-import adm.werock.sportstats.basics.League;
-import adm.werock.sportstats.basics.Team;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -30,13 +22,38 @@ import android.widget.Toast;
 
 
 public class ActivityChooseTeamOnline extends Activity {
-	ArrayList<League> leaguesList = new ArrayList<League>();
-	ArrayList<Team> teamsList = new ArrayList<Team>();
-	ArrayList<String> leagues = new ArrayList<String>();
-	ArrayList<String> teams = new ArrayList<String>();
-	
-	Adapter adapter2;
-	Adapter adapter;
+
+
+	String[] getLeagues(){
+
+		String[] items = new String [] {"Nacional", "Autonómica", "Preferente", "1ª Zonal", "2ª Zonal"};
+		return items;
+
+	}
+
+
+	String[] getTeams(String league){
+
+		Log.i("league: ", league);
+
+		if(league.compareTo("Nacional")==0)
+			return new String [] {"Miami", "Escolapias", "Buñol", "L'Eliana", "Xàtiva"};
+		if(league.compareTo("Autonómica")==0)
+			return new String [] {"Herbalife  Gran Canaria", "Valencia Bàsket", "Castellón C.B.", "Llíria", "Petraher"};
+		if(league.compareTo("Preferente")==0)
+			return new String [] {"San José", "Bezier Team", "Viejas Glorias", "Peñíscola", "Lucentum Alicante"};
+		if(league.compareTo("1ª Zonal")==0)
+			return new String [] {"Torrent", "Los Ángeles Lakers", "Andorra", "Manresa"};
+		if(league.compareTo("2ª Zonal")==0)
+			return new String [] {"Utah Jazz", "Jugoplástika", "Charlotte Bobcats", "Seattle Supersonics", "Tavernes de la Valldigna"};
+
+
+		return null;
+
+
+	}
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,29 +63,36 @@ public class ActivityChooseTeamOnline extends Activity {
 
 		//League spinner:
 		//Get leagues:
-		new TaskLeagues().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+		
+		
+		String[] leagues = getLeagues();
 		Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
-		
 		// Create an ArrayAdapter using the string array and a default spinner layout
-		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, leagues);
+		Adapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, leagues);
 		((ArrayAdapter<String>) adapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
 		// And apply the adapter to the spinner
 		leagueSpinner.setAdapter((SpinnerAdapter) adapter);
 		leagueSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
-				//Get teams from the selected league
-				new TaskTeams().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-				
+
+				Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
+				String[] teams = getTeams(leagueSpinner.getSelectedItem().toString());
+
 				Spinner localTeamSpinner = (Spinner) findViewById(R.id.localTeamSpinner);
 				Spinner awayTeamSpinner = (Spinner) findViewById(R.id.awayTeamSpinner);
-				adapter2 = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, teams);
-				((ArrayAdapter<String>) adapter2).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+				Adapter adapter2 = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, teams);
+				((ArrayAdapter<String>) adapter2).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				
 				localTeamSpinner.setAdapter((SpinnerAdapter) adapter2);
-				awayTeamSpinner.setAdapter((SpinnerAdapter) adapter2);	
+
+				awayTeamSpinner.setAdapter((SpinnerAdapter) adapter2);
+
+
+
 			}
 
 
@@ -108,89 +132,5 @@ public class ActivityChooseTeamOnline extends Activity {
 			startActivity(i);
 		}
 
-	}
-	private class TaskLeagues extends AsyncTask<Void, Void, Void> {
-
-		private ProgressDialog pDialog;
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-
-			pDialog = new ProgressDialog(ActivityChooseTeamOnline.this);
-			pDialog.setTitle("Contacting Servers");
-			pDialog.setMessage("Downloading data...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			//leaguesList = daoLeagues.getAllLeagues();
-
-			//DAOLeagues daoLeagues = new DAOLeagues();
-			leaguesList = DAOLeagues.getAllLeagues();
-			Log.v("LIGAS: ",Integer.toString(leaguesList.size()));
-			//teamsList = DAOTeams.getAllTeams(new League(1, "ACB"));
-			//Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void params) {
-			pDialog.dismiss();
-			leagues.clear();
-			for(int i=0;i<leaguesList.size();i++)
-				leagues.add(leaguesList.get(i).getName());
-			Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
-			leagueSpinner.setAdapter((SpinnerAdapter) adapter);
-		}
-
-	}
-	private class TaskTeams extends AsyncTask<Void, Void, Void> {
-
-		private ProgressDialog pDialog;
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-
-			pDialog = new ProgressDialog(ActivityChooseTeamOnline.this);
-			pDialog.setTitle("Contacting Servers");
-			pDialog.setMessage("Downloading data...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub			
-			int id = 0;
-			Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
-			String league = leagueSpinner.getSelectedItem().toString();
-			for(int i=0;i<leaguesList.size();i++)
-				if(leaguesList.get(i).getName().compareTo(league) == 0)
-					id = leaguesList.get(i).getLeagueId();
-
-			teamsList = DAOTeams.getAllTeams(new League(id, league));
-			Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void params) {
-			pDialog.dismiss();
-			teams.clear();
-			for(int i=0;i<teamsList.size();i++)
-				teams.add(teamsList.get(i).getName());	
-			Spinner localTeamSpinner = (Spinner) findViewById(R.id.localTeamSpinner);
-			localTeamSpinner.setAdapter((SpinnerAdapter) adapter2);
-			Spinner awayTeamSpinner = (Spinner) findViewById(R.id.awayTeamSpinner);
-			awayTeamSpinner.setAdapter((SpinnerAdapter) adapter2);
-		}
-		
 	}
 }

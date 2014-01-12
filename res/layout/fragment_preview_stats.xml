@@ -13,99 +13,174 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
+            
+            <!-- HOME TEAM PART -->
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/headerHomeTeam"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
+                android:layout_height="@dimen/stats_row_height"
                 android:background="@drawable/square_red_64"
-                android:text="Button" />
+                android:text="@string/headerPreviewStatsHomeTeam"
+                style="@style/HeaderSmall" />
             
-             <Button
-                android:id="@+id/button1"
+            <RelativeLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/stats_row_height" >
+			
+			    <Button
+			        android:id="@+id/headerHomeNumber"
+			        android:layout_width="@dimen/stats_number_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_alignParentLeft="true"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsNumber"
+			        style="@style/HeaderVerySmall"/>
+			
+			    <ImageView
+			        android:id="@+id/headerHomeNameImage"
+			        android:layout_width="match_parent"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_toRightOf="@+id/headerHomeNumber"
+			        android:scaleType="fitXY"
+			        android:src="@drawable/square_dark_gray_32" />
+			
+			    <TextView
+			        android:id="@+id/headerHomeNameText"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignBaseline="@+id/headerHomeNumber"
+			        android:layout_alignBottom="@+id/headerHomeNumber"
+			        android:layout_alignLeft="@+id/headerHomeNameImage"
+			        android:layout_marginLeft="10dp"
+			        style="@style/HeaderVerySmall"
+			        android:text="@string/headerPreviewStatsName"/>
+			    
+			    <Button
+			        android:id="@+id/headerHomeFouls"
+			        android:layout_width="@dimen/stats_fouls_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_alignParentRight="true"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsFouls"
+			        style="@style/HeaderVerySmall" />
+			    
+			    <Button
+			        android:id="@+id/headerHomeFreeThrows"
+			        android:layout_width="@dimen/stats_freethrows_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_toLeftOf="@id/headerHomeFouls"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsFreeThrows"
+			        style="@style/HeaderVerySmall" />
+			    
+			    <Button
+			        android:id="@+id/headerHomePoints"
+			        android:layout_width="@dimen/stats_points_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_toLeftOf="@id/headerHomeFreeThrows"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsPoints"
+			        style="@style/HeaderVerySmall" />
+			    
+			</RelativeLayout>
+		
+	        <LinearLayout
+	            android:id="@+id/homePlayersContainer"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical" >
+	    	</LinearLayout>
+	    	
+	        <!-- AWAY TEAM PART -->
+	        
+	        <Button
+                android:id="@+id/headerAwayTeam"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_gray_64"
-                android:text="Button" />
-             
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_lightgray_64"
-                android:text="Button" />
-              
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_gray_64"
-                android:text="Button" />
-             
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_lightgray_64"
-                android:text="Button" />
-              
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_gray_64"
-                android:text="Button" />
-             
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_lightgray_64"
-                android:text="Button" />
-              
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_gray_64"
-                android:text="Button" />
-             
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_lightgray_64"
-                android:text="Button" />
-              
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_gray_64"
-                android:text="Button" />
-             
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_lightgray_64"
-                android:text="Button" />
-              
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_gray_64"
-                android:text="Button" />
-             
-              <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_button_size"
-                android:background="@drawable/square_lightgray_64"
-                android:text="Button" />
+                android:layout_height="@dimen/stats_row_height"
+                android:background="@drawable/square_red_64"
+                android:text="@string/headerPreviewStatsAwayTeam"
+                style="@style/HeaderSmall" />
+            
+            <RelativeLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/stats_row_height" >
+			
+			    <Button
+			        android:id="@+id/headerAwayNumber"
+			        android:layout_width="@dimen/stats_number_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_alignParentLeft="true"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsNumber"
+			        style="@style/HeaderVerySmall" />
+			
+			    <ImageView
+			        android:id="@+id/headerAwayNameImage"
+			        android:layout_width="match_parent"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_toRightOf="@+id/headerAwayNumber"
+			        android:scaleType="fitXY"
+			        android:src="@drawable/square_dark_gray_32" />
+			
+			    <TextView
+			        android:id="@+id/headerAwayNameText"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignBaseline="@+id/headerAwayNumber"
+			        android:layout_alignBottom="@+id/headerAwayNumber"
+			        android:layout_alignLeft="@+id/headerAwayNameImage"
+			        android:layout_marginLeft="10dp"
+			        android:text="@string/headerPreviewStatsName"
+			        style="@style/HeaderVerySmall" />
+			    
+			    <Button
+			        android:id="@+id/headerAwayFouls"
+			        android:layout_width="@dimen/stats_fouls_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_alignParentRight="true"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsFouls"
+			        style="@style/HeaderVerySmall" />
+			    
+			    <Button
+			        android:id="@+id/headerAwayFreeThrows"
+			        android:layout_width="@dimen/stats_freethrows_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_toLeftOf="@id/headerAwayFouls"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsFreeThrows"
+			        style="@style/HeaderVerySmall" />
+			    
+			    <Button
+			        android:id="@+id/headerAwayPoints"
+			        android:layout_width="@dimen/stats_points_column"
+			        android:layout_height="@dimen/stats_row_height"
+			        android:layout_toLeftOf="@id/headerAwayFreeThrows"
+			        android:layout_alignParentTop="true"
+			        android:background="@drawable/square_dark_gray_32"
+			        android:text="@string/headerPreviewStatsPoints"
+			        style="@style/HeaderVerySmall" />
+			    
+			</RelativeLayout>
+		
+	        <LinearLayout
+	            android:id="@+id/awayPlayersContainer"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical" >
+	    	</LinearLayout>
             
         </LinearLayout>
     </ScrollView>
+
+   
 
 </LinearLayout>

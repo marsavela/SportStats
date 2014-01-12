@@ -3,6 +3,15 @@
  */
 package adm.werock.sportstats.basics;
 
+//     Event types
+// -------------------
+//  A - Assign number
+//  S - Score
+//  F - Foul
+// FI - Free Throw In
+// FO - Free Throw Out
+// -------------------
+
 public class Event {
 	
 	private int id;

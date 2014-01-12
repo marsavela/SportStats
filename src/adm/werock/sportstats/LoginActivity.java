@@ -30,7 +30,7 @@ import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
 
 import dao.DAOLeagues;
-import dao.DAOTeams;
+//import dao.DAOTeams;
 import dao.DAOUsers;
 
 public class LoginActivity extends Activity {
@@ -41,8 +41,8 @@ public class LoginActivity extends Activity {
 //	private static DAOUsers daoUser;
 	String userMailString="null";
  	String userPasswordString="null";
-
-	ArrayList<League> leaguesList = new ArrayList<League>();
+ 	
+ 	ArrayList<League> leaguesList = new ArrayList<League>();
 	ArrayList<Team> teamsList = new ArrayList<Team>();
 	
 	@Override
@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);  
-
+		
         final DAOUsers daoUser = new DAOUsers(this);
 		
 
@@ -71,6 +71,7 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
             	//launchMyActs();
             	new TaskLeagues().execute();
+            	launchMyActs();
             }
         });
 		
@@ -167,8 +168,8 @@ public class LoginActivity extends Activity {
 		Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
 	}
-	
-	private class TaskLeagues extends AsyncTask<Void, Void, Void> {
+
+private class TaskLeagues extends AsyncTask<Void, Void, Void> {
         
         private ProgressDialog pDialog;
         
@@ -190,10 +191,10 @@ public class LoginActivity extends Activity {
         	//leaguesList = daoLeagues.getAllLeagues();
 
             //DAOLeagues daoLeagues = new DAOLeagues();
-        	leaguesList = DAOLeagues.getAllLeagues();
+        	/*leaguesList = DAOLeagues.getAllLeagues();
         	Log.v("LIGAS: ",Integer.toString(leaguesList.size()));
         	teamsList = DAOTeams.getAllTeams(new League(1, "ACB"));
-        	Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
+        	Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));*/
 			return null;
         }
 

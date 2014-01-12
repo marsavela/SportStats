@@ -1,5 +1,7 @@
 package adm.werock.sportstats;
 
+import java.util.ArrayList;
+
 import adm.werock.sportstats.R.id;
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,8 +18,8 @@ public class PlayerBasketDataFragment extends Fragment{
 	
 	private Button buttonAdd2Points;
 	private Button buttonAdd3Points;
-	private Button buttonRemove1Point;
 	private Button buttonRemove2Points;
+	private Button buttonRemove3Points;
 	private Button buttonAddFreeThrowMade;
 	private Button buttonAddFreeThrowMissed;
 	private Button buttonRemoveFreeThrowMade;
@@ -32,10 +34,17 @@ public class PlayerBasketDataFragment extends Fragment{
 	private Button headerPlayerStatsToAddFreeThrows;
 	
 	private ActPlayer player = null;
-	private int pointsToAdd = 0;
-	private int foulsToAdd  = 0;
-	private int freeThrowsMadeToAdd = 0;
-	private int freeThrowsMissedToAdd = 0;
+	
+	private int points2Count = 0;
+	private int points3Count = 0;
+	private int freeThrowsInCount = 0;
+	private int freeThrowsOutCount = 0;
+	private int foulsCount = 0;
+	
+	private int currentMinute = 0;
+	private boolean bHomePlayer;
+	private int playerPosition;
+	private ArrayList<ActEvent> events = new ArrayList<ActEvent>();
 	
 	private ActivityBasketStats parent;
 	
@@ -58,8 +67,8 @@ public class PlayerBasketDataFragment extends Fragment{
 		
 		buttonAdd2Points = (Button) v.findViewById(R.id.buttonAdd2Points);
 		buttonAdd3Points = (Button) v.findViewById(R.id.buttonAdd3Points);
-		buttonRemove1Point = (Button) v.findViewById(R.id.buttonRemovePoint);
-		buttonRemove2Points	= (Button) v.findViewById(R.id.buttonRemove2Points);
+		buttonRemove2Points = (Button) v.findViewById(R.id.buttonRemove2Points);
+		buttonRemove3Points	= (Button) v.findViewById(R.id.buttonRemove3Points);
 		buttonAddFreeThrowMade = (Button) v.findViewById(R.id.buttonAddFreeThrowMade);
 		buttonAddFreeThrowMissed = (Button) v.findViewById(R.id.buttonAddFreeThrowMissed);
 		buttonRemoveFreeThrowMade = (Button) v.findViewById(R.id.buttonRemoveFreeThrowMade);
@@ -76,8 +85,8 @@ public class PlayerBasketDataFragment extends Fragment{
 		//buttonPlayerHome1.setOnClickListener(new HandlerButtonHome(1));
 		buttonAdd2Points.setOnTouchListener(new HandlerActionButton(buttonAdd2Points, 1));
 		buttonAdd3Points.setOnTouchListener(new HandlerActionButton(buttonAdd3Points, 2));
-		buttonRemove1Point.setOnTouchListener(new HandlerActionButton(buttonRemove1Point, 3));
-		buttonRemove2Points.setOnTouchListener(new HandlerActionButton(buttonRemove2Points, 4));
+		buttonRemove2Points.setOnTouchListener(new HandlerActionButton(buttonRemove2Points, 3));
+		buttonRemove3Points.setOnTouchListener(new HandlerActionButton(buttonRemove3Points, 4));
 		buttonAddFreeThrowMade.setOnTouchListener(new HandlerActionButton(buttonAddFreeThrowMade, 5));
 		buttonAddFreeThrowMissed.setOnTouchListener(new HandlerActionButton(buttonAddFreeThrowMissed, 6));
 		buttonRemoveFreeThrowMade.setOnTouchListener(new HandlerActionButton(buttonRemoveFreeThrowMade, 7));
@@ -102,6 +111,10 @@ public class PlayerBasketDataFragment extends Fragment{
     	
     	// Get the current player selected and preview its stats
     	player = parent.getSelectedPlayer();
+    	playerPosition = parent.getSelectedPlayerIndex();
+    	bHomePlayer = parent.isHomePlayerSelected();
+    	
+    	currentMinute = parent.getCurrentMinute();
     	
     	headerPlayerName.setText(player.toString());
     	headerPlayerStatsPrevious.setText(getResources().getString(R.string.labelPoints)+player.getPoints()+" "+
@@ -116,9 +129,9 @@ public class PlayerBasketDataFragment extends Fragment{
 	 */
 	private void updateStatsToAdd()
 	{
-		headerPlayerStatsToAddPointsFouls.setText(getResources().getString(R.string.labelPoints)+pointsToAdd+" "+
-		  		  								  getResources().getString(R.string.labelFouls)+foulsToAdd);
-		headerPlayerStatsToAddFreeThrows.setText(getResources().getString(R.string.labelFreeThrows)+freeThrowsMadeToAdd+"/"+freeThrowsMissedToAdd);
+		headerPlayerStatsToAddPointsFouls.setText(getResources().getString(R.string.labelPoints)+(points2Count*2+points3Count*3)+" "+
+		  		  								  getResources().getString(R.string.labelFouls)+(foulsCount));
+		headerPlayerStatsToAddFreeThrows.setText(getResources().getString(R.string.labelFreeThrows)+(freeThrowsInCount)+"/"+(freeThrowsOutCount));
 	}
 	
 	/**
@@ -127,12 +140,67 @@ public class PlayerBasketDataFragment extends Fragment{
 	 */
 	private void confirmActions()
 	{
-		player.addPoints(pointsToAdd+freeThrowsMadeToAdd);
-		parent.addPoints(pointsToAdd+freeThrowsMadeToAdd, parent.isHomePlayerSelected());
-		player.addFouls(foulsToAdd);
-		parent.addFouls(foulsToAdd, parent.isHomePlayerSelected());
-		player.addFreeThrowsMade(freeThrowsMadeToAdd);
-		player.addFreeThrowsMissed(freeThrowsMissedToAdd);
+		// Points
+		if(points2Count >= 1){
+			for(int i=0; i<points2Count; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "P", 2, currentMinute));
+			}
+		}else if(points2Count <= -1){
+			for(int i=0; i<-points2Count; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "P", -2, currentMinute));
+			}
+		}
+		
+		if(points3Count >= 1){
+			for(int i=0; i<points3Count; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "P", 3, currentMinute));
+			}
+		}else if(points3Count <= -1){
+			for(int i=0; i<-points3Count; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "P", -3, currentMinute));
+			}
+		}
+		
+		// Free Throws
+		if(freeThrowsInCount >= 1){
+			for(int i=0; i<freeThrowsInCount; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FTI", 1, currentMinute));
+			}
+		}else if(freeThrowsInCount <= -1){
+			for(int i=0; i<-freeThrowsInCount; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FTI", -1, currentMinute));
+			}
+		}
+		
+		if(freeThrowsOutCount >= 1){
+			for(int i=0; i<freeThrowsOutCount; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FTO", 1, currentMinute));
+			}
+		}else if(freeThrowsOutCount <= -1){
+			for(int i=0; i<-freeThrowsOutCount; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FTO", -1, currentMinute));
+			}
+		}
+		
+		// Fouls
+		if(foulsCount >= 1){
+			for(int i=0; i<foulsCount; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "F", 1, currentMinute));
+			}
+		}else if(foulsCount <= -1){
+			for(int i=0; i<-foulsCount; i++){
+				events.add(new ActEvent(bHomePlayer, playerPosition, "F", -1, currentMinute));
+			}
+		}
+		
+		// Process Events
+		for(int i=0; i<events.size(); i++){
+			ActEvent event = events.get(i);
+			
+			if(parent.addEvent(event)){
+				parent.rebuildFromEvents();
+			}
+		}
 	}
 	
 	// HANDLERS
@@ -179,27 +247,58 @@ public class PlayerBasketDataFragment extends Fragment{
 		}
 		
 		private void doAction(int action){
+			int result;
 			switch(action){
+				// Add 2 Points
 				case 1:
-					pointsToAdd += 2; break;
+					points2Count++;
+					break;
+					
+				// Add 3 Points
 				case 2:
-					pointsToAdd += 3; break;
+					points3Count++;
+					break;
+					
+				// Remove 2 Points	
 				case 3:
-					pointsToAdd -= 1; break;
+					points2Count--;
+					break;
+					
+				// Remove 3 Points
 				case 4:
-					pointsToAdd -= 2; break;
+					points3Count--;
+					break;
+					
+				// Add 1 Free Throw Made
 				case 5:
-					freeThrowsMadeToAdd += 1; break;
+					freeThrowsInCount++;
+					break;
+					
+				// Add 1 Free Throw Missed
 				case 6:
-					freeThrowsMissedToAdd += 1; break;
+					freeThrowsOutCount++;
+					break;
+					
+				// Remove 1 Free Throw Made
 				case 7:
-					freeThrowsMadeToAdd -= 1; break;
+					freeThrowsInCount--;
+					break;
+					
+				// Remove 1 Free Throw Missed
 				case 8:
-					freeThrowsMissedToAdd -= 1; break;
+					freeThrowsOutCount--;
+					break;
+					
+				// Add 1 Foul
 				case 9:
-					foulsToAdd += 1; break;
+					foulsCount++;
+					break;
+					
+				// Remove 1 Foul
 				case 10:
-					foulsToAdd -= 1; break;
+					foulsCount--;
+					break;
+					
 				default:
 					break;
 			}
@@ -233,7 +332,6 @@ public class PlayerBasketDataFragment extends Fragment{
 			}
 			return true;
 		}
-		
 	}
-
+	
 }
