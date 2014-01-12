@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/stats_row_height" >
+
+    <Button
+        android:id="@+id/buttonPlayerStatsNumber"
+        android:layout_width="@dimen/stats_number_column"
+        android:layout_height="@dimen/stats_row_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/square_light_gray_32"
+        android:text="#" />
+
+    <ImageView
+        android:id="@+id/imagePlayerStatsName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stats_row_height"
+        android:layout_toRightOf="@+id/buttonPlayerStatsNumber"
+        android:scaleType="fitXY"
+        android:src="@drawable/square_almost_white_32" />
+
+    <TextView
+        android:id="@+id/textPlayerStatsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonPlayerStatsNumber"
+        android:layout_alignBottom="@+id/buttonPlayerStatsNumber"
+        android:layout_alignLeft="@+id/imagePlayerStatsName"
+        android:layout_marginLeft="10dp"
+        style="@style/ActListItemMediumText"
+        android:text="P.Name loooooooogng" />
+    
+    <Button
+        android:id="@+id/buttonPlayerStatsFouls"
+        android:layout_width="@dimen/stats_fouls_column"
+        android:layout_height="@dimen/stats_row_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/square_light_gray_32"
+        android:text="1" />
+    
+    <Button
+        android:id="@+id/buttonPlayerStatsFreeThrows"
+        android:layout_width="@dimen/stats_freethrows_column"
+        android:layout_height="@dimen/stats_row_height"
+        android:layout_toLeftOf="@id/buttonPlayerStatsFouls"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/square_almost_white_32"
+        android:text="1/2" />
+    
+    <Button
+        android:id="@+id/buttonPlayerStatsPoints"
+        android:layout_width="@dimen/stats_points_column"
+        android:layout_height="@dimen/stats_row_height"
+        android:layout_toLeftOf="@id/buttonPlayerStatsFreeThrows"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/square_light_gray_32"
+        android:text="20" />
+    
+    <ImageView
+        android:id="@+id/imagePlayerStatsSeparator"
+        android:layout_width="@dimen/stats_separator_column"
+        android:layout_height="@dimen/stats_row_height"
+        android:layout_toLeftOf="@+id/buttonPlayerStatsPoints"
+        android:scaleType="fitXY"
+        android:src="@drawable/square_almost_white_32" />
+
+</RelativeLayout>

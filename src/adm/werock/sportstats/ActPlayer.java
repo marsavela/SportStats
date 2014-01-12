@@ -25,8 +25,16 @@ public class ActPlayer {
 	}
 	
 	public String toString(){
-		return new String(number + " - " + name.charAt(0)+". "+surname);
+		//return new String(number + " - " + name.charAt(0)+". "+surname);
 		//return surname;
+		return new String(name.charAt(0)+". "+surname);
+	}
+	
+	public void resetStats(){
+		points = 0;
+		freeThrowsMade = 0;
+		freeThrowsMissed = 0;
+		fouls = 0;
 	}
 	
 	//
@@ -55,6 +63,10 @@ public class ActPlayer {
 	
 	public int getFreeThrowsMissed(){
 		return freeThrowsMissed;
+	}
+	
+	public int getFreeThrowsTotal(){
+		return freeThrowsMade+freeThrowsMissed;
 	}
 	
 	public int getFouls(){

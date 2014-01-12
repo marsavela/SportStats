@@ -77,6 +77,9 @@
     <string name="selectNotPlaying">Player not called</string>
     <string name="selectStartingPlayer">Starting player</string>
 
+    <!-- Activity Basket Stats -->
+    <string name="menuHelp">Help</string>
+    
     <!-- Act Fragment -->
     <string name="titleActFragment">Match</string>
     <string name="labelHome">HOME</string>
@@ -88,7 +91,7 @@
     <string name="labelAdd2points">+2 Points</string>
     <string name="labelAdd3points">+3 Points</string>
     <string name="labelRemove2Points">-2 Points</string>
-    <string name="labelRemovePoint">-1 Point</string>
+    <string name="labelRemove3Points">-3 Point</string>
     <string name="labelAddFreeThrowMade">+1 FT in</string>
     <string name="labelAddFreeThrowMissed">+1 FT out</string>
     <string name="labelRemoveFreeThrowMade">-1 FT in</string>
@@ -107,5 +110,23 @@
     <string name="title_activity_activity_choose_team_offline">ActivityChooseTeamOffline</string>
     <string name="sameTeams">Choose different teams!</string>
     <string name="emptyTeams">You cannot have empty teams</string>
+    
+    <!-- Preview Stats Fragment -->
+    <string name="headerPreviewStatsHomeTeam">HOME TEAM</string>
+    <string name="headerPreviewStatsAwayTeam">AWAY TEAM</string>
+    <string name="headerPreviewStatsNumber">Nº</string>
+    <string name="headerPreviewStatsName">NAME</string>
+    <string name="headerPreviewStatsPoints">PTS</string>
+    <string name="headerPreviewStatsFreeThrows">FT</string>
+    <string name="headerPreviewStatsFouls">F</string>
+    
+    <!-- Event List Fragment -->
+    <string name="headerFirstQuarter">1st Quarter</string>
+    <string name="headerSecondQuarter">2nd Quarter</string>
+    <string name="headerThirdQuarter">3rd Quarter</string>
+    <string name="headerFourthQuarter">4th Quarter</string>
+    <string name="headerOvertime">Overtime</string>
+    <string name="headerMinute">Minute</string>
+    <string name="optionDeleteEvent">Delete</string>
 
 </resources>

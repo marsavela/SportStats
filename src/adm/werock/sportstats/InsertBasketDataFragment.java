@@ -152,21 +152,19 @@ public class InsertBasketDataFragment extends Fragment
 		public boolean onTouch(View v, MotionEvent event) {
 			switch(event.getAction()){
 				case MotionEvent.ACTION_DOWN:
-					button.setBackgroundResource(R.drawable.square_lightgray_64);
+					button.setBackgroundResource(R.drawable.square_gray_64);
 					break;
 				case MotionEvent.ACTION_UP:
-					button.setBackgroundResource(R.drawable.square_gray_64);
+					button.setBackgroundResource(R.drawable.square_dark_gray_32);
 					if(bAdd){
-						if(parent.addMinute()){
-							// TODO: when the game it's over, deactivate the buttons maybe?
-						}
+						parent.addMinute();
 					}else{
 						parent.substractMinute();
 					}
 					buttonCurrentMinute.setText(parent.getTimeString());
 					break;
 				default:
-					button.setBackgroundResource(R.drawable.square_gray_64);
+					button.setBackgroundResource(R.drawable.square_dark_gray_32);
 					break;
 			}
 			return true;
