@@ -6,7 +6,9 @@ import java.util.Arrays;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import adm.werock.sportstats.basics.Act;
 import adm.werock.sportstats.basics.League;
+import adm.werock.sportstats.basics.Player;
 import adm.werock.sportstats.basics.Team;
 import adm.werock.sportstats.basics.User;
 import android.app.Activity;
@@ -29,7 +31,10 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.facebook.widget.LoginButton.OnErrorListener;
 
+import dao.DAOActs;
 import dao.DAOLeagues;
+import dao.DAOPlayers;
+import dao.DAOTeams;
 //import dao.DAOTeams;
 import dao.DAOUsers;
 
@@ -44,6 +49,8 @@ public class LoginActivity extends Activity {
  	
  	ArrayList<League> leaguesList = new ArrayList<League>();
 	ArrayList<Team> teamsList = new ArrayList<Team>();
+	ArrayList<Player> playersList = new ArrayList<Player>();
+	ArrayList<Act> actsList = new ArrayList<Act>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +77,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
             	//launchMyActs();
-            	new TaskLeagues().execute();
+            	new Task().execute();
             	launchMyActs();
             }
         });
@@ -154,7 +161,7 @@ public class LoginActivity extends Activity {
 	private void loginUser(){
 		
 		//DAOUsers.checkUser(userMailString, userPasswordString);
-		TaskLeagues task = new TaskLeagues();
+		Task task = new Task();
         task.execute();
 		
 	}
@@ -169,7 +176,7 @@ public class LoginActivity extends Activity {
         startActivity(i);
 	}
 
-private class TaskLeagues extends AsyncTask<Void, Void, Void> {
+private class Task extends AsyncTask<Void, Void, Void> {
         
         private ProgressDialog pDialog;
         
@@ -191,10 +198,14 @@ private class TaskLeagues extends AsyncTask<Void, Void, Void> {
         	//leaguesList = daoLeagues.getAllLeagues();
 
             //DAOLeagues daoLeagues = new DAOLeagues();
-        	/*leaguesList = DAOLeagues.getAllLeagues();
+        	leaguesList = DAOLeagues.getAllLeagues();
         	Log.v("LIGAS: ",Integer.toString(leaguesList.size()));
         	teamsList = DAOTeams.getAllTeams(new League(1, "ACB"));
-        	Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));*/
+        	Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
+        	playersList = DAOPlayers.getPlayersOfATeam(new Team(6, "asd", 1));
+        	Log.v("JUGADORES:",Integer.toString(playersList.size()));
+        	actsList = DAOActs.getAct(new User("dieparo@gmail.com","Diego"));
+        	Log.v("ACTAS:",Integer.toString(playersList.size()));
 			return null;
         }
 

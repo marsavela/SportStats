@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import adm.werock.sportstats.JSONParser;
 import adm.werock.sportstats.basics.Player;
+import adm.werock.sportstats.basics.Team;
 import android.util.Log;
 
 /**
@@ -24,12 +25,12 @@ public class DAOPlayers {
 
 	private static final String TAG_SUCCESS = "success";
 	private static final String TAG_PLAYERS = "players";
-	private static final String TAG_PID = "id";
+	private static final String TAG_LICENSE = "licensnumber";
 	private static final String TAG_NAME = "name";
 	private static final String TAG_SURNAME = "surname";
 	private static final String TAG_TID = "id_teams";
 
-	public static ArrayList<Player> getAllTeams(Player player) {
+	public static ArrayList<Player> getPlayersOfATeam(Team team) {
 
 		ArrayList<Player> playersList = new ArrayList<Player>();
 
@@ -38,7 +39,7 @@ public class DAOPlayers {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("id_leagues", Integer.toString(player.getTeamId())));
+		params.add(new BasicNameValuePair("id_teams", Integer.toString(team.getTeamId())));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method
@@ -62,7 +63,7 @@ public class DAOPlayers {
 					JSONObject c = teams.getJSONObject(i);
 
 					// Storing each json item in variable
-					int id = c.getInt(TAG_PID);
+					int id = c.getInt(TAG_LICENSE);
 					String name = c.getString(TAG_NAME);
 					String surname = c.getString(TAG_SURNAME);
 					int idTeam = c.getInt(TAG_TID);
@@ -74,8 +75,6 @@ public class DAOPlayers {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
-		//new GetAllTeams().execute(league);
 
 		return playersList;
 	}
