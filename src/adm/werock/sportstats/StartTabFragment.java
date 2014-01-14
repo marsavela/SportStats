@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 public class StartTabFragment extends Fragment {
 	int captainCounterHome, captainCounterVisitor;
-	int activeCounterHome, activeCounterVisitor;
+	int starterCounterHome, starterCounterVisitor;
+	int totalPlayersHome, totalPlayersVisitor;
 	Button startButton;
 	private SharedPreferences pref;
 	
@@ -38,24 +39,27 @@ public class StartTabFragment extends Fragment {
 		        
 		        public void onClick(View v) {
 		        	//We get the number of captains and active players in order to check everything is ok
-		    		
+		    		//Log.i("holaaaa", pref.getInt("prefTotalPlayersHome", 0)+"");
 		    		captainCounterHome = pref.getInt("prefCaptainCounterHome", 0);
 		    		captainCounterVisitor = pref.getInt("prefCaptainCounterVisitor", 0);
-		    		activeCounterHome = pref.getInt("prefActiveCounterHome", 0);
-		    		activeCounterVisitor = pref.getInt("prefActiveCounterVisitor", 0);
-		    			        
-		        	if(captainCounterHome != 1 || activeCounterHome<4){
+		    		starterCounterHome = pref.getInt("prefStarterCounterHome", 0);
+		    		starterCounterVisitor = pref.getInt("prefStarterCounterVisitor", 0);
+		    		totalPlayersHome = pref.getInt("prefTotalPlayersHome", 0);
+		    		totalPlayersVisitor = pref.getInt("prefTotalPlayersVisitor", 0);
+		        	if(captainCounterHome != 1 || starterCounterHome<4){
 			        	if(captainCounterHome!=1)
 			        		Toast.makeText(getActivity().getApplicationContext(), "TeamA needs a captain", Toast.LENGTH_SHORT).show();
-			            if(activeCounterHome <4)
-			        		Toast.makeText(getActivity().getApplicationContext(), "TeamA needs 4 active players", Toast.LENGTH_SHORT).show();
+			            if(starterCounterHome <4)
+			        		Toast.makeText(getActivity().getApplicationContext(), "TeamA needs 4 starter players", Toast.LENGTH_SHORT).show();
 		        	}
-		        	else if(captainCounterVisitor != 1 || activeCounterVisitor<4){
+		        	else if(captainCounterVisitor != 1 || starterCounterVisitor<4){
 			        	if(captainCounterVisitor!=1)
 			        		Toast.makeText(getActivity().getApplicationContext(), "TeamB needs a captain", Toast.LENGTH_SHORT).show();
-			            if(activeCounterVisitor <4)
-			        		Toast.makeText(getActivity().getApplicationContext(), "TeamB needs 4 active players", Toast.LENGTH_SHORT).show();
+			            if(starterCounterVisitor <4)
+			        		Toast.makeText(getActivity().getApplicationContext(), "TeamB needs 4 starter players", Toast.LENGTH_SHORT).show();
 		        	}
+		        	else if(totalPlayersHome > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamA have more than 12 players", Toast.LENGTH_SHORT).show();
+		        	else if(totalPlayersVisitor > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
 		        	else{
 		            Intent i = new Intent(getActivity(), ActivityBasketStats.class);
 		            startActivity(i);

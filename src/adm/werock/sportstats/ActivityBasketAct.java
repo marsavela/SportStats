@@ -1,19 +1,31 @@
 package adm.werock.sportstats;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import dao.DAOActs;
+import dao.DAOLeagues;
+import dao.DAOPlayers;
+import dao.DAOTeams;
+
+import adm.werock.sportstats.basics.League;
+import adm.werock.sportstats.basics.Player;
+import adm.werock.sportstats.basics.Team;
+import adm.werock.sportstats.basics.User;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -46,6 +58,7 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
+	ArrayList<Player> playersList = new ArrayList<Player>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,42 +68,42 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		Editor editor = pref.edit();
 		editor.remove("myPref");
 		editor.commit();
-		
-		
-		
+
+		new TaskPlayers().execute();
+
 		//cleaning the preferences each time we create a new act
-		 pref = getSharedPreferences("teamPrefs", Context.MODE_MULTI_PROCESS);
-		 editor = pref.edit();
-		
+		pref = getSharedPreferences("teamPrefs", Context.MODE_MULTI_PROCESS);
+		editor = pref.edit();
+
 		String local= pref.getString("prefLocalTeam", "LOCAL");
 		String visitor= pref.getString("prefVisitorTeam", "VISITOR");
 		//editor.remove("myPref");
 		editor.commit();
-	
-		
+
+
 		// Tab titles
 		String[] tabs = { this.getString(R.string.general),local, visitor, this.getString(R.string.start) };
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		
+
 		//Check the wifi and 3g connection//////////////
 		ConnectivityManager manager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
 		CheckConnection check = new CheckConnection();
 		//For 3G check
 		boolean is3g = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-		            .isConnectedOrConnecting();
+				.isConnectedOrConnecting();
 		//For WiFi Check
 		boolean isWifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-		            .isConnectedOrConnecting();
+				.isConnectedOrConnecting();
 		check.setWifi(isWifi);
 		check.setThreeG(is3g);
 		///////////////////////////////////////////////
-		
+
 		viewPager.setOffscreenPageLimit(4);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-			mAdapter.myCheck(check);
+		mAdapter.myCheck(check);
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
@@ -171,137 +184,163 @@ We have to manually change the view using Tab change listener.*/
 
 	}
 
-
-
-
-
-
-
-
-
-	
-
-
-@Override
-public void onClick(View v) {
-	// TODO Auto-generated method stub
-	Log.i("asddas",v.getId()+"" );	
-}
-
-@Override
-protected Dialog onCreateDialog(int id) {
-	switch (id) {
-	case TIME_DIALOG_ID:
-		// set time picker as current time
-		return new TimePickerDialog(this, 
-				timePickerListener, hour, minute,false);
-	case DATE_DIALOG_ID:
-		// set time picker as current time
-		return new DatePickerDialog(this, datePickerListener, 
-				syear, month,day);
-
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		Log.i("asddas",v.getId()+"" );	
 	}
-	return null;
-}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case TIME_DIALOG_ID:
+			// set time picker as current time
+			return new TimePickerDialog(this, 
+					timePickerListener, hour, minute,false);
+		case DATE_DIALOG_ID:
+			// set time picker as current time
+			return new DatePickerDialog(this, datePickerListener, 
+					syear, month,day);
+
+		}
+		return null;
+	}
 
 
 
-//////////////////////SET TIME////////////////////////////////////
-//Set the current hour and calls the time picker dialog//////////
+	//////////////////////SET TIME////////////////////////////////////
+	//Set the current hour and calls the time picker dialog//////////
 
-public void setTime(View view){
+	public void setTime(View view){
 
 
-	timePicker = (TimePicker) findViewById(R.id.timePicker1);
-	timeText = (TextView) findViewById(R.id.TimeText);
-	final Calendar c = Calendar.getInstance();
-	hour = c.get(Calendar.HOUR_OF_DAY);
-	minute = c.get(Calendar.MINUTE);
-
-	// set current time into textview
-	timeText.setText(
-			new StringBuilder().append(pad(hour))
-			.append(":").append(pad(minute)));
-
-	// set current time into timepicker
-	timePicker.setCurrentHour(hour);
-	timePicker.setCurrentMinute(minute);
-	//Shows time picker with the actual time
-	showDialog(TIME_DIALOG_ID);
-}
-
-//Shows 
-private TimePickerDialog.OnTimeSetListener timePickerListener = 
-new TimePickerDialog.OnTimeSetListener() {
-	public void onTimeSet(TimePicker view, int selectedHour,
-			int selectedMinute) {
-		hour = selectedHour;
-		minute = selectedMinute;
+		timePicker = (TimePicker) findViewById(R.id.timePicker1);
+		timeText = (TextView) findViewById(R.id.TimeText);
+		final Calendar c = Calendar.getInstance();
+		hour = c.get(Calendar.HOUR_OF_DAY);
+		minute = c.get(Calendar.MINUTE);
 
 		// set current time into textview
-		timeText.setText(new StringBuilder().append(pad(hour))
+		timeText.setText(
+				new StringBuilder().append(pad(hour))
 				.append(":").append(pad(minute)));
 
 		// set current time into timepicker
 		timePicker.setCurrentHour(hour);
 		timePicker.setCurrentMinute(minute);
+		//Shows time picker with the actual time
+		showDialog(TIME_DIALOG_ID);
+	}
+
+	//Shows 
+	private TimePickerDialog.OnTimeSetListener timePickerListener = 
+			new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int selectedHour,
+				int selectedMinute) {
+			hour = selectedHour;
+			minute = selectedMinute;
+
+			// set current time into textview
+			timeText.setText(new StringBuilder().append(pad(hour))
+					.append(":").append(pad(minute)));
+
+			// set current time into timepicker
+			timePicker.setCurrentHour(hour);
+			timePicker.setCurrentMinute(minute);
+
+		}
+	};
+
+	//Puts a 0 at the right of numbers from 1 to 9
+	private static String pad(int c) {
+		if (c >= 10)
+			return String.valueOf(c);
+		else
+			return "0" + String.valueOf(c);
+	}
+	////////////////////////END SET TIME/////////////////////////////////
+
+
+	/////////////////////////SET DATE////////////////////////////////////
+	public void setDate(View view){	
+		dateText = (EditText) findViewById(R.id.DateText);
+		datePicker = (DatePicker) findViewById(R.id.datePicker1);
+
+		final Calendar c = Calendar.getInstance();
+		syear = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);
+
+		// set current date into textview
+		dateText.setText(new StringBuilder()
+		// Month is 0 based, just add 1
+		.append(day).append("-").append(month + 1).append("-")
+		.append(syear).append(" "));
+
+		// set current date into datepicker
+		datePicker.init(syear, month, day, null);
+
+		//Shows date picker with the actual date
+		showDialog(DATE_DIALOG_ID);
+	}
+
+	private DatePickerDialog.OnDateSetListener datePickerListener 
+	= new DatePickerDialog.OnDateSetListener() {
+
+		// when dialog box is closed, below method will be called.
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+			syear = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			// set selected date into textview
+			dateText.setText(new StringBuilder().append(month + 1)
+					.append("-").append(day).append("-").append(syear)
+					.append(" "));
+
+			// set selected date into datepicker also
+			datePicker.init(syear, month, day, null);	
+		}
+	};
+	////////////////////////END SET DATE/////////////////////////////////
+
+	public class TaskPlayers extends AsyncTask<Void, Void, Void> {
+
+		private ProgressDialog pDialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+			pDialog = new ProgressDialog(ActivityBasketAct.this);
+			pDialog.setTitle("Contacting Servers");
+			pDialog.setMessage("Downloading data...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			//leaguesList = daoLeagues.getAllLeagues();
+
+			//DAOLeagues daoLeagues = new DAOLeagues();
+
+
+			playersList = DAOPlayers.getPlayersOfATeam(new Team(6, "asd", 1));
+			Log.v("JUGADORES:",Integer.toString(playersList.size()));
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void params) {
+			pDialog.dismiss();
+			
+		}
 
 	}
-};
-
-//Puts a 0 at the right of numbers from 1 to 9
-private static String pad(int c) {
-	if (c >= 10)
-		return String.valueOf(c);
-	else
-		return "0" + String.valueOf(c);
-}
-////////////////////////END SET TIME/////////////////////////////////
-
-
-/////////////////////////SET DATE////////////////////////////////////
-public void setDate(View view){	
-	dateText = (EditText) findViewById(R.id.DateText);
-	datePicker = (DatePicker) findViewById(R.id.datePicker1);
-
-	final Calendar c = Calendar.getInstance();
-	syear = c.get(Calendar.YEAR);
-	month = c.get(Calendar.MONTH);
-	day = c.get(Calendar.DAY_OF_MONTH);
-
-	// set current date into textview
-	dateText.setText(new StringBuilder()
-	// Month is 0 based, just add 1
-	.append(day).append("-").append(month + 1).append("-")
-	.append(syear).append(" "));
-
-	// set current date into datepicker
-	datePicker.init(syear, month, day, null);
-
-	//Shows date picker with the actual date
-	showDialog(DATE_DIALOG_ID);
-}
-
-private DatePickerDialog.OnDateSetListener datePickerListener 
-= new DatePickerDialog.OnDateSetListener() {
-
-	// when dialog box is closed, below method will be called.
-	public void onDateSet(DatePicker view, int selectedYear,
-			int selectedMonth, int selectedDay) {
-		syear = selectedYear;
-		month = selectedMonth;
-		day = selectedDay;
-
-		// set selected date into textview
-		dateText.setText(new StringBuilder().append(month + 1)
-				.append("-").append(day).append("-").append(syear)
-				.append(" "));
-
-		// set selected date into datepicker also
-		datePicker.init(syear, month, day, null);	
-	}
-};
-////////////////////////END SET DATE/////////////////////////////////
 
 
 

@@ -12,7 +12,8 @@
         <TableRow
             android:id="@+id/row1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp" >
 
             <LinearLayout
                 android:id="@+id/rowl1"
@@ -31,21 +32,18 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/leagueEditText"
+                <Spinner
+                    android:id="@+id/leagueSpinnerOffline"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:gravity="center"
-                    android:hint="@string/labelSelectLeague"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </TableRow>
 
         <TableRow
             android:id="@+id/row2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp" >
 
             <LinearLayout
                 android:id="@+id/rowl2"
@@ -78,7 +76,8 @@
         <TableRow
             android:id="@+id/row3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp" >
 
             <LinearLayout
                 android:id="@+id/rowl3"

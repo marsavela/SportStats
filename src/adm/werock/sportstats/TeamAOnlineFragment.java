@@ -6,40 +6,90 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import adm.werock.sportstats.R;
-import android.app.Activity;
+import adm.werock.sportstats.basics.Player;
+import adm.werock.sportstats.basics.Team;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
+import dao.DAOPlayers;
 
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
 	public int captainCounter = 0;
+	public int starterCounter = 0;
 	public int activeCounter = 0;
+	public int totalPlayers = 0;
+	public EditText playerNumber;
+	public String homeTeam, awayTeam;
+	public int homeTeamId, awayTeamId;
+	public int leagueID;
+	class myAdapter extends SimpleAdapter{
+
+		public myAdapter(Context context,
+				List<? extends Map<String, ?>> data, int resource,
+						String[] from, int[] to) {
+			super(context, data, resource, from, to);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View itemView = super.getView(position, convertView, parent);
+			ImageView imageView = (ImageView) itemView.findViewById(R.id.player_icon);
 
 
+			switch(states[position]){
+			/*
+			 0: Jugador inactivo.
+			 1: Jugador activo (suplente).
+			 2. Titular
+			 3. Capitán
+
+			 */
+			case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
+			case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
+			case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
+			case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
+
+			}
+
+
+			return itemView;
+		}
+
+	}
+	public myAdapter adapter;
+	
+	
+	ArrayList<Player> playersList = new ArrayList<Player>();
+	public HashMap<String, Object> item = null;
+	ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		//Getting the values in order to start the asyntask
+		Bundle extras = this.getActivity().getIntent().getExtras();
+		if (extras != null) {
+		   homeTeam = extras.getString("homeTeam");
+		   homeTeamId = extras.getInt("homeTeamId");
+		   leagueID = extras.getInt("leagueID");
+		}
+		new TaskPlayers().execute();
 
 	}
 
@@ -49,122 +99,11 @@ public class TeamAOnlineFragment extends Fragment {
 		//onPause();
 
 
-		class myAdapter extends SimpleAdapter{
 
-			public myAdapter(Context context,
-					List<? extends Map<String, ?>> data, int resource,
-							String[] from, int[] to) {
-				super(context, data, resource, from, to);
-				// TODO Auto-generated constructor stub
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				View itemView = super.getView(position, convertView, parent);
-				ImageView imageView = (ImageView) itemView.findViewById(R.id.player_icon);
-
-
-				switch(states[position]){
-				/*
-				 0: Jugador inactivo.
-				 1: Jugador activo (suplente).
-				 2. Titular
-				 3. Capitán
-
-				 */
-				case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
-				case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
-				case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
-
-				}
-
-
-				return itemView;
-			}
-
-		}
 		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_team_a_online_fragment, container, false);
 		final ListView list = (ListView) rootView.findViewById(R.id.teamAplayers);
-		HashMap<String, Object> item = null;
-		ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
 
-		///////////////Introducción manual (de momento) de datos
-
-		item = new HashMap<String, Object>();
-		item.put("License", "1");
-		item.put("Name", "Erving Julius");
-		item.put("Number", "39");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "2");
-		item.put("Name", "Juanito Sánchez");
-		data.add(item);
-
-		item = new HashMap<String, Object>();
-		item.put("License", "3");
-		item.put("Name", "Pepito pérez");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "4");
-		item.put("Name", "John Corr");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "5");
-		item.put("Name", "Peter File");
-		data.add(item);
-
-		item = new HashMap<String, Object>();
-		item.put("License", "6");
-		item.put("Name", "Jose Cristo");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "7");
-		item.put("Name", "Isadora Duncan");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "8");
-		item.put("Name", "Poncho Sánchez");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "9");
-		item.put("Name", "Luke Ase");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "21");
-		item.put("Name", "Pepepepe Dodododo");
-		data.add(item);
-
-		item = new HashMap<String, Object>();
-		item.put("License", "32");
-		item.put("Name", "Sublime Text");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "142");
-		item.put("Name", "Michael Jackson");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "242");
-		item.put("Name", "Kyre Olding");
-		data.add(item);
-
-		item = new HashMap<String, Object>();
-		item.put("License", "123");
-		item.put("Name", "Flask Flisk");
-		data.add(item);
-
-
-		item = new HashMap<String, Object>();
-		item.put("License", "312");
-		item.put("Name", "Follatra Dexs");
-		data.add(item);
-		item = new HashMap<String, Object>();
-		item.put("License", "232");
-		item.put("Name", "Asta pata pota");
-		data.add(item);
-		///////////////////////////////
-
-		myAdapter adapter = new myAdapter
+		adapter = new myAdapter
 				(this.getActivity(), 
 						data, R.layout.team_item,
 						new String[]{"License", "Name", "Number"	}, 
@@ -177,7 +116,7 @@ public class TeamAOnlineFragment extends Fragment {
 			states[i] = 0;
 
 
-		
+
 
 		list.setOnItemClickListener(new OnItemClickListener() {
 
@@ -192,19 +131,23 @@ id	The row id of the item that was clicked.*/
 				/* EditText yourEditText = (EditText) view.findViewById(R.id.player_number);
 				    parent.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); 
 				    yourEditText.requestFocus(); */
-				activeCounter = 0;
+				starterCounter = 0;
 				captainCounter = 0;
+				activeCounter = 0;
+				totalPlayers = 0;
+				
 				int state = 0;
 				states[position]++;	
 
 				for(int i=0;i<states.length; i++){
-					if(states[i]==2) activeCounter++;
-					if(states[i]==3) captainCounter++;
+					if(states[i] == 1) activeCounter++;
+					if(states[i] == 2) starterCounter++;
+					if(states[i] == 3) captainCounter++;
 				}
-				if (activeCounter > 5 && captainCounter==1)
+				if (starterCounter > 5 && captainCounter==1)
 					states[position] = 4;
 				else{
-					if (activeCounter > 5)
+					if (starterCounter > 5)
 						states[position]++;
 					if(captainCounter > 1 )
 						states[position]++;
@@ -215,6 +158,17 @@ id	The row id of the item that was clicked.*/
 
 				View row = parent.findViewById((int) id);
 				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon);
+				playerNumber = (EditText) view.findViewById(R.id.player_number);
+				playerNumber.setOnClickListener(new View.OnClickListener() {
+					
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						//playerNumber.setFocusable(true);
+						playerNumber.setFocusableInTouchMode(true);
+						//playerNumber.setClickable(true
+					}
+				});
+				
 				switch(state){
 				/*
 				 0: Jugador inactivo.
@@ -224,12 +178,14 @@ id	The row id of the item that was clicked.*/
 
 				 */
 				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player);break;
-				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
-				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 1 :  icon.setImageResource(R.drawable.ic_active_player);break;
+				case 2 :  icon.setImageResource(R.drawable.ic_suplent);break;
 				case 3 :  icon.setImageResource(R.drawable.ic_captain);break;					
 				}
+				totalPlayers = starterCounter+captainCounter+activeCounter;
 				onPause();
 			}
+			
 
 		});
 
@@ -237,18 +193,20 @@ id	The row id of the item that was clicked.*/
 
 
 		return rootView;
+
 	}
 
 
 	public void onPause(){
-
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
 		Editor editor = pref.edit();
 		Log.i("captainCounter", captainCounter+"");
+		Log.i("starterCounter", starterCounter+"");
 		Log.i("activeCounter", activeCounter+"");
 		editor.putInt("prefCaptainCounterHome", captainCounter);
-		editor.putInt("prefActiveCounterHome", activeCounter);
+		editor.putInt("prefStarterCounterHome", starterCounter);
+		editor.putInt("prefTotalPlayersHome", totalPlayers);
 		editor.commit();
 		super.onResume();
 	}
@@ -257,9 +215,52 @@ id	The row id of the item that was clicked.*/
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-				SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
-			//	hola = ((ImageView) getView().findViewById(R.id.player_icon));
-				//hola.setImageResource(  R.drawable.ic_inactive_player	);
 	}
+	private class TaskPlayers extends AsyncTask<Void, Void, Void> {
 
+		private ProgressDialog pDialog;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+			pDialog = new ProgressDialog(TeamAOnlineFragment.this.getActivity());
+			pDialog.setTitle("Contacting Servers");
+			pDialog.setMessage("Downloading data...");
+			pDialog.setIndeterminate(false);
+			pDialog.setCancelable(true);
+			pDialog.show();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			//leaguesList = daoLeagues.getAllLeagues();
+
+			//DAOLeagues daoLeagues = new DAOLeagues();
+
+
+			playersList = DAOPlayers.getPlayersOfATeam(new Team(homeTeamId, homeTeam, leagueID));
+			Log.v("JUGADORES:",Integer.toString(playersList.size()));
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void params) {
+			pDialog.dismiss();
+			Log.i("pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",playersList.size()+"" );
+			Log.i("pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",playersList.get(0).getLicenseNumber()+"" );
+			for(int i=0;i<playersList.size();i++){
+				Log.i("hollaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "holaaaaaaaaaaaaaaaaaa");
+				item = new HashMap<String, Object>();
+				item.put("Name", playersList.get(i).getName());
+				item.put("License", playersList.get(i).getLicenseNumber());
+				data.add(item);
+			}
+			states = new int [adapter.getCount()];
+			Log.i("pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",playersList.get(0).getLicenseNumber()+"" );
+
+		}
+
+	}
 }
