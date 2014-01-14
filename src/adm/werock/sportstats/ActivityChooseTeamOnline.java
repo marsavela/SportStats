@@ -38,7 +38,7 @@ public class ActivityChooseTeamOnline extends Activity {
         Adapter adapter;
     	public String homeTeam, awayTeam;
     	public int homeTeamId, awayTeamId;
-    	public int leagueID = 1;
+    	public int leagueID = 0;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -51,8 +51,8 @@ public class ActivityChooseTeamOnline extends Activity {
                 Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
                 
                 // Create an ArrayAdapter using the string array and a default spinner layout
-                adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, leagues);
-                ((ArrayAdapter<String>) adapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                adapter = new ArrayAdapter<String>(this,R.layout.simple_spinner_item2, leagues);
+                ((ArrayAdapter<String>) adapter).setDropDownViewResource(R.layout.simple_spinner_dropdown_item2);
                 
                 // And apply the adapter to the spinner
                 leagueSpinner.setAdapter((SpinnerAdapter) adapter);
@@ -65,8 +65,8 @@ public class ActivityChooseTeamOnline extends Activity {
                                 
                                 Spinner localTeamSpinner = (Spinner) findViewById(R.id.localTeamSpinner);
                                 Spinner awayTeamSpinner = (Spinner) findViewById(R.id.awayTeamSpinner);
-                                adapter2 = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, teams);
-                                ((ArrayAdapter<String>) adapter2).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                adapter2 = new ArrayAdapter<String>(getApplicationContext(),R.layout.simple_spinner_item2, teams);
+                                ((ArrayAdapter<String>) adapter2).setDropDownViewResource(R.layout.simple_spinner_dropdown_item2);
 
                                 localTeamSpinner.setAdapter((SpinnerAdapter) adapter2);
                                 awayTeamSpinner.setAdapter((SpinnerAdapter) adapter2);        

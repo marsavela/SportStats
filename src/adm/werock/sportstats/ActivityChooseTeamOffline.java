@@ -31,8 +31,8 @@ public class ActivityChooseTeamOffline extends Activity {
 		String[] leagues = getLeagues();
 		Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinnerOffline);
 		// Create an ArrayAdapter using the string array and a default spinner layout
-				Adapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, leagues);
-				((ArrayAdapter<String>) adapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				Adapter adapter = new ArrayAdapter<String>(this,R.layout.simple_spinner_item2, leagues);
+				((ArrayAdapter<String>) adapter).setDropDownViewResource(R.layout.simple_spinner_dropdown_item2);
 				// And apply the adapter to the spinner
 				leagueSpinner.setAdapter((SpinnerAdapter) adapter);
 		
