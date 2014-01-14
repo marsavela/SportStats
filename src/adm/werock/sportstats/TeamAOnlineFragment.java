@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -97,9 +98,7 @@ public class TeamAOnlineFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		//onPause();
-
-
-
+		
 		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_team_a_online_fragment, container, false);
 		final ListView list = (ListView) rootView.findViewById(R.id.teamAplayers);
 
@@ -253,7 +252,7 @@ id	The row id of the item that was clicked.*/
 			for(int i=0;i<playersList.size();i++){
 				Log.i("hollaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "holaaaaaaaaaaaaaaaaaa");
 				item = new HashMap<String, Object>();
-				item.put("Name", playersList.get(i).getName());
+				item.put("Name", playersList.get(i).getName()+", "+playersList.get(i).getSurname());
 				item.put("License", playersList.get(i).getLicenseNumber());
 				data.add(item);
 			}

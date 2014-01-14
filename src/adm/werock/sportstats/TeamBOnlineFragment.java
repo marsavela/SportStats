@@ -230,7 +230,7 @@ id	The row id of the item that was clicked.*/
 			pDialog.dismiss();
 			for(int i=0;i<playersList1.size();i++){
 				item = new HashMap<String, Object>();
-				item.put("Name", playersList1.get(i).getName());
+				item.put("Name", playersList1.get(i).getName()+", "+playersList1.get(i).getSurname());
 				item.put("License", playersList1.get(i).getLicenseNumber());
 				data.add(item);
 			}
