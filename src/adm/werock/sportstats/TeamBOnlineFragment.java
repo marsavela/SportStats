@@ -73,7 +73,7 @@ public class TeamBOnlineFragment extends Fragment {
 	}
 	public myAdapter adapter;
 	
-	ArrayList<Player> playersList = new ArrayList<Player>();
+	ArrayList<Player> playersList1 = new ArrayList<Player>();
 	public HashMap<String, Object> item = null;
 	ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
 	
@@ -220,18 +220,18 @@ id	The row id of the item that was clicked.*/
 			//DAOLeagues daoLeagues = new DAOLeagues();
 
 
-			playersList = DAOPlayers.getPlayersOfATeam(new Team(awayTeamId, awayTeam, leagueID));
-			Log.v("JUGADORES:",Integer.toString(playersList.size()));
+			playersList1 = DAOPlayers.getPlayersOfATeam(new Team(awayTeamId, awayTeam, leagueID));
+			Log.v("JUGADORES:",Integer.toString(playersList1.size()));
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void params) {
 			pDialog.dismiss();
-			for(int i=0;i<playersList.size();i++){
+			for(int i=0;i<playersList1.size();i++){
 				item = new HashMap<String, Object>();
-				item.put("Name", playersList.get(i).getName());
-				item.put("License", playersList.get(i).getLicenseNumber());
+				item.put("Name", playersList1.get(i).getName());
+				item.put("License", playersList1.get(i).getLicenseNumber());
 				data.add(item);
 			}
 			states = new int [adapter.getCount()];
