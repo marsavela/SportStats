@@ -61,10 +61,10 @@ public class TeamAOnlineFragment extends Fragment {
 			 3. Capitán
 
 			 */
-			case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
-			case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
-			case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
-			case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
+			case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player);break;
+			case 1 :  imageView.setImageResource(R.drawable.ic_active_player);break;
+			case 2 :  imageView.setImageResource(R.drawable.ic_suplent);break;
+			case 3 :  imageView.setImageResource(R.drawable.ic_captain);break;
 
 			}
 
@@ -113,9 +113,6 @@ public class TeamAOnlineFragment extends Fragment {
 		states = new int [adapter.getCount()];
 		for(int i = 0; i<states.length;i++)
 			states[i] = 0;
-
-
-
 
 		list.setOnItemClickListener(new OnItemClickListener() {
 
