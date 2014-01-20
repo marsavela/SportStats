@@ -17,7 +17,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Small Text"
+            android:text="@string/labelDate"
             android:textSize="20sp"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 

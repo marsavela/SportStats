@@ -43,6 +43,7 @@
             android:name="com.facebook.LoginActivity"
             android:label="@string/appName"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        
         <!-- MyActsActivity -->
         <activity
             android:name="adm.werock.sportstats.MyActsActivity"
@@ -54,6 +55,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.LoginActivity" />
         </activity>
+        
+        <!-- Act Details Activity -->
+        <activity
+            android:name="adm.werock.sportstats.ActDetailsActivity"
+            android:label="@string/titleActDetails"
+            android:parentActivityName="adm.werock.sportstats.MyActsActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="adm.werock.sportstats.MyActsActivity" />
+        </activity>
+        
         <!-- CreateActsActivity -->
         <activity
             android:name="adm.werock.sportstats.CreateActActivity"
@@ -65,6 +79,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.MyActsActivity" />
         </activity>
+        
         <!-- BasketDataActivity -->
         <activity
             android:name="adm.werock.sportstats.ActivityBasketData"
@@ -76,6 +91,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="adm.werock.sportstats.CreateActActivity" />
         </activity>
+        
         <!-- BasketStatsActivity -->
         <activity
             android:name="adm.werock.sportstats.ActivityBasketStats"

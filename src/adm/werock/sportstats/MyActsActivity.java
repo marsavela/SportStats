@@ -5,12 +5,15 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 
 public class MyActsActivity extends ListActivity {
 
@@ -31,7 +34,19 @@ public class MyActsActivity extends ListActivity {
 		
 		
 		setListAdapter(new MyActsAdapter(this, actsList));
+		
+		
+		
 	}
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+	    super.onListItemClick(l, v, position, id);
+	    //do something here using the position in the arrya
+	    Intent i = new Intent(this, ActDetailsActivity.class);
+        startActivity(i);
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,11 +76,34 @@ public class MyActsActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	// Crear nueva acta
+/*	// Crear nueva acta
 	private void addNewAct() {
         Intent i = new Intent(this, CreateActActivity.class);
         startActivity(i);
-    }
+    }*/
+	
+	public void addNewAct(){
+		//Check the wifi and 3g connection//////////////
+		ConnectivityManager manager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
+		CheckConnection check = new CheckConnection();
+		//For 3G check
+		boolean is3g = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+				.isConnectedOrConnecting();
+		//For WiFi Check
+		boolean isWifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+				.isConnectedOrConnecting();
+
+
+		Intent i =null;
+		if(is3g||isWifi)		
+			i = new Intent(this, ActivityChooseTeamOnline.class);
+		else i = new Intent(this, ActivityChooseTeamOffline.class);
+
+
+		startActivity(i);
+
+
+	}
 	
 
 }
