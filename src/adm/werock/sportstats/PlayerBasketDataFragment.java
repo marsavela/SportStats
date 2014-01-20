@@ -193,7 +193,6 @@ public class PlayerBasketDataFragment extends Fragment{
 			}
 		}
 		
-		// Process Events
 		for(int i=0; i<events.size(); i++){
 			ActEvent event = events.get(i);
 			
@@ -261,12 +260,16 @@ public class PlayerBasketDataFragment extends Fragment{
 					
 				// Remove 2 Points	
 				case 3:
-					points2Count--;
+					if(points2Count > 0){
+						points2Count--;
+					}
 					break;
 					
 				// Remove 3 Points
 				case 4:
-					points3Count--;
+					if(points3Count > 0){
+						points3Count--;
+					}
 					break;
 					
 				// Add 1 Free Throw Made
@@ -281,12 +284,16 @@ public class PlayerBasketDataFragment extends Fragment{
 					
 				// Remove 1 Free Throw Made
 				case 7:
-					freeThrowsInCount--;
+					if(freeThrowsInCount > 0){
+						freeThrowsInCount--;
+					}
 					break;
 					
 				// Remove 1 Free Throw Missed
 				case 8:
-					freeThrowsOutCount--;
+					if(freeThrowsOutCount > 0){
+						freeThrowsOutCount--;
+					}
 					break;
 					
 				// Add 1 Foul
@@ -296,7 +303,9 @@ public class PlayerBasketDataFragment extends Fragment{
 					
 				// Remove 1 Foul
 				case 10:
-					foulsCount--;
+					if(foulsCount > 0){
+						foulsCount--;
+					}
 					break;
 					
 				default:

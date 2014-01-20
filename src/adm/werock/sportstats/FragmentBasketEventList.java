@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ public class FragmentBasketEventList extends Fragment{
 	private ActivityBasketStats parent;
 	private View view;
 	private ViewGroup container;
+	private ScrollView scrollView;
+	
+	private int scrollY=0;
 	
 	public static android.support.v4.app.Fragment newInstance() {
 		 
@@ -41,26 +45,39 @@ public class FragmentBasketEventList extends Fragment{
     }
 	
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		Log.d("FragmentEventList","onCreate");
+		view = getActivity().getLayoutInflater().inflate(R.layout.fragment_event_list, null);
+		scrollView = (ScrollView)view.findViewById(R.id.scrollViewEvents);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View v = inflater.inflate(R.layout.fragment_event_list, container, false);
+		/*View v = inflater.inflate(R.layout.fragment_event_list, container, false);
 		
 		view = v;
 		this.container = container;
 		Log.i("BasketStatsFragment","VIEW CREATED");
 		
-		return v;
+		return v;*/
+		Log.d("FragmentEventList","onCreateView");
+		return view;
 	}
 	
 	@Override
 	public void onActivityCreated (Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 
+	    Log.d("FragmentEventList","onActivityCreated");
 	    Activity activity = getActivity();
     	
     	if(activity instanceof ActivityBasketStats){
     		parent = ((ActivityBasketStats)activity);
     	}
+    	
     	
     	LinearLayout eventsContainer = (LinearLayout)view.findViewById(R.id.eventsContainer);
     	ArrayList<ActEvent> events = parent.getEvents();
@@ -121,10 +138,24 @@ public class FragmentBasketEventList extends Fragment{
     		}
     	}
     	
-    	
-    	
+    	//scrollView.scroll    	
 	}
 	
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		Log.d("FragmentEventList","onStart");
+	}
+	
+	
+	@Override
+	public void onResume() {
+		Log.d("FragmentEventList","onResume");
+		super.onResume();
+	}
+
+
 	private class HandlerEventButton implements OnTouchListener
 	{
 		ActEvent actEvent;
@@ -151,6 +182,8 @@ public class FragmentBasketEventList extends Fragment{
 						buttonEvent.setBackgroundResource(R.drawable.square_light_gray_32);
 						buttonEvent.setTextColor(Color.parseColor("#000000"));
 					}
+					
+					scrollY = buttonEvent.getTop();
 					
 					showPopupMenu(v,actEvent);
 					
@@ -191,9 +224,10 @@ public class FragmentBasketEventList extends Fragment{
 		
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
+			scrollView.scrollTo(0, scrollY);
 			boolean ret = parent.searchAndRemoveEvent(event);
 			parent.rebuildFromEvents();
-			parent.rebuild();
+			//parent.rebuild();
 			return ret;
 		}
 	}

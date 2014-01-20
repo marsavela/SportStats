@@ -2,6 +2,8 @@ package adm.werock.sportstats;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -42,6 +44,7 @@ public class ActivityBasketStats extends FragmentActivity
     private int currentMinute = 0;
     private int currentQuarter = 1;
     private int maximumMinute = 0;
+    private boolean bGameEnd = false;
     
     // Others
     private int homeTeamScore = 0;
@@ -154,37 +157,44 @@ public class ActivityBasketStats extends FragmentActivity
     		if(value > 0){
     			events.add(event);
     			return true;
-    		}else{
+    		}/*else{
     			event.setValue(-value);
     			return searchAndRemoveEvent(event);
-    		}
+    		}*/
     	}
     	else if(type.equals("F")){
     		if(value > 0){
     			events.add(event);
+    			
+    			if(event.isHomePlayer()){
+    				homeTeamFouls = homeTeamFouls + event.getValue();
+    			}else{
+    				awayTeamFouls = awayTeamFouls + event.getValue();
+    			}
+    			
     			return true;
-    		}else{
+    		}/*else{
     			event.setValue(-value);
     			return searchAndRemoveEvent(event);
-    		}
+    		}*/
     	}
     	else if(type.equals("FTI")){
     		if(value > 0){
     			events.add(event);
     			return true;
-    		}else{
+    		}/*else{
     			event.setValue(-value);
     			return searchAndRemoveEvent(event);
-    		}
+    		}*/
     	}
     	else if(type.equals("FTO")){
     		if(value > 0){
     			events.add(event);
     			return true;
-    		}else{
+    		}/*else{
     			event.setValue(-value);
     			return searchAndRemoveEvent(event);
-    		}
+    		}*/
     	}
     	
     	return false;
@@ -260,6 +270,44 @@ public class ActivityBasketStats extends FragmentActivity
     			}
     		}
     	}
+    	updateFouls(currentQuarter);
+    }
+    
+    public void updateFouls(int quarter){
+    	int minMinute = 0;
+    	int maxMinute = 0;
+    	
+    	if(quarter > 4){
+    		maxMinute = 39+((quarter-4)*5);
+    		minMinute = maxMinute - 9;
+    	}else{
+    		maxMinute = (quarter*10)-1;
+    		minMinute = maxMinute - 9;
+    	}
+    	
+    	// Fouls
+    	homeTeamFouls = 0;
+    	awayTeamFouls = 0;
+    	
+    	for(int i=0; i<events.size(); i++)
+    	{
+    		ActEvent event = events.get(i);
+    		
+    		if(event.getMinute() >= minMinute &&
+    		   event.getMinute() <= maxMinute &&
+    		   event.getType().equals("F"))
+    		{
+    			if(event.isHomePlayer()){
+    				homeTeamFouls ++;
+    			}else{
+    				awayTeamFouls ++;
+    			}
+    		}
+    	}
+    	
+    	insertDataFragment.updateFouls();
+    	//rebuild();
+    	pagerAdapter.notifyDataSetChanged();
     }
     
     // TODO: PLAYERS
@@ -272,11 +320,13 @@ public class ActivityBasketStats extends FragmentActivity
     	homePlayers.add(new ActPlayer(8,"Alvaro", "Peris","005"));
     	homePlayers.add(new ActPlayer(9,"Josep", "Tomas","006"));
     	
-    	awayPlayers.add(new ActPlayer(4,"Earvin","Johnson", "007"));
-    	awayPlayers.add(new ActPlayer(5,"Larry","Bird", "008"));
-    	awayPlayers.add(new ActPlayer(6,"Charles","Barkley", "009"));
-    	awayPlayers.add(new ActPlayer(7,"LeBron","James", "010"));
-    	awayPlayers.add(new ActPlayer(5,"Michael","Jordan", "011"));
+    	awayPlayers.add(new ActPlayer(32,"Earvin","Johnson", "007"));
+    	awayPlayers.add(new ActPlayer(33,"Larry","Bird", "008"));
+    	awayPlayers.add(new ActPlayer(34,"Charles","Barkley", "009"));
+    	awayPlayers.add(new ActPlayer(6,"LeBron","James", "010"));
+    	awayPlayers.add(new ActPlayer(23,"Michael","Jordan", "011"));
+    	awayPlayers.add(new ActPlayer(24,"Kobe","Bryant", "012"));
+    	awayPlayers.add(new ActPlayer(55,"Dikembe","Mutombo","013"));
     }
     
     public ArrayList<ActPlayer> getHomePlayers(){
@@ -354,9 +404,29 @@ public class ActivityBasketStats extends FragmentActivity
 			selectedPlayer = awayPlayers.get(number);
 			selectedPlayerIndex = number;
 		}
-		pagerAdapter.addFragment(PlayerBasketDataFragment.newInstance());
-		pagerAdapter.notifyDataSetChanged();
-		pager.setCurrentItem(3);
+		
+		if(selectedPlayer.getFouls() < 5)
+		{
+			pagerAdapter.addFragment(PlayerBasketDataFragment.newInstance());
+			pagerAdapter.notifyDataSetChanged();
+			pager.setCurrentItem(3);
+		}
+		else
+		{
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(getResources().getString(R.string.playerFouledOutDialog))
+			       .setCancelable(false)
+			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
+			
+			insertDataFragment.updateFouls();
+		}
 	}
 	
 	public void playerActionsConfirmed(){
@@ -457,11 +527,26 @@ public class ActivityBasketStats extends FragmentActivity
 			}
 		}
 		return false;*/
+		
+		int nextQuarter;
+		
 		currentMinute++;
 		if(currentQuarter <= 4){
-			currentQuarter = (currentMinute/10)+1;
+			nextQuarter = (currentMinute/10)+1;
 		}else{
-			currentQuarter = ((currentMinute%40)/5)+5;
+			nextQuarter = ((currentMinute%40)/5)+5;
+		}
+		
+		if(nextQuarter != currentQuarter){
+			updateFouls(nextQuarter);
+			currentQuarter = nextQuarter;
+		}
+		
+		if(currentMinute == 40 || (currentMinute > 40 && currentMinute%5 == 0)){
+			if(homeTeamScore != awayTeamScore){
+				enableEnd();
+				bGameEnd = true;
+			}
 		}
 		
 		if(currentMinute > maximumMinute)
@@ -483,12 +568,23 @@ public class ActivityBasketStats extends FragmentActivity
 				currentQuarter = 1;
 			}
 		}*/
-		currentMinute--;
 		
-		if(currentQuarter <= 4){
-			currentQuarter = (currentMinute/10)+1;
+		int nextQuarter;
+		bGameEnd = false;
+		
+		if(currentMinute>0){
+			currentMinute--;
+		}
+		
+		if(currentMinute < 40){
+			nextQuarter = (currentMinute/10)+1;
 		}else{
-			currentQuarter = ((currentMinute%40)/5)+5;
+			nextQuarter = ((currentMinute%40)/5)+5;
+		}
+		
+		if(nextQuarter != currentQuarter){
+			updateFouls(nextQuarter);
+			currentQuarter = nextQuarter;
 		}
 	}
 	
@@ -511,11 +607,44 @@ public class ActivityBasketStats extends FragmentActivity
 	 * @return string with the form "Q" + currentQuarter + " - MIN. " + currentMinute.
 	 */
 	public String getTimeString(){
+		if(bGameEnd){
+			return getResources().getString(R.string.labelEnd);
+		}
+		
 		if(currentQuarter <= 4){
 			return new String("Q"+currentQuarter+" - MIN. "+(currentMinute%10));
 		}else{
 			return new String("OT"+String.valueOf(currentQuarter-4)+" - MIN. "+(currentMinute%5));
 		}
+	}
+	
+	// END
+	
+	public void enableEnd(){
+		insertDataFragment.enableEnd();
+	}
+	
+	public void disableEnd(){
+		insertDataFragment.disableEnd();
+	}
+	
+	public void finishAct(){
+		// TODO:
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getResources().getString(R.string.finishActDialog));
+		//builder.setCancelable(false);
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                //do things
+		           }
+		       });
+		builder.setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                //do nothing
+		           }
+		       });
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 	
 }

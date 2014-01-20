@@ -76,9 +76,8 @@ public class LoginActivity extends Activity {
 		bSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	//launchMyActs();
-            	new Task().execute();
             	launchMyActs();
+            	new Task().execute();
             }
         });
 		

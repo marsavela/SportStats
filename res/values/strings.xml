@@ -85,6 +85,9 @@
     <string name="labelHome">HOME</string>
     <string name="labelAway">AWAY</string>
     <string name="labelBonus">BONUS</string>
+    <string name="labelEnd">END</string>
+    <string name="playerFouledOutDialog">The selected player is fouled out. You cannot apply actions.</string>
+    <string name="finishActDialog">"The current act will be saved. You won't be able to make changes. Continue?"</string>
 
     <!-- Player Fragment -->
     <string name="titlePlayerFragment">Event input</string>

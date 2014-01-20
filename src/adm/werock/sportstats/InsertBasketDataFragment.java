@@ -99,6 +99,7 @@ public class InsertBasketDataFragment extends Fragment
 		
 		buttonAddMinute.setOnTouchListener(new HandlerButtonMinute(buttonAddMinute, true));
 		buttonSubstractMinute.setOnTouchListener(new HandlerButtonMinute(buttonSubstractMinute, false));
+		buttonCurrentMinute.setOnTouchListener(new HandlerButtonEnd(buttonCurrentMinute));
 		textHomeScore.setText("0");
 		textAwayScore.setText("0");
 		
@@ -217,6 +218,40 @@ public class InsertBasketDataFragment extends Fragment
 		
 	}
 	
+	private class HandlerButtonEnd implements OnTouchListener
+	{
+		private Button button;
+		
+		/**
+		 * Creates an OnTouchListener for a Button. Its function is to finish
+		 * the act when pressed.
+		 * <p>
+		 * @param button the button which this listener is set to.
+		 * @see   OnTouchListener
+		 * @author Josep
+		 */
+		public HandlerButtonEnd(Button button){
+			this.button = button;
+		}
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch(event.getAction()){
+				case MotionEvent.ACTION_DOWN:
+					button.setBackgroundResource(R.drawable.square_red_64);
+					break;
+				case MotionEvent.ACTION_UP:
+					button.setBackgroundResource(R.drawable.square_dark_gray_32);
+					parent.finishAct();
+					break;
+				default:
+					button.setBackgroundResource(R.drawable.square_dark_gray_32);
+					break;
+			}
+			return true;
+		}
+	}
+	
 	
 	/**
 	 * Reads the player array from its parent activity and sets the buttons' texts accordingly.
@@ -301,5 +336,15 @@ public class InsertBasketDataFragment extends Fragment
 				awayButtons.get(i).setBackgroundResource(R.drawable.button_player_out);
 			}
 		}
+	}
+	
+	public void enableEnd(){
+		buttonAddMinute.setEnabled(false);
+		buttonCurrentMinute.setEnabled(true);
+	}
+	
+	public void disableEnd(){
+		buttonAddMinute.setEnabled(true);
+		buttonCurrentMinute.setEnabled(false);
 	}
 }
