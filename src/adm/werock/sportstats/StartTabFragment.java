@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartTabFragment extends Fragment {
@@ -20,7 +22,7 @@ public class StartTabFragment extends Fragment {
 	int starterCounterHome, starterCounterVisitor;
 	int totalPlayersHome, totalPlayersVisitor;
 	Button startButton;
-	private SharedPreferences pref;
+	private SharedPreferences pref, prefTeams;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,8 +30,13 @@ public class StartTabFragment extends Fragment {
 		
 		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_start_tab, container, false);
 		pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-			
-		 
+		prefTeams = this.getActivity().getSharedPreferences("teamPrefs", Context.MODE_MULTI_PROCESS);
+		
+
+		String local= prefTeams.getString("prefLocalTeam", "LOCAL");
+		 String visitor= prefTeams.getString("prefVisitorTeam", "VISITOR");
+    	((TextView)rootView.findViewById(R.id.localTeamFinal)).setText(local);
+    	((TextView)rootView.findViewById(R.id.visitorTeamFinal)).setText(visitor);
 		Button startButton = (Button) rootView.findViewById(R.id.ButtonStartGame);
 
 		    //set a onclick listener for when the button gets clicked
@@ -38,6 +45,7 @@ public class StartTabFragment extends Fragment {
 		        @Override
 		        
 		        public void onClick(View v) {
+
 		        	//We get the number of captains and active players in order to check everything is ok
 		    		//Log.i("holaaaa", pref.getInt("prefTotalPlayersHome", 0)+"");
 		    		captainCounterHome = pref.getInt("prefCaptainCounterHome", 0);

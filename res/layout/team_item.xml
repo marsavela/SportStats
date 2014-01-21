@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#E6E6E6"
     android:orientation="horizontal" >
 
     <LinearLayout
@@ -13,6 +14,7 @@
             android:id="@+id/player_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:focusableInTouchMode="false"
             android:src="@drawable/ic_suplent" />
 
         <TextView
@@ -22,6 +24,7 @@
             android:layout_alignParentStart="True"
             android:layout_weight="0.09"
             android:focusable="false"
+            android:focusableInTouchMode="True"
             android:gravity="center"
             android:hint="000"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -43,13 +46,10 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="True"
             android:ems="10"
+
             android:hint="00"
-            android:focusable="false"
-            
-            android:focusableInTouchMode="True"
             android:inputType="number"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
     </LinearLayout>
 
 </LinearLayout>

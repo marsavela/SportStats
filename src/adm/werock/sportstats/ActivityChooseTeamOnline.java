@@ -206,4 +206,29 @@ public class ActivityChooseTeamOnline extends Activity {
                 }
                 
         }
+//		@Override
+//		protected void onPause() {
+//			// TODO Auto-generated method stub
+//			super.onPause();
+//			SharedPreferences pref = getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
+//			Editor editor = pref.edit();
+//			Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
+//			editor.putInt("prefLeague", leagueSpinner.getSelectedItemPosition());
+//			Spinner localTeamSpinner = (Spinner) findViewById(R.id.localTeamSpinner);
+//			editor.putInt("prefLocal", localTeamSpinner.getSelectedItemPosition());
+//			Spinner awayTeamSpinner = (Spinner) findViewById(R.id.awayTeamSpinner);
+//			editor.putInt("prefVisitor", awayTeamSpinner.getSelectedItemPosition());
+//			editor.commit();
+//		}
+//
+//		@Override
+//		protected void onResume() {
+//			// TODO Auto-generated method stub
+//			super.onResume();
+//			SharedPreferences pref = getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
+//			((Spinner) findViewById(R.id.leagueSpinner)).setSelection(pref.getInt("prefLeague", 0));
+//			((Spinner) findViewById(R.id.localTeamSpinner)).setSelection(pref.getInt("prefLocal", 0));
+//			((Spinner) findViewById(R.id.awayTeamSpinner)).setSelection(pref.getInt("awayTeamSpinner", 0));
+//		}
+        
 }
