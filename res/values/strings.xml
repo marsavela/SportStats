@@ -11,7 +11,6 @@
 	 separemos por pantallas, login, mis actas, etc...
     -->
 
-
     <!-- Login -->
     <string name="titleLogin">Login</string>
     <string name="labelLogin">Sign in</string>
@@ -36,6 +35,10 @@
     <string name="labelTeamHomeScore">130</string>
     <string name="labelTeamGuest">C.B. Stats</string>
     <string name="labelTeamGuestScore">100</string>
+    <string name="labelDate">02/01/2014</string>
+
+    <!-- Act Details -->
+    <string name="titleActDetails">Act Details</string>
 
     <!-- Create Act -->
     <string name="titleCreateAct">New Act</string>
