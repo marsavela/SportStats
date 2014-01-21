@@ -53,7 +53,7 @@ public class MyActsAdapter extends BaseAdapter {
      //   String homeTeam = DAOTeams.getTeamByID(list.get(position).getIdTeamHome()).getName();
     //    Team homeTeam = DAOTeams.getTeamByID(3);
         
-        new Task().execute();
+  //      new Task().execute();
         
         
         
