@@ -1,6 +1,5 @@
 package adm.werock.sportstats;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -32,241 +32,236 @@ import android.widget.Spinner;
 
 public class TeamBFragment extends Fragment {
 	private int[] states;
-	public int captainCounter = 0;
-	public int activeCounter = 0;
+	private String[] licNumbers;
+	private String[] numbers;
+	private String[] names;
 
+	public int aux;
+
+	public int captainCounter = 0;
+	public int starterCounter = 0;
+	public int activeCounter = 0;
+	public int totalPlayers = 0;
+	public boolean ok = true;
+	public ListView list;
+
+	class myAdapter extends SimpleAdapter {
+
+		public myAdapter(Context context, List<? extends Map<String, ?>> data,
+				int resource, String[] from, int[] to) {
+			super(context, data, resource, from, to);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
+			View itemView = super.getView(position, convertView, parent);
+			ImageView imageView = (ImageView) itemView
+					.findViewById(R.id.player_icon_offline);
+
+			switch (states[position]) {
+			/*
+			 * 0: Jugador inactivo. 1: Jugador activo (suplente). 2. Titular 3.
+			 * Capitán
+			 */
+			case 0:
+				imageView.setImageResource(R.drawable.ic_inactive_player);
+				break;
+			case 1:
+				imageView.setImageResource(R.drawable.ic_suplent);
+				break;
+			case 2:
+				imageView.setImageResource(R.drawable.ic_active_player);
+				break;
+			case 3:
+				imageView.setImageResource(R.drawable.ic_captain);
+				break;
+
+			}
+
+			itemView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					/*
+					 * Parameters parent The AdapterView where the click
+					 * happened. view The view within the AdapterView that was
+					 * clicked (this will be a view provided by the adapter)
+					 * position The position of the view in the adapter. id The
+					 * row id of the item that was clicked.
+					 */
+					/*
+					 * EditText yourEditText = (EditText)
+					 * view.findViewById(R.id.player_number);
+					 * parent.setDescendantFocusability
+					 * (ViewGroup.FOCUS_AFTER_DESCENDANTS);
+					 * yourEditText.requestFocus();
+					 */
+					final ImageView icon = (ImageView) v
+							.findViewById(R.id.player_icon_offline);
+					aux = position;
+					starterCounter = 0;
+					captainCounter = 0;
+					activeCounter = 0;
+					totalPlayers = 0;
+
+					int state = 0;
+					states[aux]++;
+
+					for (int i = 0; i < states.length; i++) {
+						if (states[i] == 1)
+							activeCounter++;
+						if (states[i] == 2)
+							starterCounter++;
+
+						if (states[i] == 3)
+							captainCounter++;
+					}
+					if (starterCounter > 5 && captainCounter == 1)
+						states[aux] = 4;
+					else {
+						if (starterCounter > 5)
+							states[aux]++;
+						if (captainCounter > 1)
+							states[aux]++;
+					}
+
+					if (states[aux] > 3)
+						states[aux] = 0;
+					state = states[aux];
+
+					switch (state) {
+					/*
+					 * 0: Jugador inactivo. 1: Jugador activo (suplente). 2.
+					 * Titular 3. Capitán
+					 */
+					case 0:
+						icon.setImageResource(R.drawable.ic_inactive_player);
+						break;
+					case 1:
+						icon.setImageResource(R.drawable.ic_active_player);
+						break;
+					case 2:
+						icon.setImageResource(R.drawable.ic_suplent);
+						break;
+					case 3:
+						icon.setImageResource(R.drawable.ic_captain);
+						break;
+					}
+					totalPlayers = starterCounter + captainCounter
+							+ activeCounter;
+
+					onPause();
+				}
+
+			});
+			// Adding the license number to the selected row
+			final EditText licenseNumber = (EditText) itemView
+					.findViewById(R.id.license_offline);
+			licenseNumber.setText(licNumbers[position]);
+			licenseNumber.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					licNumbers[position] = licenseNumber.getText().toString();
+
+				}
+			});
+			// Adding the name to the selected row
+			final EditText playerName = (EditText) itemView
+					.findViewById(R.id.player_name_offline);
+			final String prueba = names[position];
+			playerName.setText(prueba);
+			playerName.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					names[position] = prueba;
+				}
+			});
+			// Adding the player number to the selected row
+			final EditText playerNumber = (EditText) itemView
+					.findViewById(R.id.player_number_offline);
+			playerNumber.setText(numbers[position]);
+			playerNumber.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					numbers[position] = playerNumber.getText().toString();
+
+				}
+			});
+			return itemView;
+		}
+
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
 	}
-
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		//onPause();
-
-
-		class myAdapter extends SimpleAdapter{
-
-			public myAdapter(Context context,
-					List<? extends Map<String, ?>> data, int resource,
-							String[] from, int[] to) {
-				super(context, data, resource, from, to);
-				// TODO Auto-generated constructor stub
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				View itemView = super.getView(position, convertView, parent);
-				ImageView imageView = (ImageView) itemView.findViewById(R.id.player_icon_offline);
-
-
-				switch(states[position]){
-				/*
-				 0: Jugador inactivo.
-				 1: Jugador activo (suplente).
-				 2. Titular
-				 3. Capitán
-
-				 */
-				case 0 :  imageView.setImageResource(R.drawable.ic_inactive_player); break;
-				case 1 :  imageView.setImageResource(R.drawable.ic_suplent); break;
-				case 2 :  imageView.setImageResource(R.drawable.ic_active_player); break;
-				case 3 :  imageView.setImageResource(R.drawable.ic_captain); break;
-
-				}
-
-
-				return itemView;
-			}
-
-		}
-		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_team_b_tab, container, false);
-		final ListView list = (ListView) rootView.findViewById(R.id.teamBplayersOffline);
+		
+		View rootView = inflater.inflate(
+				adm.werock.sportstats.R.layout.layout_team_b_tab, container,
+				false);
+		list = (ListView) rootView
+				.findViewById(R.id.teamBplayersOffline);
 		HashMap<String, Object> item = null;
-		ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
-
-		for(int i=0; i<12; i++){
+		ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
+		list.setItemsCanFocus(true);
+		for (int i = 0; i < 12; i++) {
 			item = new HashMap<String, Object>();
 			item.put("Licence", "");
 			item.put("Name", "");
 			item.put("Number", "");
 			data.add(item);
 		}
-		///////////////Introducción manual (de momento) de datos
 
-//		item = new HashMap<String, Object>();
-//		item.put("License", "1");
-//		item.put("Name", "Erving Julius");
-//		item.put("Number", "39");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "2");
-//		item.put("Name", "Juanito Sánchez");
-//		data.add(item);
-//
-//		item = new HashMap<String, Object>();
-//		item.put("License", "3");
-//		item.put("Name", "Pepito pérez");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "4");
-//		item.put("Name", "John Corr");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "5");
-//		item.put("Name", "Peter File");
-//		data.add(item);
-//
-//		item = new HashMap<String, Object>();
-//		item.put("License", "6");
-//		item.put("Name", "Jose Cristo");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "7");
-//		item.put("Name", "Isadora Duncan");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "8");
-//		item.put("Name", "Poncho Sánchez");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "9");
-//		item.put("Name", "Luke Ase");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "21");
-//		item.put("Name", "Pepepepe Dodododo");
-//		data.add(item);
-//
-//		item = new HashMap<String, Object>();
-//		item.put("License", "32");
-//		item.put("Name", "Sublime Text");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "142");
-//		item.put("Name", "Michael Jackson");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "242");
-//		item.put("Name", "Kyre Olding");
-//		data.add(item);
-//
-//		item = new HashMap<String, Object>();
-//		item.put("License", "123");
-//		item.put("Name", "Flask Flisk");
-//		data.add(item);
-//
-//
-//		item = new HashMap<String, Object>();
-//		item.put("License", "312");
-//		item.put("Name", "Follatra Dexs");
-//		data.add(item);
-//		item = new HashMap<String, Object>();
-//		item.put("License", "232");
-//		item.put("Name", "Asta pata pota");
-//		data.add(item);
-//		///////////////////////////////
-
-		myAdapter adapter = new myAdapter
-				(this.getActivity(), 
-						data, R.layout.team_item_offline,
-						new String[]{"License", "Name", "Number"}, 
-						new int[]{R.id.license_offline, R.id.player_name_offline, R.id.player_number_offline});
+		myAdapter adapter = new myAdapter(this.getActivity(), data,
+				R.layout.team_item_offline, new String[] { "License", "Name",
+						"Number" }, new int[] { R.id.license_offline,
+						R.id.player_name_offline, R.id.player_number_offline });
 		list.setAdapter(adapter);
-		list.setItemsCanFocus(true);
-		list.setFocusable(true);
-		list.setClickable(false);
-		states = new int [adapter.getCount()];
-		for(int i = 0; i<states.length;i++){
+		states = new int[adapter.getCount()];
+		licNumbers = new String[adapter.getCount()];
+		numbers = new String[adapter.getCount()];
+		names = new String[adapter.getCount()];
 
+		for (int i = 0; i < states.length; i++) {
 			states[i] = 0;
-
-
+			numbers[i] = "";
+			licNumbers[i] = "";
+			names[i] = "";
 		}
-
-		list.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				/*Parameters
-parent	The AdapterView where the click happened.
-view	The view within the AdapterView that was clicked (this will be a view provided by the adapter)
-position	The position of the view in the adapter.
-id	The row id of the item that was clicked.*/
-				/* EditText yourEditText = (EditText) view.findViewById(R.id.player_number);
-				    parent.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); 
-				    yourEditText.requestFocus(); */
-				activeCounter = 0;
-				captainCounter = 0;
-				int state = 0;
-				states[position]++;	
-
-				for(int i=0;i<states.length; i++){
-					if(states[i]==2) activeCounter++;
-					if(states[i]==3) captainCounter++;
-				}
-				if (activeCounter > 5 && captainCounter==1)
-					states[position] = 4;
-				else{
-					if (activeCounter > 5)
-						states[position]++;
-					if(captainCounter > 1 )
-						states[position]++;
-				}
-
-				if(states[position]>3) states[position] =0;
-				state = states[position];
-
-				View row = parent.findViewById((int) id);
-				ImageView icon =(ImageView)  view.findViewById(R.id.player_icon_offline);
-				switch(state){
-				/*
-				 0: Jugador inactivo.
-				 1: Jugador activo (suplente).
-				 2. Titular
-				 3. Capitán
-
-				 */
-				case 0 :  icon.setImageResource(R.drawable.ic_inactive_player);break;
-				case 1 :  icon.setImageResource(R.drawable.ic_suplent);break;
-				case 2 :  icon.setImageResource(R.drawable.ic_active_player);break;
-				case 3 :  icon.setImageResource(R.drawable.ic_captain);break;					
-				}
-				onPause();
-			}
-
-		});
-
-
-
 
 		return rootView;
 	}
 
-
-	public void onPause(){
+	public void onPause() {
 		super.onPause();
-		SharedPreferences pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+		SharedPreferences pref = this.getActivity().getSharedPreferences(
+				"myPrefs", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
 		editor.putInt("prefCaptainCounterVisitor", captainCounter);
 		editor.putInt("prefActiveCounterVisitor", activeCounter);
-//		Log.i("captainCounterB", captainCounter+"");
-//		Log.i("activeCounterB", activeCounter+"");
+		Log.i("captainCounterB", captainCounter + "");
+		Log.i("activeCounterB", activeCounter + "");
 		editor.commit();
 		super.onResume();
 	}
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-				//SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
-			//	hola = ((ImageView) getView().findViewById(R.id.player_icon));
-				//hola.setImageResource(  R.drawable.ic_inactive_player	);
 	}
 
 }

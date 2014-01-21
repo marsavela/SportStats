@@ -1,19 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLayout1"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="#E6E6E6" >
 
-    <Button
-        android:id="@+id/ButtonStartGame"
-        style="@style/buttonColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:background="@drawable/btn_red_matte"
-        android:clickable="true"
-        android:text="@string/labelStartGame"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/square_dark_gray_32"
+             >
 
-</LinearLayout>
+            <TextView
+                    android:id="@+id/Match"
+                    style="@style/HeaderBig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Match"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" 
+            android:background="@drawable/square_lightgray_64">
+			
+			<TextView
+                android:id="@+id/localTeamFinal"
+     			   style="@style/HeaderBig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Local Team"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow5"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+   			<TextView
+                android:id="@+id/Vs"
+     			   style="@style/HeaderBig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Vs"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:textColor="#888888" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow9"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center" 
+             android:background="@drawable/square_lightgray_64">
+
+   			<TextView
+                android:id="@+id/visitorTeamFinal"
+     			   style="@style/HeaderBig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Visitor Team"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" >
+
+            <Button
+                android:id="@+id/ButtonStartGame"
+                style="@style/HeaderMedium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_red_matte"
+                android:clickable="true"
+                android:text="@string/labelStartGame"
+                android:textStyle="bold" />
+
+        </TableRow>
+    </LinearLayout>
+
+</ScrollView>
