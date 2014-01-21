@@ -1,11 +1,26 @@
 package adm.werock.sportstats;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import dao.DAOActs;
+import dao.DAOLeagues;
+import dao.DAOPlayers;
+import dao.DAOTeams;
+import dao.DAOUsers;
+
+import adm.werock.sportstats.basics.Act;
+import adm.werock.sportstats.basics.League;
+import adm.werock.sportstats.basics.Team;
+import adm.werock.sportstats.basics.User;
+import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -13,22 +28,37 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 
 public class MyActsActivity extends ListActivity {
 
+	ArrayList<Act> actsList = new ArrayList<Act>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
-		List<ActProv> actsList = new ArrayList<ActProv>();
-		ActProv act = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
-		actsList.add(act);
-		ActProv act1 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
+		List<Act> actsList = new ArrayList<Act>();
+	//	ArrayList<Act> actsList = new ArrayList<Act>();
+		
+/*		Date currentDate = new Date(System.currentTimeMillis());
+		Act act = new Act(1, currentDate, "dieparo@gmail.com",1,2);
+		actsList.add(act);*/
+	/*	ActProv act1 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
 		actsList.add(act1);
 		ActProv act2 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
 		actsList.add(act2);
+		public Act(int id, Date date, String emailUser, int idTeamHome, int idTeamGuest)
+		*/
+		
+	//	AsyncTask myTask = new Task(this);
+		new Task(this).execute();
+		
+		Log.v("Prueba 1:", "Prueba 1");
+		
 		setContentView(R.layout.activity_my_acts);
 		MyActsAdapter acts = new MyActsAdapter(this, actsList);
 		
@@ -104,6 +134,51 @@ public class MyActsActivity extends ListActivity {
 
 
 	}
-	
+
+private class Task extends AsyncTask<Void, Void, Void> {
+        
+		public Activity activity;
+		private ProgressDialog pDialog;
+
+		public Task(Activity a) {
+			this.activity = a;
+		}
+    
+        @Override
+        protected void onPreExecute() {
+        	super.onPreExecute();
+    //    	setProgressBarIndeterminateVisibility(true);
+            pDialog = new ProgressDialog(MyActsActivity.this);
+            pDialog.setTitle("Contacting Servers");
+            pDialog.setMessage("Downloading data...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+        // TODO Auto-generated method stub
+        	actsList = DAOActs.getAct(new User("dieparo@gmail.com","Diego"));
+        	Log.v("Actas: ",Integer.toString(actsList.size()));
+        	
+      //  	Log.v("ID 3:",DAOTeams.getTeamByID(3).getName());
+			return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+        	
+    		final MyActsAdapter acts = new MyActsAdapter(activity, actsList);	
+    		setListAdapter(acts);
+    		
+    		acts.notifyDataSetChanged(); 
+    		
+    		pDialog.dismiss();
+   // 		setProgressBarIndeterminateVisibility(false);
+
+       }
+
+    }
 
 }
