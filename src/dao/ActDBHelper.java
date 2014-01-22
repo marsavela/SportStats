@@ -28,6 +28,8 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	
 	// Logcat tag
     private static final String LOG = ActDBHelper.class.getName();
+    // DB Name
+    private static final String DB_NAME = "ss.db";
     
 	// Acts Table - column names
 	private static final String TAG_ACTS = "acts";
@@ -69,7 +71,7 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	
 	// Teams table create statement
     private static final String CREATE_TEAMS = "create table " + TAG_TEAMS
-    		+ "(" + TAG_TID + " integer primary key autoincrement, "
+    		+ "(" + TAG_TID + " integer primary key, "
     		+ TAG_TEAMNAME + " text not null, "
     		+ TAG_LEAGUEID + " INTEGER NOT NULL);";
 	
@@ -84,13 +86,13 @@ public class ActDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_EVENTS = "create table " + TAG_EVENTS
     		+ "(" + TAG_EID + " integer primary key autoincrement, "
     	    + TAG_ACTSID + " INTEGER NOT NULL, "
-    	    + TAG_MINUTE + " INTEGER NOT NULL, "
+    	    + TAG_MINUTE + " INTEGER, "
     		+ TAG_TYPE + " text not null, "
     	    + TAG_VALUE + " text not null, "
     		+ TAG_PLNUMBER + " INTEGER NOT NULL);";
 
-	public ActDBHelper(Context context, String name) {
-		super(context, name, null, 1);
+	public ActDBHelper(Context context) {
+		super(context, DB_NAME, null, 1);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -130,7 +132,7 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    values.put(TAG_GUESTID, act.getIdTeamGuest());
 	 
 	    // insert row
-	    long act_id = db.insert(TAG_ACTS, null, values);
+	    long act_id = db.insertWithOnConflict(TAG_ACTS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 	    
 	    return act_id;
 	}
@@ -166,7 +168,7 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    values.put(TAG_LEAGUEID, team.getLeagueId());
 	    
 	    // insert row
-	    long team_id = db.insert(TAG_TEAMS, null, values);
+	    long team_id = db.insertWithOnConflict(TAG_TEAMS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 	    
 	    return team_id;
 	}
@@ -208,7 +210,7 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    values.put(TAG_TEAMSID, player.getTeamId());
 
 	    // insert row
-	    db.insert(TAG_PLAYERS, null, values);
+	    db.insertWithOnConflict(TAG_PLAYERS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 	}
 	
 	public ArrayList<Player> selectPlayers(int teams_id){
@@ -238,7 +240,6 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    return playersList;
 	}
 	
-	
 	// ------------------------ "events" table methods ----------------//
 	public void insertEvents(ArrayList<Event> players){
 		for(Event player : players){
@@ -257,8 +258,17 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    values.put(TAG_PLNUMBER, event.getPlayer());
 
 	    // insert row
-	    return db.insert(TAG_EVENTS, null, values);
+	    return db.insertWithOnConflict(TAG_EVENTS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 	}
+
+	// --------------- other methods ----------------//
+	
+	// closing database
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
 	
 	private String getDateTime(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
