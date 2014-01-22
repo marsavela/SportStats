@@ -15,9 +15,6 @@ import org.json.JSONObject;
 import adm.werock.sportstats.JSONParser;
 import adm.werock.sportstats.basics.League;
 import adm.werock.sportstats.basics.Team;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.util.Log;
 
 /**
@@ -104,8 +101,7 @@ public class DAOTeams {
 			if (json.getInt(TAG_SUCCESS) == 1) {
 				// products found
 				// Storing each json item in variable
-				String name;
-					name = json.getString(TAG_NAME);
+				String name = json.getString(TAG_NAME);
 				int idLeague = json.getInt(TAG_LID);
 				
 				return new Team(id, name, idLeague);

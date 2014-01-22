@@ -10,6 +10,9 @@ package adm.werock.sportstats.basics;
 //  F - Foul
 // FI - Free Throw In
 // FO - Free Throw Out
+// AS - Assign Starter
+// AC - Assign Captain
+// AN - Assign Number
 // -------------------
 
 public class Event {
@@ -27,14 +30,16 @@ public class Event {
 	 * @param minute
 	 * @param type
 	 * @param value
+	 * @param player
 	 */
-	public Event(int id, int actId, String type, int minute, String value) {
+	public Event(int id, int actId, int minute, String type, String value, int player) {
 		super();
 		this.id = id;
 		this.actId = actId;
 		this.minute = minute;
 		this.type = type;
 		this.value = value;
+		this.player = player;
 	}
 
 	public int getId() {

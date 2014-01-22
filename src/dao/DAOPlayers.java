@@ -56,11 +56,11 @@ public class DAOPlayers {
 			if (success == 1) {
 				// products found
 				// Getting Array of Products
-				JSONArray teams = json.getJSONArray(TAG_PLAYERS);
+				JSONArray players = json.getJSONArray(TAG_PLAYERS);
 
 				// looping through All Products
-				for (int i = 0; i < teams.length(); i++) {
-					JSONObject c = teams.getJSONObject(i);
+				for (int i = 0; i < players.length(); i++) {
+					JSONObject c = players.getJSONObject(i);
 
 					// Storing each json item in variable
 					int licensnumber = c.getInt(TAG_LICENSE);

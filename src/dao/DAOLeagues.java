@@ -1,7 +1,6 @@
 package dao;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -10,9 +9,6 @@ import org.json.JSONObject;
 
 import adm.werock.sportstats.JSONParser;
 import adm.werock.sportstats.basics.League;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.util.Log;
 
 /**
