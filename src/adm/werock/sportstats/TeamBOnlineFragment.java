@@ -53,8 +53,7 @@ public class TeamBOnlineFragment extends Fragment {
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
 			View itemView = super.getView(position, convertView, parent);
-			// View row =
-			// iteView.getLayoutInflater().inflate(R.layout.team_item, null);
+
 			ImageView imageView = (ImageView) itemView
 					.findViewById(R.id.player_icon);
 
@@ -214,8 +213,6 @@ public class TeamBOnlineFragment extends Fragment {
 		editor.putInt("prefCaptainCounterVisitor", captainCounter);
 		editor.putInt("prefStarterCounterVisitor", starterCounter);
 		editor.putInt("prefTotalPlayersVisitor", totalPlayers);
-		Log.i("captainCounterB", captainCounter + "");
-		Log.i("activeCounterB", activeCounter + "");
 		editor.commit();
 		super.onResume();
 	}
@@ -229,7 +226,7 @@ public class TeamBOnlineFragment extends Fragment {
 			super.onPreExecute();
 
 			pDialog = new ProgressDialog(TeamBOnlineFragment.this.getActivity());
-			pDialog.setTitle("Contacting Servers");
+			pDialog.setTitle(R.string.contactingServers);
 			pDialog.setMessage("Downloading data...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);
@@ -239,10 +236,6 @@ public class TeamBOnlineFragment extends Fragment {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			// leaguesList = daoLeagues.getAllLeagues();
-
-			// DAOLeagues daoLeagues = new DAOLeagues();
-
 			playersList1 = DAOPlayers.getPlayersOfATeam(new Team(awayTeamId,
 					awayTeam, leagueID));
 			Log.v("JUGADORES:", Integer.toString(playersList1.size()));

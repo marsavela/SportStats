@@ -136,6 +136,12 @@
     <string name="optionDeleteEvent">Delete</string>
     <string name="Next">Next</string>
     <string name="matchInfo">Match Info</string>
+    <string name="contactingServers">Contacting Servers</string>
+    <string name="downloadingData">Downloading data...</string>
+    <string name="match">Match</string>
+    <string name="localTeam">Local Team</string>
+    <string name="vs">Vs</string>
+    <string name="visitorTeam">Visitor Team</string>
     
     
     

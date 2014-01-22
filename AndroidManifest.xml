@@ -111,7 +111,8 @@
 
         <activity
             android:name="adm.werock.sportstats.ActivityBasketAct"
-            android:label="@string/title_activity_activity_basket" >
+            android:label="@string/title_activity_activity_basket" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="adm.werock.sportstats.ActivityChooseTeamOnline"

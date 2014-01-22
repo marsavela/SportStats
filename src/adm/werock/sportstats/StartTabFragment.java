@@ -39,7 +39,7 @@ public class StartTabFragment extends Fragment {
     	((TextView)rootView.findViewById(R.id.visitorTeamFinal)).setText(visitor);
 		Button startButton = (Button) rootView.findViewById(R.id.ButtonStartGame);
 
-		    //set a onclick listener for when the button gets clicked
+		    //set a onclick listener  when the button gets clicked
 		 startButton.setOnClickListener(new OnClickListener() {
 		        //Start new list activity
 		        @Override
@@ -47,7 +47,6 @@ public class StartTabFragment extends Fragment {
 		        public void onClick(View v) {
 
 		        	//We get the number of captains and active players in order to check everything is ok
-		    		//Log.i("holaaaa", pref.getInt("prefTotalPlayersHome", 0)+"");
 		    		captainCounterHome = pref.getInt("prefCaptainCounterHome", 0);
 		    		captainCounterVisitor = pref.getInt("prefCaptainCounterVisitor", 0);
 		    		starterCounterHome = pref.getInt("prefStarterCounterHome", 0);

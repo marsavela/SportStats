@@ -140,13 +140,8 @@ public class ActivityChooseTeamOnline extends Activity {
                 @Override
                 protected Void doInBackground(Void... params) {
                         // TODO Auto-generated method stub
-                        //leaguesList = daoLeagues.getAllLeagues();
-
-                        //DAOLeagues daoLeagues = new DAOLeagues();
                         leaguesList = DAOLeagues.getAllLeagues();
                         Log.v("LIGAS: ",Integer.toString(leaguesList.size()));
-                        //teamsList = DAOTeams.getAllTeams(new League(1, "ACB"));
-                        //Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
                         return null;
                 }
 
@@ -170,7 +165,7 @@ public class ActivityChooseTeamOnline extends Activity {
                         super.onPreExecute();
 
                         pDialog = new ProgressDialog(ActivityChooseTeamOnline.this);
-                        pDialog.setTitle("Contacting Servers");
+                        pDialog.setTitle(R.string.downloadingData);
                         pDialog.setMessage("Downloading data...");
                         pDialog.setIndeterminate(false);
                         pDialog.setCancelable(true);
@@ -186,7 +181,6 @@ public class ActivityChooseTeamOnline extends Activity {
                         for(int i=0;i<leaguesList.size();i++)
                                 if(leaguesList.get(i).getName().compareTo(league) == 0)
                                 	leagueID = leaguesList.get(i).getLeagueId();
-                        Log.i("holaaaaaaaaaaaaaaaa", leagueID+"");
                         teamsList = DAOTeams.getAllTeams(new League(leagueID, league));
                         Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
                         return null;
@@ -206,29 +200,4 @@ public class ActivityChooseTeamOnline extends Activity {
                 }
                 
         }
-//		@Override
-//		protected void onPause() {
-//			// TODO Auto-generated method stub
-//			super.onPause();
-//			SharedPreferences pref = getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
-//			Editor editor = pref.edit();
-//			Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
-//			editor.putInt("prefLeague", leagueSpinner.getSelectedItemPosition());
-//			Spinner localTeamSpinner = (Spinner) findViewById(R.id.localTeamSpinner);
-//			editor.putInt("prefLocal", localTeamSpinner.getSelectedItemPosition());
-//			Spinner awayTeamSpinner = (Spinner) findViewById(R.id.awayTeamSpinner);
-//			editor.putInt("prefVisitor", awayTeamSpinner.getSelectedItemPosition());
-//			editor.commit();
-//		}
-//
-//		@Override
-//		protected void onResume() {
-//			// TODO Auto-generated method stub
-//			super.onResume();
-//			SharedPreferences pref = getSharedPreferences("myPrefs", Context.MODE_MULTI_PROCESS);
-//			((Spinner) findViewById(R.id.leagueSpinner)).setSelection(pref.getInt("prefLeague", 0));
-//			((Spinner) findViewById(R.id.localTeamSpinner)).setSelection(pref.getInt("prefLocal", 0));
-//			((Spinner) findViewById(R.id.awayTeamSpinner)).setSelection(pref.getInt("awayTeamSpinner", 0));
-//		}
-        
 }

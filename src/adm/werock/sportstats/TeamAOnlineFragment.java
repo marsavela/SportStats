@@ -54,8 +54,6 @@ public class TeamAOnlineFragment extends Fragment {
 				ViewGroup parent) {
 			View itemView = super.getView(position, convertView, parent);
 
-			// View row =
-			// iteView.getLayoutInflater().inflate(R.layout.team_item, null);
 			ImageView imageView = (ImageView) itemView
 					.findViewById(R.id.player_icon);
 
@@ -152,7 +150,6 @@ public class TeamAOnlineFragment extends Fragment {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					numbers[position] = playerNumber.getText().toString();
-
 				}
 			});
 			
@@ -177,18 +174,17 @@ public class TeamAOnlineFragment extends Fragment {
 			homeTeamId = extras.getInt("homeTeamId");
 			leagueID = extras.getInt("leagueID");
 		}
-		// savePlayer = new savePlayerNumber();
 		new TaskPlayers().execute();
 
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// onPause();
-
+		
 		View rootView = inflater.inflate(
 				adm.werock.sportstats.R.layout.layout_team_a_online_fragment,
 				container, false);
+		
 		list = (ListView) rootView.findViewById(R.id.teamAplayers);
 		list.setItemsCanFocus(true);
 
@@ -214,9 +210,6 @@ public class TeamAOnlineFragment extends Fragment {
 		SharedPreferences pref = this.getActivity().getSharedPreferences(
 				"myPrefs", Context.MODE_MULTI_PROCESS);
 		Editor editor = pref.edit();
-		Log.i("captainCounter", captainCounter + "");
-		Log.i("starterCounter", starterCounter + "");
-		Log.i("activeCounter", activeCounter + "");
 		editor.putInt("prefCaptainCounterHome", captainCounter);
 		editor.putInt("prefStarterCounterHome", starterCounter);
 		editor.putInt("prefTotalPlayersHome", totalPlayers);
@@ -239,7 +232,7 @@ public class TeamAOnlineFragment extends Fragment {
 			super.onPreExecute();
 
 			pDialog = new ProgressDialog(TeamAOnlineFragment.this.getActivity());
-			pDialog.setTitle("Contacting Servers");
+			pDialog.setTitle(R.string.downloadingData);
 			pDialog.setMessage("Downloading data...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(true);

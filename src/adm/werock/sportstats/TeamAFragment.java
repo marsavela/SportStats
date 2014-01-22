@@ -237,10 +237,7 @@ public class TeamAFragment extends Fragment {
 						"Number" }, new int[] { R.id.license_offline,
 						R.id.player_name_offline, R.id.player_number_offline });
 		list.setAdapter(adapter);
-		// list.setItemsCanFocus(true);
-		// list.setFocusableInTouchMode(true);
-		// list.setFocusable(true);
-		// list.setClickable(false);
+
 		states = new int[adapter.getCount()];
 		licNumbers = new String[adapter.getCount()];
 		numbers = new String[adapter.getCount()];

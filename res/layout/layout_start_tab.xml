@@ -23,7 +23,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Match"
+                    android:text="@string/match"
                     android:textSize="40sp"
                     android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Local Team"
+                    android:text="@string/localTeam"
                     android:textSize="30sp"
                     android:textStyle="bold" />
         </TableRow>
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Vs"
+                    android:text="@string/vs"
                     android:textSize="40sp"
                     android:textStyle="bold"
                     android:textColor="#888888" />
@@ -69,7 +69,7 @@
         <TableRow
             android:id="@+id/TableRow9"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:gravity="center" 
              android:background="@drawable/square_lightgray_64">
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Visitor Team"
+                    android:text="@string/visitorTeam"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 

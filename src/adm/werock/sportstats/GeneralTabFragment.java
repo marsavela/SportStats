@@ -3,27 +3,15 @@ package adm.werock.sportstats;
 
 
 
-import java.util.Calendar;
-
-import adm.werock.sportstats.R;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 public class GeneralTabFragment extends Fragment {
 	
@@ -53,7 +41,6 @@ public class GeneralTabFragment extends Fragment {
 	@Override
 	public void onPause() {
 //		// TODO Auto-generated method stub
-//		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
 		Editor editor = pref.edit();
@@ -63,14 +50,11 @@ public class GeneralTabFragment extends Fragment {
 		editor.putString("prefDateEditText", ((EditText) getView().findViewById(R.id.DateText)).getText().toString());
 		editor.putString("prefTimeEditText", ((EditText) getView().findViewById(R.id.TimeText)).getText().toString());
 		editor.commit();
-		//putPref("prefLocalTeamEditText", ((EditText) this.getActivity().findViewById(R.id.LocalTeamEditText)).getText().toString(), getActivity().getApplicationContext());
 	}
 	
 	@Override
 	public void onResume() {
 //		// TODO Auto-generated method stub
-//		 this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-		
 		SharedPreferences pref = this.getActivity().getSharedPreferences("myPref", Context.MODE_PRIVATE);
 		((EditText)getView().findViewById(R.id.TownText)).setText(pref.getString("prefTownEditText", ""));
 		((EditText)getView().findViewById(R.id.MainRefereeText)).setText(pref.getString("prefMainRefereeEditText", ""));

@@ -3,9 +3,6 @@ package adm.werock.sportstats;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import adm.werock.sportstats.basics.Act;
 import adm.werock.sportstats.basics.League;
 import adm.werock.sportstats.basics.Player;
@@ -35,8 +32,8 @@ import dao.DAOActs;
 import dao.DAOLeagues;
 import dao.DAOPlayers;
 import dao.DAOTeams;
-//import dao.DAOTeams;
 import dao.DAOUsers;
+//import dao.DAOTeams;
 
 public class LoginActivity extends Activity {
 	
@@ -77,7 +74,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
             	launchMyActs();
-            	new Task().execute();
+            	//new Task().execute();
             }
         });
 		
