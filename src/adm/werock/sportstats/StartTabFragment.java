@@ -59,24 +59,24 @@ public class StartTabFragment extends Fragment {
 		        @Override
 		        
 		        public void onClick(View v) {
+		        	finalPlayersListA.clear();
+		        	finalPlayersListB.clear();
 
 		        	//Set the final array of players 
 		        	//LOCAL TEAM PLAYERS
 		        	for(int i=0;i<bigParent.playerStateA.length;i++){
-		        		if(bigParent.playerStateA[i] =true)
+		        		if(bigParent.playerStateA[i] ==true)
 		        			finalPlayersListA.add(bigParent.playersListA.get(i));
 		        	}
 		        	//Set the final array of players 
 		        	//AWAT TEAM PLAYERS
 		        	for(int i=0;i<bigParent.playerStateB.length;i++){
-		        		if(bigParent.playerStateB[i] =true)
-		        			finalPlayersListA.add(bigParent.playersListB.get(i));
+		        		if(bigParent.playerStateB[i] ==true)
+		        			finalPlayersListB.add(bigParent.playersListB.get(i));
 		        	}
 		        	myDb.insertPlayers(finalPlayersListA);
 		        	myDb.insertPlayers(finalPlayersListB);
 		        	
-		        	
-		        	Log.i("pedoooooooooo",myDb.selectPlayers(finalPlayersListA.get(0).getTeamId()).get(0).getName());
 		        	//We get the number of captains and active players in order to check everything is ok
 		    		captainCounterHome = pref.getInt("prefCaptainCounterHome", 0);
 		    		captainCounterVisitor = pref.getInt("prefCaptainCounterVisitor", 0);
@@ -102,6 +102,7 @@ public class StartTabFragment extends Fragment {
 		        		myAct = new Act(1, bigParent.date, "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
 			        
 		            Intent i = new Intent(getActivity(), ActivityBasketStats.class);
+		            i.putExtra("actID", myAct.getId());
 		            startActivity(i);
 		        	}
 		            
