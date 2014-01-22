@@ -159,6 +159,34 @@ public class ActDBHelper extends SQLiteOpenHelper {
 		return new Act(id, putDateTime(dateString), email, idLocal, idGuest);
 	}
 	
+	public ArrayList<Act> selectAct(String user){
+		
+		ArrayList<Act> actsList = new ArrayList<Act>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		 
+	    String selectQuery = "SELECT  * FROM " + TAG_ACTS + " WHERE "
+	            + TAG_UEMAIL + " = " + user;
+	 
+	    Log.e(LOG, selectQuery);
+	 
+	    Cursor c = db.rawQuery(selectQuery, null);
+	 
+	    if (c.moveToFirst()) {
+	        do {
+	    		int id = c.getInt(c.getColumnIndex(TAG_AID));
+	    		String dateString = c.getString(c.getColumnIndex(TAG_DATE));
+	    		String email = c.getString(c.getColumnIndex(TAG_UEMAIL));
+	    		int idLocal = c.getInt(c.getColumnIndex(TAG_LOCALID));
+	    		int idGuest = c.getInt(c.getColumnIndex(TAG_GUESTID));
+	    		
+				Act act = new Act(id, putDateTime(dateString), email, idLocal, idGuest);
+				actsList.add(act);
+	        } while(c.moveToNext());
+	    }
+
+	    return actsList;
+	}
+	
 	// ------------------------ "teams" table methods ----------------//
 	public long insertTeam(Team team){
 	    SQLiteDatabase db = this.getWritableDatabase();
@@ -240,6 +268,12 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    return playersList;
 	}
 	
+	public void deletePlayer(int licensnumber) {
+	    SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete(TAG_PLAYERS, TAG_LICENSE + " = ?",
+	            new String[] { String.valueOf(licensnumber) });
+	}
+	
 	// ------------------------ "events" table methods ----------------//
 	public void insertEvents(ArrayList<Event> players){
 		for(Event player : players){
@@ -258,7 +292,36 @@ public class ActDBHelper extends SQLiteOpenHelper {
 	    values.put(TAG_PLNUMBER, event.getPlayer());
 
 	    // insert row
-	    return db.insertWithOnConflict(TAG_EVENTS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+	    return db.insert(TAG_EVENTS, null, values);
+	}
+	
+	public ArrayList<Event> selectEvents(int act_id){
+		
+		ArrayList<Event> eventsList = new ArrayList<Event>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		 
+	    String selectQuery = "SELECT  * FROM " + TAG_EVENTS + " WHERE "
+	            + TAG_ACTSID + " = " + act_id;
+	 
+	    Log.e(LOG, selectQuery);
+	 
+	    Cursor c = db.rawQuery(selectQuery, null);
+	 
+	    if (c.moveToFirst()) {
+	        do {
+	        	int id = c.getInt(c.getColumnIndex(TAG_EID));
+				int idAct = c.getInt(c.getColumnIndex(TAG_ACTSID));
+				int minute = c.getInt(c.getColumnIndex(TAG_MINUTE));
+				String type = c.getString(c.getColumnIndex(TAG_TYPE));
+				String value = c.getString(c.getColumnIndex(TAG_VALUE));
+				int playersLicensnumber = c.getInt(c.getColumnIndex(TAG_PLNUMBER));
+	    		
+				Event event = new Event(id, idAct, minute, type, value, playersLicensnumber);
+				eventsList.add(event);
+	        } while(c.moveToNext());
+	    }
+
+	    return eventsList;
 	}
 
 	// --------------- other methods ----------------//
