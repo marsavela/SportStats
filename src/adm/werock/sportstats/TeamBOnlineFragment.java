@@ -7,6 +7,7 @@ import java.util.Map;
 
 import adm.werock.sportstats.basics.Player;
 import adm.werock.sportstats.basics.Team;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,13 +35,14 @@ public class TeamBOnlineFragment extends Fragment {
 	int captainCounter = 0;
 	int activeCounter = 0;
 	int totalPlayers = 0;
-	public String homeTeam, awayTeam;
-	public int homeTeamId, awayTeamId;
+	public String  awayTeam;
+	public int awayTeamId;
 	public int leagueID;
 
 	public int aux;
 	public ListView list;
-
+	
+	public ActivityBasketAct bigParent;
 	class myAdapter extends SimpleAdapter {
 
 		public myAdapter(Context context, List<? extends Map<String, ?>> data,
@@ -81,6 +83,8 @@ public class TeamBOnlineFragment extends Fragment {
 
 				@Override
 				public void onClick(View v) {
+					bigParent.setPlayerStatesB(adapter.getCount());
+		    		bigParent.inicializePlayerStatesB();
 					// TODO Auto-generated method stub
 					final ImageView icon = (ImageView) v
 							.findViewById(R.id.player_icon);
@@ -95,13 +99,19 @@ public class TeamBOnlineFragment extends Fragment {
 					states[aux]++;
 
 					for (int i = 0; i < states.length; i++) {
-						if (states[i] == 1)
+						if (states[i] == 1){
 							activeCounter++;
-						if (states[i] == 2)
+							bigParent.playerStateB[i] = true;
+						}
+						if (states[i] == 2){
 							starterCounter++;
+							bigParent.playerStateB[i] = true;
+						}
 
-						if (states[i] == 3)
+						if (states[i] == 3){
 							captainCounter++;
+							bigParent.playerStateB[i] = true;
+						}
 					}
 					if (starterCounter > 5 && captainCounter == 1)
 						states[aux] = 4;
@@ -174,6 +184,7 @@ public class TeamBOnlineFragment extends Fragment {
 			awayTeam = extras.getString("awayTeam");
 			awayTeamId = extras.getInt("awayTeamId");
 		}
+		
 		new TaskPlayers().execute();
 
 	}
@@ -204,7 +215,19 @@ public class TeamBOnlineFragment extends Fragment {
 		return rootView;
 
 	}
+	@Override
+	public void onActivityCreated (Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
 
+	    Activity activity = getActivity();
+    	
+    	if(activity instanceof ActivityBasketAct){
+    		bigParent = ((ActivityBasketAct)activity);
+    		bigParent.setPlayerStatesB(adapter.getCount());
+    		bigParent.inicializePlayerStatesB();
+    	}
+    	
+	}
 	public void onPause() {
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences(
@@ -238,6 +261,7 @@ public class TeamBOnlineFragment extends Fragment {
 			// TODO Auto-generated method stub
 			playersList1 = DAOPlayers.getPlayersOfATeam(new Team(awayTeamId,
 					awayTeam, leagueID));
+			bigParent.awayTeamId = awayTeamId;
 			Log.v("JUGADORES:", Integer.toString(playersList1.size()));
 			return null;
 		}
@@ -251,6 +275,7 @@ public class TeamBOnlineFragment extends Fragment {
 						+ playersList1.get(i).getSurname());
 				item.put("License", playersList1.get(i).getLicenseNumber());
 				data.add(item);
+				bigParent.playersListB.add(playersList1.get(i));
 			}
 			states = new int[adapter.getCount()];
 			numbers = new String[adapter.getCount()];

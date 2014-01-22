@@ -1,31 +1,25 @@
 package adm.werock.sportstats;
 
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
-import dao.DAOActs;
-import dao.DAOLeagues;
-import dao.DAOPlayers;
-import dao.DAOTeams;
-
-import adm.werock.sportstats.basics.League;
 import adm.werock.sportstats.basics.Player;
-import adm.werock.sportstats.basics.Team;
-import adm.werock.sportstats.basics.User;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
+import android.net.ParseException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -33,13 +27,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 
 @SuppressLint("ValidFragment")
@@ -49,16 +40,20 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 	TimePicker timePicker;
 	TextView timeText;
 	DatePicker datePicker;
-
+	Date date;
 	EditText dateText;
-
 	static final int TIME_DIALOG_ID = 999;
 	static final int DATE_DIALOG_ID = 888;
-
+	
+	public int homeTeamId, awayTeamId;
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
-	ArrayList<Player> playersList = new ArrayList<Player>();
+	
+	ArrayList<Player> playersListA = new ArrayList<Player>();
+	ArrayList<Player> playersListB = new ArrayList<Player>();
+	public boolean[] playerStateA;
+	public boolean[] playerStateB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +63,9 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		Editor editor = pref.edit();
 		editor.remove("myPref");
 		editor.commit();
-
-		new TaskPlayers().execute();
-
 		//cleaning the preferences each time we create a new act
 		pref = getSharedPreferences("teamPrefs", Context.MODE_MULTI_PROCESS);
-		editor = pref.edit();
-
+		editor = pref.edit();	
 		String local= pref.getString("prefLocalTeam", "LOCAL");
 		String visitor= pref.getString("prefVisitorTeam", "VISITOR");
 		//editor.remove("myPref");
@@ -269,7 +260,7 @@ We have to manually change the view using Tab change listener.*/
 		final Calendar c = Calendar.getInstance();
 		syear = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH);
-		day = c.get(Calendar.DAY_OF_MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);	
 
 		// set current date into textview
 		dateText.setText(new StringBuilder()
@@ -282,6 +273,7 @@ We have to manually change the view using Tab change listener.*/
 
 		//Shows date picker with the actual date
 		showDialog(DATE_DIALOG_ID);
+		
 	}
 
 	private DatePickerDialog.OnDateSetListener datePickerListener 
@@ -301,49 +293,54 @@ We have to manually change the view using Tab change listener.*/
 
 			// set selected date into datepicker also
 			datePicker.init(syear, month, day, null);	
+			try {
+				date = putDateTime(dateText.getText().toString());
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	};
 	////////////////////////END SET DATE/////////////////////////////////
-
-	public class TaskPlayers extends AsyncTask<Void, Void, Void> {
-
-		private ProgressDialog pDialog;
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-
-			pDialog = new ProgressDialog(ActivityBasketAct.this);
-			pDialog.setTitle("Contacting Servers");
-			pDialog.setMessage("Downloading data...");
-			pDialog.setIndeterminate(false);
-			pDialog.setCancelable(true);
-			pDialog.show();
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			//leaguesList = daoLeagues.getAllLeagues();
-
-			//DAOLeagues daoLeagues = new DAOLeagues();
-
-
-			playersList = DAOPlayers.getPlayersOfATeam(new Team(6, "asd", 1));
-			Log.v("JUGADORES:",Integer.toString(playersList.size()));
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void params) {
-			pDialog.dismiss();
-			
-		}
-
+	public  ArrayList<Player> getPlayersA(){
+		return playersListA;
 	}
+	public  ArrayList<Player> getPlayersB(){
+		return playersListB;
+	}
+	public  void setPlayersA(ArrayList<Player> players){
+		playersListA = players;
+	}
+	public  void setPlayersB(ArrayList<Player> players){
+		playersListB = players;
+	}
+	public  void setPlayerStates(int  size){
+		playerStateA = new boolean[size];
+	}
+	public  void inicializePlayerStates(){
+		for(int i=0;i<playerStateA.length;i++)
+			playerStateA[i] = false;
+	}
+	public  void setPlayerStatesB(int  size){
+		playerStateB = new boolean[size];
+	}
+	public  void inicializePlayerStatesB(){
+		for(int i=0;i<playerStateB.length;i++)
+			playerStateB[i] = false;
+	}
+	private Date putDateTime(final String dateString) throws java.text.ParseException{
+		Date date = null;
+		SimpleDateFormat  dateFormat = new SimpleDateFormat(
+		"yyyy-MM-dd HH:mm:ss", Locale.getDefault());  
+		try {  
+		date = (Date) dateFormat.parse(dateString);
+		} catch (ParseException e) {  
+		// TODO Auto-generated catch block  
+		e.printStackTrace();  
+		}
 
-
-
+		return date;
+		}
 }
 
 

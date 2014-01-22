@@ -1,7 +1,15 @@
 package adm.werock.sportstats;
 
-import adm.werock.sportstats.R;
+import java.util.ArrayList;
 
+import dao.ActDBHelper;
+
+import adm.werock.sportstats.R;
+import adm.werock.sportstats.basics.Act;
+import adm.werock.sportstats.basics.Player;
+
+import android.R.integer;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,11 +32,17 @@ public class StartTabFragment extends Fragment {
 	Button startButton;
 	private SharedPreferences pref, prefTeams;
 	
+	private ActivityBasketAct bigParent;
+	private ArrayList<Player> finalPlayersListA = new ArrayList<Player>();
+	private ArrayList<Player> finalPlayersListB = new ArrayList<Player>();
+	public ActDBHelper myDb;
+	private Act myAct;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
 		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_start_tab, container, false);
+		myDb = new ActDBHelper(rootView.getContext());
 		pref = this.getActivity().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
 		prefTeams = this.getActivity().getSharedPreferences("teamPrefs", Context.MODE_MULTI_PROCESS);
 		
@@ -46,6 +60,23 @@ public class StartTabFragment extends Fragment {
 		        
 		        public void onClick(View v) {
 
+		        	//Set the final array of players 
+		        	//LOCAL TEAM PLAYERS
+		        	for(int i=0;i<bigParent.playerStateA.length;i++){
+		        		if(bigParent.playerStateA[i] =true)
+		        			finalPlayersListA.add(bigParent.playersListA.get(i));
+		        	}
+		        	//Set the final array of players 
+		        	//AWAT TEAM PLAYERS
+		        	for(int i=0;i<bigParent.playerStateB.length;i++){
+		        		if(bigParent.playerStateB[i] =true)
+		        			finalPlayersListA.add(bigParent.playersListB.get(i));
+		        	}
+		        	myDb.insertPlayers(finalPlayersListA);
+		        	myDb.insertPlayers(finalPlayersListB);
+		        	
+		        	
+		        	Log.i("pedoooooooooo",myDb.selectPlayers(finalPlayersListA.get(0).getTeamId()).get(0).getName());
 		        	//We get the number of captains and active players in order to check everything is ok
 		    		captainCounterHome = pref.getInt("prefCaptainCounterHome", 0);
 		    		captainCounterVisitor = pref.getInt("prefCaptainCounterVisitor", 0);
@@ -68,6 +99,8 @@ public class StartTabFragment extends Fragment {
 		        	else if(totalPlayersHome > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamA have more than 12 players", Toast.LENGTH_SHORT).show();
 		        	else if(totalPlayersVisitor > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
 		        	else{
+		        		myAct = new Act(1, bigParent.date, "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
+			        
 		            Intent i = new Intent(getActivity(), ActivityBasketStats.class);
 		            startActivity(i);
 		        	}
@@ -76,7 +109,16 @@ public class StartTabFragment extends Fragment {
 		    });
 		return rootView;
 	}
+	public void onActivityCreated (Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
 
+	    Activity activity = getActivity();
+    	
+    	if(activity instanceof ActivityBasketAct){
+    		bigParent = ((ActivityBasketAct)activity);
+    	}
+    	
+	}
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
 	 */

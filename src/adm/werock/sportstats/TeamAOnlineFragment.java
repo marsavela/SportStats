@@ -7,12 +7,14 @@ import java.util.Map;
 
 import adm.werock.sportstats.basics.Player;
 import adm.werock.sportstats.basics.Team;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore.Audio.PlaylistsColumns;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,24 +25,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import dao.ActDBHelper;
 import dao.DAOPlayers;
 
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
 	private String[] numbers;
+
 	public int captainCounter = 0;
 	public int starterCounter = 0;
 	public int activeCounter = 0;
 	public int totalPlayers = 0;
 	
-	public String homeTeam, awayTeam;
-	public int homeTeamId, awayTeamId;
+	public String homeTeam;
+	public int homeTeamId;
 	public int leagueID;
 	
 	public int aux;
 	public ListView list;
 
-
+	public ActivityBasketAct bigParent;
 	class myAdapter extends SimpleAdapter {
 
 		public myAdapter(Context context, List<? extends Map<String, ?>> data,
@@ -53,9 +57,10 @@ public class TeamAOnlineFragment extends Fragment {
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
 			View itemView = super.getView(position, convertView, parent);
-
+						
 			ImageView imageView = (ImageView) itemView
 					.findViewById(R.id.player_icon);
+			
 
 			switch (states[position]) {
 			/*
@@ -78,9 +83,11 @@ public class TeamAOnlineFragment extends Fragment {
 			}
 
 			itemView.setOnClickListener(new OnClickListener() {
-
+				
 				@Override
 				public void onClick(View v) {
+					bigParent.setPlayerStates(adapter.getCount());
+		    		bigParent.inicializePlayerStates();
 					// TODO Auto-generated method stub
 					final ImageView icon = (ImageView) v
 							.findViewById(R.id.player_icon);
@@ -95,13 +102,20 @@ public class TeamAOnlineFragment extends Fragment {
 					states[aux]++;
 
 					for (int i = 0; i < states.length; i++) {
-						if (states[i] == 1)
+						if (states[i] == 1){
 							activeCounter++;
-						if (states[i] == 2)
+							bigParent.playerStateA[i] = true;
+							}
+						if (states[i] == 2){
 							starterCounter++;
+							bigParent.playerStateA[i] = true;
+						}
 
-						if (states[i] == 3)
+						if (states[i] == 3){
 							captainCounter++;
+							bigParent.playerStateA[i] = true;
+						}
+					
 					}
 					if (starterCounter > 5 && captainCounter == 1)
 						states[aux] = 4;
@@ -137,6 +151,7 @@ public class TeamAOnlineFragment extends Fragment {
 					totalPlayers = starterCounter + captainCounter
 							+ activeCounter;
 					onPause();
+			
 				}
 				
 			});
@@ -174,12 +189,14 @@ public class TeamAOnlineFragment extends Fragment {
 			homeTeamId = extras.getInt("homeTeamId");
 			leagueID = extras.getInt("leagueID");
 		}
+
 		new TaskPlayers().execute();
 
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		
 		View rootView = inflater.inflate(
 				adm.werock.sportstats.R.layout.layout_team_a_online_fragment,
@@ -195,6 +212,7 @@ public class TeamAOnlineFragment extends Fragment {
 
 		states = new int[adapter.getCount()];
 		numbers = new String[adapter.getCount()];
+		
 		for (int i = 0; i < states.length; i++) {
 			states[i] = 0;
 			numbers[i] = "";
@@ -204,7 +222,19 @@ public class TeamAOnlineFragment extends Fragment {
 		return rootView;
 
 	}
+	@Override
+	public void onActivityCreated (Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
 
+	    Activity activity = getActivity();
+    	
+    	if(activity instanceof ActivityBasketAct){
+    		bigParent = ((ActivityBasketAct)activity);
+    		bigParent.setPlayerStates(adapter.getCount());
+    		bigParent.inicializePlayerStates();
+    	}
+    	
+	}
 	public void onPause() {
 		super.onPause();
 		SharedPreferences pref = this.getActivity().getSharedPreferences(
@@ -244,6 +274,7 @@ public class TeamAOnlineFragment extends Fragment {
 			// TODO Auto-generated method stub
 			playersList = DAOPlayers.getPlayersOfATeam(new Team(homeTeamId,
 					homeTeam, leagueID));
+			bigParent.homeTeamId = homeTeamId;
 			Log.v("JUGADORES:", Integer.toString(playersList.size()));
 			return null;
 		}
@@ -257,9 +288,11 @@ public class TeamAOnlineFragment extends Fragment {
 						+ playersList.get(i).getSurname());
 				item.put("License", playersList.get(i).getLicenseNumber());
 				data.add(item);
+				bigParent.playersListA.add(playersList.get(i));
 			}
 			states = new int[adapter.getCount()];
 			numbers = new String[adapter.getCount()];
+		
 		}
 
 	}

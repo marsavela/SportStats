@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+import dao.ActDBHelper;
 import dao.DAOLeagues;
 import dao.DAOTeams;
 
@@ -39,11 +40,13 @@ public class ActivityChooseTeamOnline extends Activity {
     	public String homeTeam, awayTeam;
     	public int homeTeamId, awayTeamId;
     	public int leagueID = 0;
+    	
+    	public ActDBHelper myDb;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_activity_choose_team_online);
-
+                myDb = new ActDBHelper(getApplicationContext());
 
                 //League spinner:
                 //Get leagues:
@@ -95,6 +98,7 @@ public class ActivityChooseTeamOnline extends Activity {
                 Spinner leagueSpinner = (Spinner) findViewById(R.id.leagueSpinner);
                 Spinner localTeamSpinner = (Spinner) findViewById(R.id.localTeamSpinner);
                 Spinner awayTeamSpinner = (Spinner) findViewById(R.id.awayTeamSpinner);
+                
                 for(int i=0;i<teamsList.size();i++){
                 	if(teamsList.get(i).getName().compareTo(localTeamSpinner.getSelectedItem().toString()) == 0)
                 		homeTeamId = teamsList.get(i).getTeamId();
@@ -105,6 +109,7 @@ public class ActivityChooseTeamOnline extends Activity {
                 if(localTeamSpinner.getSelectedItemPosition() == awayTeamSpinner.getSelectedItemPosition())
                         Toast.makeText(getApplicationContext(), R.string.sameTeams, Toast.LENGTH_SHORT).show();
                 else{
+                		
                         SharedPreferences pref = getSharedPreferences("teamPrefs", Context.MODE_PRIVATE);
                         Editor editor = pref.edit();
                         editor.putString("prefLeague",leagueSpinner.getSelectedItem().toString());
@@ -117,6 +122,9 @@ public class ActivityChooseTeamOnline extends Activity {
                         i.putExtra("homeTeamId", homeTeamId);
                         i.putExtra("awayTeamId", awayTeamId);
                         i.putExtra("leagueID", leagueID);
+                        //Insert teams to the DB
+                        myDb.insertTeam(new Team(homeTeamId,localTeamSpinner.getSelectedItem().toString(),leagueID));
+                        myDb.insertTeam(new Team(awayTeamId,awayTeamSpinner.getSelectedItem().toString(),leagueID));
                         startActivity(i);
                 }
 
