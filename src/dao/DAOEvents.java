@@ -69,7 +69,7 @@ public class DAOEvents {
 					int idAct = c.getInt(TAG_AID);
 					int minute = c.getInt(TAG_MINUTE);
 					String type = c.getString(TAG_TYPE);
-					String value = c.getString(TAG_VALUE);
+					int value = c.getInt(TAG_VALUE);
 					int playersLicensnumber = c.getInt(TAG_PLNUMBER);
 
 					eventsList.add(new Event(id, idAct, minute, type, value, playersLicensnumber));

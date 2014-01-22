@@ -21,7 +21,7 @@ public class Event {
 	private int actId;
 	private int minute;
 	private String type;
-	private String value;
+	private int value;
 	private int player;
 
 	/**
@@ -32,7 +32,7 @@ public class Event {
 	 * @param value
 	 * @param player
 	 */
-	public Event(int id, int actId, int minute, String type, String value, int player) {
+	public Event(int id, int actId, int minute, String type, int value, int player) {
 		super();
 		this.id = id;
 		this.actId = actId;
@@ -66,10 +66,10 @@ public class Event {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getValue() {
+	public int getValue() {
 		return value;
 	}
-	public void setValue(String value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 	public int getPlayer() {
