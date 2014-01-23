@@ -39,7 +39,7 @@ public class DAOPlayers {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("id_teams", Integer.toString(team.getTeamId())));
+		params.add(new BasicNameValuePair(TAG_TID, Integer.toString(team.getTeamId())));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method

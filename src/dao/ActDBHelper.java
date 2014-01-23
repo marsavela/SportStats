@@ -324,6 +324,20 @@ public class ActDBHelper extends SQLiteOpenHelper {
 
 	// --------------- other methods ----------------//
 	
+	// Deleting DB
+	public void clearDB() {
+		
+        SQLiteDatabase db = this.getReadableDatabase();
+		// on upgrade drop older tables
+        db.execSQL("DROP TABLE IF EXISTS " + TAG_ACTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TAG_TEAMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TAG_PLAYERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TAG_EVENTS);
+ 
+        // create new tables
+        onCreate(db);		
+	}
+	
 	// closing database
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();

@@ -90,11 +90,11 @@ public class DAOEvents {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("TAG_AID", event.getType()));
-		params.add(new BasicNameValuePair("TAG_MINUTE", Integer.toString(event.getMinute())));
-		params.add(new BasicNameValuePair("TAG_TYPE", event.getType()));
-		params.add(new BasicNameValuePair("TAG_VALUE", event.getValue()));
-		params.add(new BasicNameValuePair("TAG_PLNUMBER", Integer.toString(event.getPlayer())));
+		params.add(new BasicNameValuePair(TAG_AID, event.getType()));
+		params.add(new BasicNameValuePair(TAG_MINUTE, Integer.toString(event.getMinute())));
+		params.add(new BasicNameValuePair(TAG_TYPE, event.getType()));
+		params.add(new BasicNameValuePair(TAG_VALUE, event.getValue()));
+		params.add(new BasicNameValuePair(TAG_PLNUMBER, Integer.toString(event.getPlayer())));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method

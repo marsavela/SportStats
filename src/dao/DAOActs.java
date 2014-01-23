@@ -95,10 +95,10 @@ public class DAOActs {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("TAG_DATE", getDateTime(act.getDate())));
-		params.add(new BasicNameValuePair("TAG_EMAIL", act.getEmailUser()));
-		params.add(new BasicNameValuePair("TAG_LID", Integer.toString(act.getIdTeamHome())));
-		params.add(new BasicNameValuePair("TAG_GID", Integer.toString(act.getIdTeamGuest())));
+		params.add(new BasicNameValuePair(TAG_DATE, getDateTime(act.getDate())));
+		params.add(new BasicNameValuePair(TAG_EMAIL, act.getEmailUser()));
+		params.add(new BasicNameValuePair(TAG_LID, Integer.toString(act.getIdTeamHome())));
+		params.add(new BasicNameValuePair(TAG_GID, Integer.toString(act.getIdTeamGuest())));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method
