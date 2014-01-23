@@ -165,7 +165,9 @@ public class TeamAOnlineFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-
+					for (int i = 0; i < adapter.getCount(); i++) {
+						numbers[i] = i+"";
+					}
 					
 					String dorsal = playerNumber.getText().toString();
 					boolean unico = true;

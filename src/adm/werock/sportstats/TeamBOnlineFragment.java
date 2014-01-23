@@ -159,7 +159,9 @@ public class TeamBOnlineFragment extends Fragment {
 
 				@Override
 				public void onClick(View v) {
-
+					for (int i = 0; i < adapter.getCount(); i++) {
+						numbers[i] = i+"";
+					}
 					String dorsal = playerNumber.getText().toString();
 					boolean unico = true;
 					for (int i = 0; i < numbers.length; i++) {
