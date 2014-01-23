@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -17,12 +18,14 @@ import org.json.JSONObject;
 
 import adm.werock.sportstats.JSONParser;
 import adm.werock.sportstats.basics.Act;
+import adm.werock.sportstats.basics.Event;
 import adm.werock.sportstats.basics.User;
+import android.content.Context;
 import android.util.Log;
 
 /**
  * @author sergiu
- *
+ * 
  */
 public class DAOActs {
 
@@ -43,15 +46,16 @@ public class DAOActs {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("email_users", user.getEmail()));
+		params.add(new BasicNameValuePair("TAG_EMAIL", user.getEmail()));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method
 		JSONParser jsonParser = new JSONParser();
-		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
+				params);
 
 		try {
-			// Check your log cat for JSON reponse
+			// Check your log cat for JSON response
 			Log.d("All String: ", json.toString());
 
 			// Checking for SUCCESS TAG
@@ -72,17 +76,7 @@ public class DAOActs {
 					String email = c.getString(TAG_EMAIL);
 					int idLocal = c.getInt(TAG_LID);
 					int idGuest = c.getInt(TAG_GID);
-					Date date = null;
-
-					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-					try {  
-						date = format.parse(dateString);
-					} catch (ParseException e) {  
-						// TODO Auto-generated catch block  
-						e.printStackTrace();  
-					}
-
-					playersList.add(new Act(id, date, email, idLocal, idGuest));
+					playersList.add(new Act(id, putDateTime(dateString), email, idLocal, idGuest));
 				}
 			}
 
@@ -90,9 +84,85 @@ public class DAOActs {
 			e.printStackTrace();
 		}
 
-		//new GetAllTeams().execute(league);
-
 		return playersList;
+	}
+
+	private Boolean insertAct(Act act) {
+
+		// url to create new product
+		String url_check_user = "http://sergiu.es/sportstats/new_act.php";
+
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("TAG_DATE", getDateTime(act.getDate())));
+		params.add(new BasicNameValuePair("TAG_EMAIL", act.getEmailUser()));
+		params.add(new BasicNameValuePair("TAG_LID", Integer.toString(act.getIdTeamHome())));
+		params.add(new BasicNameValuePair("TAG_GID", Integer.toString(act.getIdTeamGuest())));
+
+		// getting JSON Object
+		// Note that create product url accepts POST method
+		JSONParser jsonParser = new JSONParser();
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
+				params);
+
+		// Check your log cat for JSON reponse
+		Log.d("All String: ", json.toString());
+
+		// Checking for SUCCESS TAG
+		try {
+			int success;
+			success = json.getInt(TAG_SUCCESS);
+
+			if (success == 1) {
+				return true;
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+	
+	public Boolean uploadLocalAct(Context context, int act_id) {
+		
+		ActDBHelper helper = new ActDBHelper(context);
+		Act act = helper.selectAct(act_id);
+		ArrayList<Event> eventsList = helper.selectEvents(act.getId());
+		
+		if(!insertAct(act)) {
+			return false;
+		}
+		
+		for(Event event : eventsList) {
+			if(!DAOEvents.insertEvent(event)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	// --------------- other methods ----------------//
+	
+	private String getDateTime(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(date);
+	}
+	
+	private static Date putDateTime(String dateString){
+		Date date = null;
+		SimpleDateFormat  dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());  
+		try {  
+			date = dateFormat.parse(dateString);
+		} catch (ParseException e) {  
+			// TODO Auto-generated catch block  
+			e.printStackTrace();  
+		}
+		
+		return date;
 	}
 
 }

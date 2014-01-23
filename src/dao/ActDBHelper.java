@@ -98,13 +98,11 @@ public class ActDBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-
 		// creating required tables
 		db.execSQL(CREATE_ACTS);
 		db.execSQL(CREATE_TEAMS);
 		db.execSQL(CREATE_PLAYERS);
 		db.execSQL(CREATE_EVENTS);
-		
 	}
 
 	@Override
@@ -313,7 +311,7 @@ public class ActDBHelper extends SQLiteOpenHelper {
 				int idAct = c.getInt(c.getColumnIndex(TAG_ACTSID));
 				int minute = c.getInt(c.getColumnIndex(TAG_MINUTE));
 				String type = c.getString(c.getColumnIndex(TAG_TYPE));
-				int value = c.getInt(c.getColumnIndex(TAG_VALUE));
+				String value = c.getString(c.getColumnIndex(TAG_VALUE));
 				int playersLicensnumber = c.getInt(c.getColumnIndex(TAG_PLNUMBER));
 	    		
 				Event event = new Event(id, idAct, minute, type, value, playersLicensnumber);

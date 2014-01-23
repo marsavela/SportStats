@@ -5,14 +5,21 @@ package adm.werock.sportstats.basics;
 
 //     Event types
 // -------------------
-//  A - Assign number
-//  S - Score
-//  F - Foul
-// FI - Free Throw In
-// FO - Free Throw Out
-// AS - Assign Starter
-// AC - Assign Captain
-// AN - Assign Number
+//   A - Assign number
+//   S - Score
+//   F - Foul
+// 	FI - Free Throw In
+// 	FO - Free Throw Out
+// 	AS - Assign Starter
+// 	AC - Assign Captain
+// 	AN - Assign Number
+// MCH - Main Coach Home Team
+// SCH - Secondary Coach Home Team
+// MCG - Main Coach Guest Team
+// SCG - Secondary Coach Guest Team
+//  TW - Town
+//  MR - Main Referee
+//  SR - Secondary Referee
 // -------------------
 
 public class Event {
@@ -21,7 +28,7 @@ public class Event {
 	private int actId;
 	private int minute;
 	private String type;
-	private int value;
+	private String value;
 	private int player;
 
 	/**
@@ -32,7 +39,7 @@ public class Event {
 	 * @param value
 	 * @param player
 	 */
-	public Event(int id, int actId, int minute, String type, int value, int player) {
+	public Event(int id, int actId, int minute, String type, String value, int player) {
 		super();
 		this.id = id;
 		this.actId = actId;
@@ -66,10 +73,10 @@ public class Event {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(int value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	public int getPlayer() {

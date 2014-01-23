@@ -69,7 +69,7 @@ public class DAOEvents {
 					int idAct = c.getInt(TAG_AID);
 					int minute = c.getInt(TAG_MINUTE);
 					String type = c.getString(TAG_TYPE);
-					int value = c.getInt(TAG_VALUE);
+					String value = c.getString(TAG_VALUE);
 					int playersLicensnumber = c.getInt(TAG_PLNUMBER);
 
 					eventsList.add(new Event(id, idAct, minute, type, value, playersLicensnumber));
@@ -81,6 +81,44 @@ public class DAOEvents {
 		}
 
 		return eventsList;
+	}
+
+	public static Boolean insertEvent(Event event) {
+
+		// url to create new product
+		String url_check_user = "http://sergiu.es/sportstats/new_event.php";
+
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("TAG_AID", event.getType()));
+		params.add(new BasicNameValuePair("TAG_MINUTE", Integer.toString(event.getMinute())));
+		params.add(new BasicNameValuePair("TAG_TYPE", event.getType()));
+		params.add(new BasicNameValuePair("TAG_VALUE", event.getValue()));
+		params.add(new BasicNameValuePair("TAG_PLNUMBER", Integer.toString(event.getPlayer())));
+
+		// getting JSON Object
+		// Note that create product url accepts POST method
+		JSONParser jsonParser = new JSONParser();
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
+				params);
+
+		// Check your log cat for JSON response
+		Log.d("All String: ", json.toString());
+
+		// Checking for SUCCESS TAG
+		try {
+			int success;
+			success = json.getInt(TAG_SUCCESS);
+
+			if (success == 1) {
+				return true;
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 	
 }
