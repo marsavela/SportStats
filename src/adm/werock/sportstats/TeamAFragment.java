@@ -122,16 +122,16 @@ public class TeamAFragment extends Fragment {
 					for (int i = 0; i < states.length; i++) {
 						if (states[i] == 1){
 							activeCounter++;
-							bigParent.playerStateA[i] = true;
+							bigParent.playerStateA[i] = 1;
 						}
 						if (states[i] == 2){
 							starterCounter++;
-							bigParent.playerStateA[i] = true;
+							bigParent.playerStateA[i] = 2;
 						}
 
 						if (states[i] == 3){
 							captainCounter++;
-							bigParent.playerStateA[i] = true;
+							bigParent.playerStateA[i] = 3;
 						}
 					}
 					if (starterCounter > 5 && captainCounter == 1)

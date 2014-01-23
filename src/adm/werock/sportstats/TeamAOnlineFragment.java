@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import dao.ActDBHelper;
 import dao.DAOPlayers;
 
@@ -36,11 +37,11 @@ public class TeamAOnlineFragment extends Fragment {
 	public int starterCounter = 0;
 	public int activeCounter = 0;
 	public int totalPlayers = 0;
-	
+
 	public String homeTeam;
 	public int homeTeamId;
 	public int leagueID;
-	
+
 	public int aux;
 	public ListView list;
 
@@ -57,10 +58,10 @@ public class TeamAOnlineFragment extends Fragment {
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
 			View itemView = super.getView(position, convertView, parent);
-						
+
 			ImageView imageView = (ImageView) itemView
 					.findViewById(R.id.player_icon);
-			
+
 
 			switch (states[position]) {
 			/*
@@ -83,11 +84,11 @@ public class TeamAOnlineFragment extends Fragment {
 			}
 
 			itemView.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					bigParent.setPlayerStates(adapter.getCount());
-		    		bigParent.inicializePlayerStates();
+					bigParent.inicializePlayerStates();
 					// TODO Auto-generated method stub
 					final ImageView icon = (ImageView) v
 							.findViewById(R.id.player_icon);
@@ -104,18 +105,18 @@ public class TeamAOnlineFragment extends Fragment {
 					for (int i = 0; i < states.length; i++) {
 						if (states[i] == 1){
 							activeCounter++;
-							bigParent.playerStateA[i] = true;
-							}
+							bigParent.playerStateA[i] = 1;
+						}
 						if (states[i] == 2){
 							starterCounter++;
-							bigParent.playerStateA[i] = true;
+							bigParent.playerStateA[i] = 2;
 						}
 
 						if (states[i] == 3){
 							captainCounter++;
-							bigParent.playerStateA[i] = true;
+							bigParent.playerStateA[i] = 3;
 						}
-					
+
 					}
 					if (starterCounter > 5 && captainCounter == 1)
 						states[aux] = 4;
@@ -151,9 +152,9 @@ public class TeamAOnlineFragment extends Fragment {
 					totalPlayers = starterCounter + captainCounter
 							+ activeCounter;
 					onPause();
-			
+
 				}
-				
+
 			});
 
 			final EditText playerNumber = (EditText) itemView
@@ -164,10 +165,40 @@ public class TeamAOnlineFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					numbers[position] = playerNumber.getText().toString();
+
+					
+					String dorsal = playerNumber.getText().toString();
+					boolean unico = true;
+					for (int i = 0; i < numbers.length; i++) {
+						if(numbers[i]!=null ){
+							if(numbers[i].length()==0)
+								numbers[i] = "";
+							else if (numbers[i].compareTo(dorsal) == 0) unico = false;
+						}
+						else numbers[i] = "";
+					
+					}
+					if(!unico)
+						Toast.makeText(getActivity().getApplicationContext(), "Repeated number", Toast.LENGTH_SHORT).show();
+
+					else {
+						numbers[position] = playerNumber.getText().toString();
+
+						bigParent.setPlayerNumbersA(adapter.getCount());
+						bigParent.inicializePlayerNumbersA();
+
+						for(int iterador=0;iterador<numbers.length;++iterador){
+							//Log.i(numbers[iterador].length()+"",numbers[iterador]+"");
+							if(numbers[iterador]!= null && numbers[iterador].length() > 0 ){
+								bigParent.playerNumberA[iterador] = Integer.parseInt(numbers[iterador]);
+							}
+						}
+					}
+
+
 				}
 			});
-			
+
 			return itemView;
 		}
 
@@ -196,44 +227,44 @@ public class TeamAOnlineFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		
+
+
 		View rootView = inflater.inflate(
 				adm.werock.sportstats.R.layout.layout_team_a_online_fragment,
 				container, false);
-		
+
 		list = (ListView) rootView.findViewById(R.id.teamAplayers);
 		list.setItemsCanFocus(true);
 
 		adapter = new myAdapter(this.getActivity(), data, R.layout.team_item,
 				new String[] { "License", "Name" }, new int[] { R.id.license,
-						R.id.player_name });
+			R.id.player_name });
 		list.setAdapter(adapter);
 
 		states = new int[adapter.getCount()];
 		numbers = new String[adapter.getCount()];
-		
-		for (int i = 0; i < states.length; i++) {
+
+		for (int i = 0; i < adapter.getCount(); i++) {
 			states[i] = 0;
 			numbers[i] = "";
 		}
 
-		
+
 		return rootView;
 
 	}
 	@Override
 	public void onActivityCreated (Bundle savedInstanceState) {
-	    super.onActivityCreated(savedInstanceState);
+		super.onActivityCreated(savedInstanceState);
 
-	    Activity activity = getActivity();
-    	
-    	if(activity instanceof ActivityBasketAct){
-    		bigParent = ((ActivityBasketAct)activity);
-    		bigParent.setPlayerStates(adapter.getCount());
-    		bigParent.inicializePlayerStates();
-    	}
-    	
+		Activity activity = getActivity();
+
+		if(activity instanceof ActivityBasketAct){
+			bigParent = ((ActivityBasketAct)activity);
+			bigParent.setPlayerStates(adapter.getCount());
+			bigParent.inicializePlayerStates();
+		}
+
 	}
 	public void onPause() {
 		super.onPause();
@@ -292,7 +323,7 @@ public class TeamAOnlineFragment extends Fragment {
 			}
 			states = new int[adapter.getCount()];
 			numbers = new String[adapter.getCount()];
-		
+
 		}
 
 	}

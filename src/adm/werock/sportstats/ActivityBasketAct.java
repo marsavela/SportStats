@@ -54,8 +54,8 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 	ArrayList<Player> playersListB = new ArrayList<Player>();
 	public int[] playerNumberA;
 	public int[] playerNumberB;
-	public boolean[] playerStateA;
-	public boolean[] playerStateB;
+	public int[] playerStateA;
+	public int[] playerStateB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		setContentView(R.layout.activity_basket_act);
 		SharedPreferences pref = getSharedPreferences("myPref", Context.MODE_MULTI_PROCESS);
 		Editor editor = pref.edit();
-		editor.remove("myPref");
+		editor.clear();
 		editor.commit();
 		//cleaning the preferences each time we create a new act
 		pref = getSharedPreferences("teamPrefs", Context.MODE_MULTI_PROCESS);
@@ -317,19 +317,38 @@ We have to manually change the view using Tab change listener.*/
 		playersListB = players;
 	}
 	public  void setPlayerStates(int  size){
-		playerStateA = new boolean[size];
+		playerStateA = new int[size];
 	}
 	public  void inicializePlayerStates(){
 		for(int i=0;i<playerStateA.length;i++)
-			playerStateA[i] = false;
+			playerStateA[i] = 0;
 	}
 	public  void setPlayerStatesB(int  size){
-		playerStateB = new boolean[size];
+		playerStateB = new int[size];
 	}
 	public  void inicializePlayerStatesB(){
 		for(int i=0;i<playerStateB.length;i++)
-			playerStateB[i] = false;
+			playerStateB[i] = 0;
 	}
+	
+	public  void setPlayerNumbersA(int  size){
+		playerNumberA = new int[size];
+	}
+	public  void inicializePlayerNumbersA(){
+		for(int i=0;i<playerNumberA.length;i++)
+			playerNumberA[i] = -1;
+	}
+
+
+	public  void setPlayerNumbersB(int  size){
+		playerNumberB = new int[size];
+	}
+	public  void inicializePlayerNumbersB(){
+		for(int i=0;i<playerNumberB.length;i++)
+			playerNumberB[i] = -1;
+	}
+
+	
 	private Date putDateTime(final String dateString) throws java.text.ParseException{
 		Date date = null;
 		SimpleDateFormat  dateFormat = new SimpleDateFormat(

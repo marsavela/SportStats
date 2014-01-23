@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import dao.DAOPlayers;
 
 public class TeamBOnlineFragment extends Fragment {
@@ -101,16 +102,16 @@ public class TeamBOnlineFragment extends Fragment {
 					for (int i = 0; i < states.length; i++) {
 						if (states[i] == 1){
 							activeCounter++;
-							bigParent.playerStateB[i] = true;
+							bigParent.playerStateB[i] = 1;
 						}
 						if (states[i] == 2){
 							starterCounter++;
-							bigParent.playerStateB[i] = true;
+							bigParent.playerStateB[i] = 2;
 						}
 
 						if (states[i] == 3){
 							captainCounter++;
-							bigParent.playerStateB[i] = true;
+							bigParent.playerStateB[i] = 3;
 						}
 					}
 					if (starterCounter > 5 && captainCounter == 1)
@@ -158,8 +159,34 @@ public class TeamBOnlineFragment extends Fragment {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					numbers[position] = playerNumber.getText().toString();
+
+					String dorsal = playerNumber.getText().toString();
+					boolean unico = true;
+					for (int i = 0; i < numbers.length; i++) {
+						if(numbers[i]!=null ){
+							if(numbers[i].length()==0)
+								numbers[i] = "";
+							else if (numbers[i].compareTo(dorsal) == 0) unico = false;
+						}
+						else numbers[i] = "";
+					
+					}
+					if(!unico)
+						Toast.makeText(getActivity().getApplicationContext(), "Repeated number", Toast.LENGTH_SHORT).show();
+
+					else {
+						numbers[position] = playerNumber.getText().toString();
+
+						bigParent.setPlayerNumbersB(adapter.getCount());
+						bigParent.inicializePlayerNumbersB();
+
+						for(int iterador=0;iterador<numbers.length;++iterador){
+							if(numbers[iterador]!= null && numbers[iterador].length() > 0 ){
+								bigParent.playerNumberB[iterador] = Integer.parseInt(numbers[iterador]);
+							}
+						}
+					}
+
 
 				}
 			});
