@@ -921,6 +921,7 @@ public class ActivityBasketStats extends FragmentActivity
 	public void substractMinute()
 	{
 		int nextQuarter;
+		disableEnd();
 		bGameEnd = false;
 		
 		if(currentMinute>0){

@@ -123,6 +123,18 @@ public class FragmentBasketEventList extends Fragment{
     			eventsContainer.addView(eventQuarterItem);
     		}
     		
+    		if(i<40){
+    			View eventMinuteItem = getLayoutInflater(savedInstanceState).inflate(R.layout.layout_event_minute_item, null);
+    			Button minuteButton = (Button) eventMinuteItem.findViewById(R.id.buttonEventMinute);
+    			minuteButton.setText(getResources().getString(R.string.headerMinute)+" "+String.valueOf(i%10));
+    			eventsContainer.addView(eventMinuteItem);
+    		}else{
+    			View eventMinuteItem = getLayoutInflater(savedInstanceState).inflate(R.layout.layout_event_minute_item, null);
+    			Button minuteButton = (Button) eventMinuteItem.findViewById(R.id.buttonEventMinute);
+    			minuteButton.setText(getResources().getString(R.string.headerMinute)+" "+String.valueOf((i-40)%10));
+    			eventsContainer.addView(eventMinuteItem);
+    		}
+    		
     		for(int j=0; j<events.size(); j++){
     			if(events.get(j).getMinute() == i){
     				View eventItem;
