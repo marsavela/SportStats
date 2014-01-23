@@ -21,7 +21,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-
+/**
+ * Actividad que contiene los fragments de introducción de eventos y previsualización
+ * de eventos y estadísticas. Esta actividad sirve para contener toda la información
+ * común a los fragments (eventos, jugadores, minutos, faltas) de forma que cuando un
+ * fragment necesite esa información, se la pedirá a su actividad.
+ * 
+ * @author Josep
+ *
+ */
 public class ActivityBasketStats extends FragmentActivity
 {
 	
@@ -70,6 +78,13 @@ public class ActivityBasketStats extends FragmentActivity
     private int actID;
     private ActDBHelper helper;
     
+    /**
+     * Actividad que contiene los fragments de introducción de eventos y previsualización
+     * de eventos y estadísticas.
+     * 
+     * @author Josep
+     *
+     */
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);

@@ -1,6 +1,7 @@
 package adm.werock.sportstats;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import dao.ActDBHelper;
 
@@ -99,10 +100,13 @@ public class StartTabFragment extends Fragment {
 		        	else if(totalPlayersHome > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamA have more than 12 players", Toast.LENGTH_SHORT).show();
 		        	else if(totalPlayersVisitor > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
 		        	else{
-		        		myAct = new Act(1, bigParent.date, "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
+		        		//myAct = new Act(1, bigParent.date, "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
+		        		myAct = new Act(1, new Date(), "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
+		        		Log.i("date","DATE: "+(new Date()).toString());
 		        		Log.i("pedooo",  myAct.getId()+"");
 		        		myDb.insertAct(myAct);
 		        		Intent i = new Intent(getActivity(), ActivityBasketStats.class);
+		        		i.putExtra("actID", myAct.getId());
 		        		startActivity(i);
 		        	}
 		            
