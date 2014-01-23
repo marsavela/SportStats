@@ -270,7 +270,7 @@ public class InsertBasketDataFragment extends Fragment
 			if(i < homePlayers.size()){
 				homeButtons.get(i).setText(new Integer(homePlayers.get(i).getNumber()).toString());
 				if(homePlayers.get(i).isCaptain()){
-					homeButtons.get(i).setTypeface(null, Typeface.BOLD);
+					homeButtons.get(i).setTypeface(null, Typeface.BOLD_ITALIC);
 				}
 			}else{
 				homeButtons.get(i).setBackgroundResource(R.drawable.button_player_out);
@@ -283,6 +283,9 @@ public class InsertBasketDataFragment extends Fragment
 		{
 			if(i < awayPlayers.size()){
 				awayButtons.get(i).setText(new Integer(awayPlayers.get(i).getNumber()).toString());
+				if(awayPlayers.get(i).isCaptain()){
+					awayButtons.get(i).setTypeface(null, Typeface.BOLD_ITALIC);
+				}
 			}else{
 				awayButtons.get(i).setBackgroundResource(R.drawable.button_player_out);
 				awayButtons.get(i).setText("");

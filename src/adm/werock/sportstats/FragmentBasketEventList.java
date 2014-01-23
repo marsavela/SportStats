@@ -22,6 +22,12 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ScrollView;
 
+
+/**
+ * This Fragment shows the list of the entered events. The user can preview, choose and delete events here.
+ * 
+ * @author Josep
+ */
 public class FragmentBasketEventList extends Fragment{
 	
 	private ActivityBasketStats parent;
@@ -156,11 +162,25 @@ public class FragmentBasketEventList extends Fragment{
 	}
 
 
+	/**
+	 * Implements an OnTouchListener for an event item.
+	 * @see OnTouchListener
+	 * @author Josep
+	 */
 	private class HandlerEventButton implements OnTouchListener
 	{
 		ActEvent actEvent;
 		Button buttonEvent;
 		
+		
+		/**
+		 * Creates a HandlerEventButton.
+		 * 
+		 * @param buttonEvent the button this handler is set to.
+		 * @param actEvent the reference to the event in the list.
+		 * @see HandlerEventButton
+		 * @author Josep
+		 */
 		public HandlerEventButton(ActEvent event, Button buttonEvent){
 			this.actEvent = event;
 			this.buttonEvent = buttonEvent;

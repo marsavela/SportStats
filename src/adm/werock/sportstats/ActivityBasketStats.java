@@ -9,6 +9,7 @@ import adm.werock.sportstats.basics.*;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,10 +23,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 /**
- * Actividad que contiene los fragments de introducción de eventos y previsualización
- * de eventos y estadísticas. Esta actividad sirve para contener toda la información
- * común a los fragments (eventos, jugadores, minutos, faltas) de forma que cuando un
- * fragment necesite esa información, se la pedirá a su actividad.
+ * This activity contains all the fragments needed for adding events and to preview
+ * events and stats. This activity also contains all de data needed by the fragments
+ * such as events, players, minutes or fouls. When a Fragment needs some specific
+ * data, the activity provides it.
  * 
  * @author Josep
  *
@@ -79,8 +80,8 @@ public class ActivityBasketStats extends FragmentActivity
     private ActDBHelper helper;
     
     /**
-     * Actividad que contiene los fragments de introducción de eventos y previsualización
-     * de eventos y estadísticas.
+     * Creates the ViewPager with the Fragments event list, stats preview and data insert.
+     * Gets the ActID from the Intent extras and extract the players from the database.
      * 
      * @author Josep
      *
@@ -129,10 +130,15 @@ public class ActivityBasketStats extends FragmentActivity
 	protected void onResume() {
 		super.onResume();
 		
-		// Intitialize Events Array
-		// Read from DB
 	}
 
+    
+    /**
+     * Enables or disables the overlay help fragment if the "?" icon is clicked.
+     * 
+     * @author Josep
+     *
+     */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
@@ -150,10 +156,25 @@ public class ActivityBasketStats extends FragmentActivity
      }
 	}
 	
+	
+	/**
+     * Forces the ViewPager to redraw all the fragments.
+     * 
+     * @author Josep
+     *
+     */
 	public void rebuild(){
 		pager.setAdapter(pagerAdapter);
 	}
     
+	
+	/**
+     * Returns to the main page in the ViewPager if the current page is not the main.
+     * Otherwise returns to the previous activity.
+     * 
+     * @author Josep
+     *
+     */
     @Override
 	public void onBackPressed() {
 		if(pager.getCurrentItem() == 2){
@@ -165,6 +186,13 @@ public class ActivityBasketStats extends FragmentActivity
     
     // TODO: HELP
     
+    /**
+     * Draws a semi-opaque Fragment over the ViewPager containing graphical help about the
+     * current Fragment.
+     * 
+     * @author Josep
+     *
+     */
     public void enableHelp()
     {
     	FragmentManager fm = getSupportFragmentManager();
@@ -174,7 +202,15 @@ public class ActivityBasketStats extends FragmentActivity
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
+
     
+    /**
+     * Deletes the semi-opaque help Fragment.
+     * 
+     * @see enableHelp
+     * @author Josep
+     *
+     */
     public void disableHelp()
     {
     	FragmentManager fm = getSupportFragmentManager();
@@ -187,6 +223,14 @@ public class ActivityBasketStats extends FragmentActivity
     
     // TODO: EVENTS
     
+    
+    /**
+     * Checks if the ActEvent type is valid and adds an ActEvent to the current list of
+     * events.
+     * 
+     * @author Josep
+     *
+     */
     public boolean addEvent(ActEvent event){
     	
     	String type = event.getType();
@@ -196,10 +240,7 @@ public class ActivityBasketStats extends FragmentActivity
     		if(value > 0){
     			events.add(event);
     			return true;
-    		}/*else{
-    			event.setValue(-value);
-    			return searchAndRemoveEvent(event);
-    		}*/
+    		}
     	}
     	else if(type.equals("F")){
     		if(value > 0){
@@ -212,33 +253,34 @@ public class ActivityBasketStats extends FragmentActivity
     			}
     			
     			return true;
-    		}/*else{
-    			event.setValue(-value);
-    			return searchAndRemoveEvent(event);
-    		}*/
+    		}
     	}
-    	else if(type.equals("FTI")){
+    	else if(type.equals("FI")){
     		if(value > 0){
     			events.add(event);
     			return true;
-    		}/*else{
-    			event.setValue(-value);
-    			return searchAndRemoveEvent(event);
-    		}*/
+    		}
     	}
-    	else if(type.equals("FTO")){
+    	else if(type.equals("FO")){
     		if(value > 0){
     			events.add(event);
     			return true;
-    		}/*else{
-    			event.setValue(-value);
-    			return searchAndRemoveEvent(event);
-    		}*/
+    		}
     	}
     	
     	return false;
     }
     
+    
+    /**
+     * Given an ActEvent to delete, this will search and delete the latest ActEvent in the
+     * list with the same Minute, Player, Type and Value .
+     * 
+     * @return true if the ActEvent has been deleted, false otherwise.
+     * @param e ActEvent to delete.
+     * @author Josep
+     *
+     */
     public boolean searchAndRemoveEvent(ActEvent e){
     	for(int i=events.size()-1; i>=0; i--){
     		ActEvent event = events.get(i);
@@ -255,11 +297,19 @@ public class ActivityBasketStats extends FragmentActivity
     	return false;
     }
     
+    
+    /**
+     * Sorts all the ActEvents in the list by minute and inserts them to the local database.
+     * 
+     * @author Josep
+     *
+     */
     public void saveEventsInDatabase()
     {
     	maxEventID++;
     	
     	// Preprocessing the event list to save in local db a list of events sorted by minute.
+    	Log.d("BasketStats.saveEventsInDatabase()","Preprocessing");
     	ArrayList<ArrayList<ActEvent>> actEvents = new ArrayList<ArrayList<ActEvent>>();
     	
     	for(int i=0; i<=maximumMinute; i++){
@@ -272,6 +322,7 @@ public class ActivityBasketStats extends FragmentActivity
 		}
     	
     	// Add the events to de local db
+    	Log.d("BasketStats.saveEventsInDatabase()","Adding events");
     	for(int i=0; i<=maximumMinute; i++)
     	{
     		ArrayList<ActEvent> eventsInMinute = actEvents.get(i);
@@ -296,12 +347,28 @@ public class ActivityBasketStats extends FragmentActivity
     			maxEventID++;
     		}
     	}
+    	Log.d("BasketStats.saveEventsInDatabase()","Finished");
     }
     
+    
+    /**
+     * Method for obtain the current list of events in this activity. Called by its Fragments.
+     * 
+     * @return list of ActEvents in the activtity.
+     * @author Josep
+     *
+     */
     public ArrayList<ActEvent> getEvents(){
     	return events;
     }
     
+    
+    /**
+     * Reconstruct all the players stats by consulting all the ActEvents in the event list.
+     * 
+     * @author Josep
+     *
+     */
     public void rebuildFromEvents(){
     	for(int i=0; i<homePlayers.size(); i++){
     		homePlayers.get(i).resetStats();
@@ -326,7 +393,7 @@ public class ActivityBasketStats extends FragmentActivity
     			}
     		}
     		
-    		else if(event.getType().equals("FTI")){
+    		else if(event.getType().equals("FI")){
     			if(event.isHomePlayer()){
     				homePlayers.get(event.getPlayerPosition()).addFreeThrowsMade(event.getValue());
     				homeTeamScore += event.getValue();
@@ -336,7 +403,7 @@ public class ActivityBasketStats extends FragmentActivity
     			}
     		}
     		
-    		else if(event.getType().equals("FTO")){
+    		else if(event.getType().equals("FO")){
     			if(event.isHomePlayer()){
     				homePlayers.get(event.getPlayerPosition()).addFreeThrowsMissed(event.getValue());
     			}else{
@@ -355,6 +422,16 @@ public class ActivityBasketStats extends FragmentActivity
     	updateFouls(currentQuarter);
     }
     
+    
+    /**
+     * Obtains the number of fouls of each team in the given quarter of the match. Invokes
+     * the same method in the InsertDataFragment to show results.
+     *  
+     * @param quarter Quarter of the match.
+     * @see insertDataFragment#updateFouls
+     * @author Josep
+     *
+     */
     public void updateFouls(int quarter){
     	int minMinute = 0;
     	int maxMinute = 0;
@@ -394,6 +471,15 @@ public class ActivityBasketStats extends FragmentActivity
     
     // TODO: PLAYERS
     
+    
+    /**
+     * Obtains the identifier of the current Act and reads it from the local database. Gets
+     * the teams ID's and reads their players. Reads the events and uses them to obtain the
+     * lists of active home and away players in the match.
+     *  
+     * @author Josep
+     *
+     */
     public void setPlayers(){
     	/*homePlayers.add(new ActPlayer(4,"Sergiu", "Marsavela",1));
     	homePlayers.add(new ActPlayer(5,"Fran", "Martin",2));
@@ -428,15 +514,21 @@ public class ActivityBasketStats extends FragmentActivity
     		//homePlayers.add(new ActPlayer(homeActPlayers.get(i)));
     		homeLicenses.put(new Integer(homeActPlayers.get(i).getLicenseNumber()), new Integer(i));
     	}
+    	Log.i("BasketStats.setPlayers()", "Home license numbers obtained.");
     	
     	// Convert the away players
     	for(int i=0; i<awayActPlayers.size(); i++){
     		//awayPlayers.add(new ActPlayer(awayActPlayers.get(i)));
     		awayLicenses.put(new Integer(awayActPlayers.get(i).getLicenseNumber()), new Integer(i));
     	}
+    	Log.i("BasketStats.setPlayers()", "Away license numbers obtained.");
+    	
     	
     	// Get the assign events from the list
+    	Log.i("BasketStats.setPlayers()", "Requesting events.");
     	ArrayList<Event> actEvents = helper.selectEvents(actID);
+    	
+    	Log.i("BasketStats.setPlayers()", "Received: "+ actEvents.size() +" events.");
     	
     	int homeNumbersAssigned = 0;
     	int homeStartersAssigned = 0;
@@ -454,39 +546,36 @@ public class ActivityBasketStats extends FragmentActivity
     		boolean bHome = false;
     		int playerLicense = event.getPlayer();
     		
-    		if(event.getId() > maxEventID){
-    			maxEventID = event.getId();
-    		}
-    		
     		if(homeLicenses.containsKey(new Integer(playerLicense)))
     		{
     			bHome = true;
     		}
     		
-    		if(type.equals("AN"))
+    		if(type.equals("AN") || type.equals("A"))
     		{
     			Player player;
     			
     			if(bHome){
-    				player = homeActPlayers.get(homeLicenses.get(new Integer(playerLicense)));
-    				homePlayers.add(new ActPlayer(player));
-    				homeNumbersAssigned++;
+    				if(homeLicenses.containsKey(new Integer(playerLicense))){
+    					player = homeActPlayers.get(homeLicenses.get(new Integer(playerLicense)));
+    					ActPlayer actPlayer = new ActPlayer(player);
+    					actPlayer.setNumber(Integer.valueOf(value));
+    					homePlayers.add(actPlayer);
+    					homeNumbersAssigned++;
+    				}
     			}else{
-    				player = awayActPlayers.get(awayLicenses.get(new Integer(playerLicense)));
-    				awayPlayers.add(new ActPlayer(player));
-    				homeNumbersAssigned++;
+    				if(awayLicenses.containsKey(new Integer(playerLicense))){
+	    				player = awayActPlayers.get(awayLicenses.get(new Integer(playerLicense)));
+	    				ActPlayer actPlayer = new ActPlayer(player);
+    					actPlayer.setNumber(Integer.valueOf(value));
+    					awayPlayers.add(actPlayer);
+	    				awayNumbersAssigned++;
+    				}
     			}
-    			
-    			/*if(bHome){
-    				homePlayers.get(homeLicenses.get(player)).setNumber(Integer.parseInt(value));
-    				homeNumbersAssigned++;
-    			}else{
-    				awayPlayers.get(awayLicenses.get(player)).setNumber(Integer.parseInt(value));
-    				awayNumbersAssigned++;
-    			}*/
     		}
     		else if(type.equals("AS"))
     		{
+    			homeStartersAssigned++;
     			if(bHome){
     				homePlayers.get(homeLicenses.get(playerLicense)).setAsStarter();
     				homeStartersAssigned++;
@@ -497,6 +586,7 @@ public class ActivityBasketStats extends FragmentActivity
     		}
     		else if(type.equals("AC"))
     		{
+    			homeCaptainAssigned++;
     			if(bHome){
     				homePlayers.get(homeLicenses.get(playerLicense)).setAsCaptain();
     				homeCaptainAssigned++;
@@ -516,10 +606,20 @@ public class ActivityBasketStats extends FragmentActivity
     	Log.i("BasketStats.setPlayers()","AWAY CAPTAINS: " + awayCaptainAssigned);
     }
     
+    
+    /** 
+     * @return list of the home players in this match.
+     * @author Josep
+     */
     public ArrayList<ActPlayer> getHomePlayers(){
     	return homePlayers;
     }
     
+    
+    /** 
+     * @return list of the away players in this match.
+     * @author Josep
+     */
     public ArrayList<ActPlayer> getAwayPlayers(){
     	return awayPlayers;
     }
@@ -528,6 +628,16 @@ public class ActivityBasketStats extends FragmentActivity
     	return selectedPlayer;
     }
     
+    
+    /**
+     * Returns the ActPlayer of a given team in a given position of the ArrayList of players.
+     * 
+     * @param bHome if the player belongs to the home team or not
+     * @param index position in the list of players
+     * @return selected player
+     * @author Josep
+     *
+     */
     public ActPlayer getPlayer(boolean bHome, int index){
     	if(bHome){
     		return homePlayers.get(index);
@@ -536,25 +646,56 @@ public class ActivityBasketStats extends FragmentActivity
     	}
     }
     
+    
+    /**
+     * Returns the position in the ArrayList of the current selected player.
+     *  
+     * @author Josep
+     *
+     */
     public int getSelectedPlayerIndex(){
     	return selectedPlayerIndex;
     }
 	
+    
+    /**
+     * @return true if the selected player belongs to the home team, false otherwise
+     * @author Josep
+     *
+     */
 	public boolean isHomePlayerSelected(){
 		return bSelectedHomePlayer;
 	}
 	
-	public void updatePlayerButton(){
-	}
 	
+	/**
+     * @return current score of the home team
+     * @author Josep
+     *
+     */
 	public int getHomeTeamScore(){
 		return homeTeamScore;
 	}
 	
+	
+	/**
+     * @return current score of the away team
+     * @author Josep
+     *
+     */
 	public int getAwayTeamScore(){
 		return awayTeamScore;
 	}
 	
+	
+	/**
+     * Adds points to one of the teams and updates the fragment which shows the current scores.
+     * 
+     * @param bHome true if the points are added to the home team, false otherwise 
+     * @param points amount of points to add
+     * @author Josep
+     *
+     */
 	public void addPoints(int points, boolean bHome){
 		if(bHome){
 			homeTeamScore += points;
@@ -564,14 +705,35 @@ public class ActivityBasketStats extends FragmentActivity
 		insertDataFragment.updateScore();
 	}
 	
+	
+	/**
+     * @return number of fouls of the home team in the current quarter 
+     * @author Josep
+     *
+     */
 	public int getHomeTeamFouls(){
 		return homeTeamFouls;
 	}
 	
+	
+	/**
+     * @return number of fouls of the away team in the current quarter
+     * @author Josep
+     *
+     */
 	public int getAwayTeamFouls(){
 		return awayTeamFouls;
 	}
 	
+	/**
+     * Adds fouls to one of the teams in the current quarter and updates the fragment which
+     * shows the bonus indicators.
+     * 
+     * @param bHome true if the fouls are added to the home team, false otherwise 
+     * @param fouls amount of fouls to add
+     * @author Josep
+     *
+     */
 	public void addFouls(int fouls, boolean bHome){
 		if(bHome){
 			homeTeamFouls += fouls;
@@ -581,6 +743,19 @@ public class ActivityBasketStats extends FragmentActivity
 		insertDataFragment.updateFouls();
 	}
 	
+	
+	/**
+     * InsertBasketDataFragment invokes this method to add a new instance of PlayerBasketDataFragment
+     * to the ViewPager in which the events will be added to the selected player. If the number
+     * of fouls of the selected player is less than 5 this new Fragment will be added, if not,
+     * it will show a dialog informing the user that the player selected is fouled out.
+     * 
+     * @param number position in the players array
+     * @param bHome if the player belongs to the home team or not
+     * @author Josep
+     * @see InsertBasketDataFragment.HandlerButtonPlayer
+     *
+     */
 	public void playerSelected(int number, boolean bHome){
 		if(bHome){
 			bSelectedHomePlayer = true;
@@ -616,6 +791,13 @@ public class ActivityBasketStats extends FragmentActivity
 		}
 	}
 	
+	
+	/**
+     * Deletes the last page in the ViewPager because it's no longer useful.
+     *  
+     * @see PlayerBasketDataFragment.HandlerConfirm 
+     * @author Josep
+     */
 	public void playerActionsConfirmed(){
 		bActionsConfirmed=true;
 		pagerAdapter.deleteFragment(pagerAdapter.getItem(3));
@@ -626,6 +808,12 @@ public class ActivityBasketStats extends FragmentActivity
 		bActionsConfirmed=false;
 	}
 	
+	
+	/**
+     * Deletes the last page in the ViewPager because it's no longer useful.
+     *   
+     * @author Josep
+     */
 	public void playerActionsDiscarded(){
 		pagerAdapter.deleteFragment(pagerAdapter.getItem(3));
 		pagerAdapter.notifyDataSetChanged();
@@ -693,28 +881,12 @@ public class ActivityBasketStats extends FragmentActivity
 	// TODO:  TIME
 	
 	/**
-	 * This method increments the current minute of the game and checks for quarter transitions.
-	 * @return true if the game has ended, false otherwise
+	 * This method increments the current minute of the game and checks for quarter transitions
+	 * and the end of the match.
 	 * @author Josep
 	 */
-	public void addMinute(){
-		/*currentMinute ++;
-		
-		if(currentMinute == 10){
-			currentMinute = 0;
-			currentQuarter ++;
-			homeTeamFouls = 0;
-			awayTeamFouls = 0;
-			insertDataFragment.updateFouls();
-			
-			if(currentQuarter > 4){
-				currentQuarter = 4;
-				currentMinute = 10;
-				return true;
-			}
-		}
-		return false;*/
-		
+	public void addMinute()
+	{
 		int nextQuarter;
 		
 		currentMinute++;
@@ -741,21 +913,13 @@ public class ActivityBasketStats extends FragmentActivity
 	}
 	
 	/**
-	 * This method decrements the current minute of the game.
+	 * This method decrements the current minute of the game. Also checks for quarter trasitions
+	 * and updates the foul count on the quarter.
+	 * 
 	 * @author Josep
 	 */
-	public void substractMinute(){
-		/*currentMinute --;
-		
-		if(currentMinute == -1){
-			currentMinute = 9;
-			currentQuarter --;
-			if(currentQuarter < 1){
-				currentMinute = 0;
-				currentQuarter = 1;
-			}
-		}*/
-		
+	public void substractMinute()
+	{
 		int nextQuarter;
 		bGameEnd = false;
 		
@@ -775,14 +939,29 @@ public class ActivityBasketStats extends FragmentActivity
 		}
 	}
 	
+	
+	/**
+     * @return current minute of the match 
+     * @author Josep
+     */
 	public int getCurrentMinute(){
 		return currentMinute;
 	}
 	
+	
+	/**
+     * @return current quarter of the match
+     * @author Josep
+     */
 	public int getCurrentQuarter(){
 		return currentQuarter;
 	}
 	
+	
+	/**
+     * @return the maximum minute reached (if the user has gone back in the minutes)
+     * @author Josep
+     */
 	public int getMaximumMinute(){
 		return maximumMinute;
 	}
@@ -823,13 +1002,15 @@ public class ActivityBasketStats extends FragmentActivity
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 		                //do things
-		        	   
+		        	   saveEventsInDatabase();
+		        	   Intent intent = new Intent(ActivityBasketStats.this, MyActsActivity.class);
+		        	   intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	   startActivity(intent);
 		           }
 		       });
 		builder.setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 		                //do nothing
-		        	   saveEventsInDatabase();
 		           }
 		       });
 		AlertDialog alert = builder.create();

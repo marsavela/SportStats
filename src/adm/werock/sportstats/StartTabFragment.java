@@ -148,7 +148,7 @@ public class StartTabFragment extends Fragment {
 					
 						case 0 : break;
 						case 1 : event = new Event(0, 1, 0, "AN", bigParent.playerNumberA[i]+"", bigParent.playersListA.get(i).getLicenseNumber()); 
-								myDb.insertEvent(event);
+								//myDb.insertEvent(event);
 								break;
 						case 2 : event = new Event(0, 1, 0, "AS", bigParent.playerNumberA[i]+"", bigParent.playersListA.get(i).getLicenseNumber()); 
 								 myDb.insertEvent(event);
@@ -171,7 +171,7 @@ public class StartTabFragment extends Fragment {
 						
 						case 0 : break;
 						case 1 : event = new Event(0, 1, 0, "AN", bigParent.playerNumberB[i]+"", bigParent.playersListB.get(i).getLicenseNumber()); 
-								myDb.insertEvent(event);
+								//myDb.insertEvent(event);
 								break;
 						case 2 : event = new Event(0, 1, 0, "AS", bigParent.playerNumberB[i]+"", bigParent.playersListB.get(i).getLicenseNumber()); 
 								 myDb.insertEvent(event);

@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +49,9 @@ public class ActivityChooseTeamOnline extends Activity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_activity_choose_team_online);
                 myDb = new ActDBHelper(getApplicationContext());
+                
+                //TODO
+                myDb.clearDB();
 
                 //League spinner:
                 //Get leagues:

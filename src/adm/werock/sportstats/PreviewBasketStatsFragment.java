@@ -14,6 +14,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * This Fragment shows all the stats (for every player) of the game so far.
+ * 
+ * @author Josep
+ */
 public class PreviewBasketStatsFragment extends Fragment{
 	
 	private ActivityBasketStats parent;
@@ -44,6 +49,7 @@ public class PreviewBasketStatsFragment extends Fragment{
 		
 		return v;
 	}
+	
 	
 	@Override
 	public void onActivityCreated (Bundle savedInstanceState) {

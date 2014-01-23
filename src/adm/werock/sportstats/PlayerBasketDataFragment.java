@@ -14,6 +14,11 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * This Fragment is used to enter events related to a selected player.
+ * 
+ * @author Josep
+ */
 public class PlayerBasketDataFragment extends Fragment{
 	
 	private Button buttonAdd2Points;
@@ -135,7 +140,7 @@ public class PlayerBasketDataFragment extends Fragment{
 	}
 	
 	/**
-	 * This method applies the actions to the selected player and its team.
+	 * This method creates events according to the user info entered.
 	 * @author Josep
 	 */
 	private void confirmActions()
@@ -164,21 +169,21 @@ public class PlayerBasketDataFragment extends Fragment{
 		// Free Throws
 		if(freeThrowsInCount >= 1){
 			for(int i=0; i<freeThrowsInCount; i++){
-				events.add(new ActEvent(bHomePlayer, playerPosition, "FTI", 1, currentMinute));
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FI", 1, currentMinute));
 			}
 		}else if(freeThrowsInCount <= -1){
 			for(int i=0; i<-freeThrowsInCount; i++){
-				events.add(new ActEvent(bHomePlayer, playerPosition, "FTI", -1, currentMinute));
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FI", -1, currentMinute));
 			}
 		}
 		
 		if(freeThrowsOutCount >= 1){
 			for(int i=0; i<freeThrowsOutCount; i++){
-				events.add(new ActEvent(bHomePlayer, playerPosition, "FTO", 1, currentMinute));
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FO", 1, currentMinute));
 			}
 		}else if(freeThrowsOutCount <= -1){
 			for(int i=0; i<-freeThrowsOutCount; i++){
-				events.add(new ActEvent(bHomePlayer, playerPosition, "FTO", -1, currentMinute));
+				events.add(new ActEvent(bHomePlayer, playerPosition, "FO", -1, currentMinute));
 			}
 		}
 		
