@@ -70,12 +70,12 @@ public class StartTabFragment extends Fragment {
 		        	}
 		        	//Set the final array of players 
 		        	//AWAT TEAM PLAYERS
-		        	for(int i=0;i<bigParent.playerStateB.length;i++){
-		        		if(bigParent.playerStateB[i] ==true)
-		        			finalPlayersListB.add(bigParent.playersListB.get(i));
-		        	}
+//		        	for(int i=0;i<bigParent.playerStateB.length;i++){
+//		        		if(bigParent.playerStateB[i] ==true)
+//		        			finalPlayersListB.add(bigParent.playersListB.get(i));
+//		        	}
 		        	myDb.insertPlayers(finalPlayersListA);
-		        	myDb.insertPlayers(finalPlayersListB);
+		        	//myDb.insertPlayers(finalPlayersListB);
 		        	
 		        	//We get the number of captains and active players in order to check everything is ok
 		    		captainCounterHome = pref.getInt("prefCaptainCounterHome", 0);
@@ -100,10 +100,10 @@ public class StartTabFragment extends Fragment {
 		        	else if(totalPlayersVisitor > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
 		        	else{
 		        		myAct = new Act(1, bigParent.date, "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
-			        
-		            Intent i = new Intent(getActivity(), ActivityBasketStats.class);
-		            i.putExtra("actID", myAct.getId());
-		            startActivity(i);
+		        		Log.i("pedooo",  myAct.getId()+"");
+		        		myDb.insertAct(myAct);
+		        		Intent i = new Intent(getActivity(), ActivityBasketStats.class);
+		        		startActivity(i);
 		        	}
 		            
 		        }

@@ -52,6 +52,8 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 	
 	ArrayList<Player> playersListA = new ArrayList<Player>();
 	ArrayList<Player> playersListB = new ArrayList<Player>();
+	public int[] playerNumberA;
+	public int[] playerNumberB;
 	public boolean[] playerStateA;
 	public boolean[] playerStateB;
 

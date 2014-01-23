@@ -7,6 +7,7 @@ import java.util.Map;
 
 import adm.werock.sportstats.R;
 import adm.werock.sportstats.TeamBOnlineFragment.myAdapter;
+import adm.werock.sportstats.basics.Player;
 import android.R.string;
 import android.app.Activity;
 import android.content.Context;
@@ -46,7 +47,9 @@ public class TeamAFragment extends Fragment {
 	public int totalPlayers = 0;
 	public boolean ok = true;
 	public ListView list;
-
+	ArrayList<Player> playersListOfflineA = new ArrayList<Player>();
+	public ActivityBasketAct bigParent;
+	
 	class myAdapter extends SimpleAdapter {
 
 		public myAdapter(Context context, List<? extends Map<String, ?>> data,
@@ -61,7 +64,9 @@ public class TeamAFragment extends Fragment {
 			View itemView = super.getView(position, convertView, parent);
 			ImageView imageView = (ImageView) itemView
 					.findViewById(R.id.player_icon_offline);
-
+			bigParent.playersListA.clear();
+			for (int i = 0; i < 12; i++)
+			bigParent.playersListA.add(playersListOfflineA.get(i));
 			switch (states[position]) {
 			/*
 			 * 0: Jugador inactivo. 1: Jugador activo (suplente). 2. Titular 3.
@@ -86,6 +91,8 @@ public class TeamAFragment extends Fragment {
 
 				@Override
 				public void onClick(View v) {
+					bigParent.setPlayerStates(12);
+		    		bigParent.inicializePlayerStates();
 					/*
 					 * Parameters parent The AdapterView where the click
 					 * happened. view The view within the AdapterView that was
@@ -113,13 +120,19 @@ public class TeamAFragment extends Fragment {
 					states[aux]++;
 
 					for (int i = 0; i < states.length; i++) {
-						if (states[i] == 1)
+						if (states[i] == 1){
 							activeCounter++;
-						if (states[i] == 2)
+							bigParent.playerStateA[i] = true;
+						}
+						if (states[i] == 2){
 							starterCounter++;
+							bigParent.playerStateA[i] = true;
+						}
 
-						if (states[i] == 3)
+						if (states[i] == 3){
 							captainCounter++;
+							bigParent.playerStateA[i] = true;
+						}
 					}
 					if (starterCounter > 5 && captainCounter == 1)
 						states[aux] = 4;
@@ -171,7 +184,7 @@ public class TeamAFragment extends Fragment {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					licNumbers[position] = licenseNumber.getText().toString();
-
+					playersListOfflineA.get(position).setLicenseNumber(Integer.parseInt(licNumbers[position]));
 				}
 			});
 			// Adding the name to the selected row
@@ -184,6 +197,7 @@ public class TeamAFragment extends Fragment {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					names[position] = playerName.getText().toString();
+					playersListOfflineA.get(position).setName(names[position]);
 
 				}
 			});
@@ -197,9 +211,9 @@ public class TeamAFragment extends Fragment {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					numbers[position] = playerNumber.getText().toString();
-
 				}
 			});
+			
 			return itemView;
 		}
 	}
@@ -230,8 +244,9 @@ public class TeamAFragment extends Fragment {
 			item.put("Name", "");
 			item.put("Number", "");
 			data.add(item);
+			playersListOfflineA.add(new Player(0, "", "", 0));
 		}
-
+		
 		adapter = new myAdapter(this.getActivity(), data,
 				R.layout.team_item_offline, new String[] { "License", "Name",
 						"Number" }, new int[] { R.id.license_offline,
@@ -247,11 +262,24 @@ public class TeamAFragment extends Fragment {
 			numbers[i] = "";
 			licNumbers[i] = "";
 			names[i] = "";
+			//bigParent.playersListA.add(playersListOfflineA.get(i));
 		}
 
 		return rootView;
 	}
+	@Override
+	public void onActivityCreated (Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
 
+	    Activity activity = getActivity();
+    	
+    	if(activity instanceof ActivityBasketAct){
+    		bigParent = ((ActivityBasketAct)activity);
+    		bigParent.setPlayerStates(12);
+    		bigParent.inicializePlayerStates();
+    	}
+    	
+	}
 	public void onPause() {
 
 		super.onPause();
