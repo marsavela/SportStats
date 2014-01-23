@@ -68,7 +68,7 @@
     <string name="secondCoachText">Second coach</string>
     <string name="coachText">Coach </string>
 
-    <!-- pantalla..... -->
+    <!-- Activity Basket Acts -->
     <string name="licNum">Lic Nº</string>
     <string name="playerName">Player name</string>
     <string name="playerNum">Player Nº</string>
@@ -80,6 +80,26 @@
     <string name="selectNotPlaying">Player not called</string>
     <string name="selectStartingPlayer">Starting player</string>
 
+    <string name="errorPlayerNumberA">Local team has players without number.</string>
+    <string name="errorPlayerNumberB">Visitor team has players without number.</string>
+    <string name="errorCaptainA">Local team needs a captain.</string>
+    <string name="errorStartingPlayersA">Local team needs 4 starter players.</string>
+    <string name="errorCaptainB">Visitor team needs a captain.</string>
+    <string name="errorStartingPlayersB">Visitor team needs 4 starter players.</string>
+    <string name="errorTooManyPlayersA">Local team have more than 12 players.</string>
+    <string name="errorTooManyPlayersB">Visitor team have more than 12 players.</string>
+    <string name="errorMainRef">Introduce the Main Referee of the match</string>
+    <string name="errorTown">Please, introduce a town for the match.</string>
+    <string name="errorScndRef">Please, introduce the Second Referee of the match.</string>
+    <string name="errorDate">Please, introduce the date of the match.</string>
+    <string name="errorTime">Please, introduce the time of the match.</string>
+    <string name="errorCoachA">Please, introduce a coach for Local team.</string>
+    <string name="errorCoachB">Please, introduce a coach for Visitor team.</string>
+
+    
+    
+    
+    
     <!-- Activity Basket Stats -->
     <string name="menuHelp">Help</string>
     

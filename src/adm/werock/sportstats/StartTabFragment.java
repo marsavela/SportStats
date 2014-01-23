@@ -123,11 +123,11 @@ public class StartTabFragment extends Fragment {
 
 
 				if(nonumberA){
-					Toast.makeText(getActivity().getApplicationContext(), "TeamA has players without number.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorPlayerNumberA), Toast.LENGTH_SHORT).show();
 					errores = true;
 				}
 				if(nonumberB){
-					Toast.makeText(getActivity().getApplicationContext(), "TeamB has players without number.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorPlayerNumberB), Toast.LENGTH_SHORT).show();
 					errores = true;
 				}
 
@@ -136,40 +136,40 @@ public class StartTabFragment extends Fragment {
 
 				if(captainCounterHome != 1 || starterCounterHome<4){
 					if(captainCounterHome!=1){
-						Toast.makeText(getActivity().getApplicationContext(), "TeamA needs a captain", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorCaptainA), Toast.LENGTH_SHORT).show();
 						errores = true;}
 					if(starterCounterHome <4){
-						Toast.makeText(getActivity().getApplicationContext(), "TeamA needs 4 starter players", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorStartingPlayersA), Toast.LENGTH_SHORT).show();
 						errores = true;}
 				}
 				if(captainCounterVisitor != 1 || starterCounterVisitor<4){
 					if(captainCounterVisitor!=1){
-						Toast.makeText(getActivity().getApplicationContext(), "TeamB needs a captain", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorCaptainB), Toast.LENGTH_SHORT).show();
 						errores = true;}
 					if(starterCounterVisitor <4){
-						Toast.makeText(getActivity().getApplicationContext(), "TeamB needs 4 starter players", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorStartingPlayersB), Toast.LENGTH_SHORT).show();
 						errores = true;}
 				}
-				if(totalPlayersHome > 12){Toast.makeText(getActivity().getApplicationContext(), "TeamA have more than 12 players", Toast.LENGTH_SHORT).show();
+				if(totalPlayersHome > 12){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorTooManyPlayersA), Toast.LENGTH_SHORT).show();
 
 				errores = true;}
 
-				if(totalPlayersVisitor > 12){Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
+				if(totalPlayersVisitor > 12){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorTooManyPlayersB), Toast.LENGTH_SHORT).show();
 
 				errores = true;}
-				if(mainRefText== null || mainRefText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce Main Referee of the match", Toast.LENGTH_SHORT).show();
+				if(mainRefText== null || mainRefText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(),getResources().getString(R.string.errorMainRef), Toast.LENGTH_SHORT).show();
 				errores = true;}
-				if(townText== null || townText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce a town for the match", Toast.LENGTH_SHORT).show();
+				if(townText== null || townText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorTown), Toast.LENGTH_SHORT).show();
 				errores = true;}
-				if(scndRefText== null || scndRefText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce Second Referee of the match", Toast.LENGTH_SHORT).show();
+				if(scndRefText== null || scndRefText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorScndRef), Toast.LENGTH_SHORT).show();
 				errores = true;}
-				if(dateText== null || dateText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce the date of the match", Toast.LENGTH_SHORT).show();
+				if(dateText== null || dateText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorDate), Toast.LENGTH_SHORT).show();
 				errores = true;}
-				if(timeText== null || timeText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce the time of the match", Toast.LENGTH_SHORT).show();
+				if(timeText== null || timeText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorTime), Toast.LENGTH_SHORT).show();
 				errores = true;}
-				if(coachA== null || coachA.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce coach of team A", Toast.LENGTH_SHORT).show();
+				if(coachA== null || coachA.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorCoachA), Toast.LENGTH_SHORT).show();
 				errores = true;}
-				if(coachB== null || coachB.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce coach of team B", Toast.LENGTH_SHORT).show();
+				if(coachB== null || coachB.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.errorCoachB), Toast.LENGTH_SHORT).show();
 				errores = true;}
 				
 				if(!errores){
