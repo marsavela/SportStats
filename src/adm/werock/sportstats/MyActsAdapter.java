@@ -32,6 +32,9 @@ public class MyActsAdapter extends BaseAdapter {
     TextView pointsHome;
     TextView pointsGuest;
     private int position;
+    
+	public String homeTeamString;
+	public String guestTeamString;
 
     public MyActsAdapter(Activity activity, List<Act> actsList) {
         super();
@@ -50,12 +53,14 @@ public class MyActsAdapter extends BaseAdapter {
         teamGuest = (TextView) rootView.findViewById(R.id.teamGuest);
         teamHome = (TextView) rootView.findViewById(R.id.teamHome);
         
-     //   String homeTeam = DAOTeams.getTeamByID(list.get(position).getIdTeamHome()).getName();
-    //    Team homeTeam = DAOTeams.getTeamByID(3);
-        
-  //      new Task().execute();
+        new Task().execute();
         
         
+        
+        pointsHome.setText("10");
+        pointsGuest.setText("30");
+        teamHome.setText(homeTeamString);
+    	teamGuest.setText(guestTeamString);
         
 
      //   date.setText((CharSequence) list.get(position).getDate());
@@ -90,15 +95,17 @@ private class Task extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
         // TODO Auto-generated method stub
-        	teamHome.setText(DAOTeams.getTeamByID(list.get(position).getIdTeamHome()).getName());
-            teamGuest.setText(DAOTeams.getTeamByID(list.get(position).getIdTeamGuest()).getName());
+        	
+        	homeTeamString = DAOTeams.getTeamByID(list.get(position).getIdTeamHome()).getName();
+        	guestTeamString = DAOTeams.getTeamByID(list.get(position).getIdTeamGuest()).getName();
+        	
 			return null;
         }
 
         @Override
         protected void onPostExecute(Void params) {
-        	pointsHome.setText("10");
-            pointsGuest.setText("20");
+        	teamHome.setText(homeTeamString);
+        	teamGuest.setText(guestTeamString);
        }
 
     }

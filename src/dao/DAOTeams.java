@@ -84,9 +84,11 @@ public class DAOTeams {
 		// url to create new product
 		String url_check_user = "http://sergiu.es/sportstats/check_team_by_id.php";
 
+		Log.d("ID: ", Integer.toString(id));
+
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("id", Integer.toString(id)));
+		params.add(new BasicNameValuePair(TAG_TID, Integer.toString(id)));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method

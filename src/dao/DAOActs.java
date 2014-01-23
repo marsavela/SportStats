@@ -37,7 +37,7 @@ public class DAOActs {
 	private static final String TAG_LID = "id_teamlocal";
 	private static final String TAG_GID = "id_teamguest";
 
-	public static ArrayList<Act> getAct(User user) {
+	public static ArrayList<Act> getAct(String mail) {
 
 		ArrayList<Act> playersList = new ArrayList<Act>();
 
@@ -46,7 +46,7 @@ public class DAOActs {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("TAG_EMAIL", user.getEmail()));
+		params.add(new BasicNameValuePair(TAG_EMAIL, mail));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method
@@ -77,6 +77,7 @@ public class DAOActs {
 					int idLocal = c.getInt(TAG_LID);
 					int idGuest = c.getInt(TAG_GID);
 					playersList.add(new Act(id, putDateTime(dateString), email, idLocal, idGuest));
+
 				}
 			}
 

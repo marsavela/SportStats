@@ -24,16 +24,23 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MyActsActivity extends ListActivity {
 
 	ArrayList<Act> actsList = new ArrayList<Act>();
+	MyActsAdapter acts;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,8 @@ public class MyActsActivity extends ListActivity {
 /*		Date currentDate = new Date(System.currentTimeMillis());
 		Act act = new Act(1, currentDate, "dieparo@gmail.com",1,2);
 		actsList.add(act);*/
+		
+		
 	/*	ActProv act1 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
 		actsList.add(act1);
 		ActProv act2 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
@@ -57,13 +66,13 @@ public class MyActsActivity extends ListActivity {
 	//	AsyncTask myTask = new Task(this);
 		new Task(this).execute();
 		
-		Log.v("Prueba 1:", "Prueba 1");
 		
 		setContentView(R.layout.activity_my_acts);
-		MyActsAdapter acts = new MyActsAdapter(this, actsList);
+	
+/*		acts = new MyActsAdapter(this, actsList);
 		
 		
-		setListAdapter(new MyActsAdapter(this, actsList));
+		setListAdapter(new MyActsAdapter(this, actsList));*/
 		
 		
 		
@@ -106,11 +115,6 @@ public class MyActsActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-/*	// Crear nueva acta
-	private void addNewAct() {
-        Intent i = new Intent(this, CreateActActivity.class);
-        startActivity(i);
-    }*/
 	
 	public void addNewAct(){
 		//Check the wifi and 3g connection//////////////
@@ -159,26 +163,26 @@ private class Task extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
         // TODO Auto-generated method stub
-        	actsList = DAOActs.getAct(new User("dieparo@gmail.com","Diego"));
-        	Log.v("Actas: ",Integer.toString(actsList.size()));
+        	actsList = DAOActs.getAct("dieparo@gmail.com");
+        	Log.v("Actos: ",Integer.toString(actsList.size()));
         	
-      //  	Log.v("ID 3:",DAOTeams.getTeamByID(3).getName());
 			return null;
         }
 
         @Override
         protected void onPostExecute(Void params) {
         	
-    		final MyActsAdapter acts = new MyActsAdapter(activity, actsList);	
-    		setListAdapter(acts);
+        	acts = new MyActsAdapter(activity, actsList);	
     		
-    		acts.notifyDataSetChanged(); 
-    		
+        	
+        	setListAdapter(acts);
+    //		acts.notifyDataSetChanged(); 
+
     		pDialog.dismiss();
-   // 		setProgressBarIndeterminateVisibility(false);
 
        }
 
     }
+
 
 }

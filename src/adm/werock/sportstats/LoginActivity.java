@@ -200,7 +200,7 @@ private class Task extends AsyncTask<Void, Void, Void> {
         	Log.v("EQUIPOS EN LA ACB:",Integer.toString(teamsList.size()));
         	playersList = DAOPlayers.getPlayersOfATeam(new Team(6, "asd", 1));
         	Log.v("JUGADORES:",Integer.toString(playersList.size()));
-        	actsList = DAOActs.getAct(new User("dieparo@gmail.com","Diego"));
+        	actsList = DAOActs.getAct("dieparo@gmail.com");
         	Log.v("ACTAS:",Integer.toString(playersList.size()));
 			return null;
         }

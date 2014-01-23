@@ -49,20 +49,13 @@
                     android:id="@+id/pointsHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:textStyle="bold"
-                    android:textSize="30sp"
+                    android:layout_gravity="right|bottom"
                     android:text="@string/labelTeamHomeScore"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
-            
-<!--             <View
-                android:layout_width="2dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:gravity="center" /> -->
                 
             <ImageView
                 android:layout_width="1dp"
@@ -91,11 +84,12 @@
                     android:id="@+id/pointsGuest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:layout_gravity="left"
+                    android:layout_gravity="left|bottom"
                     android:text="@string/labelTeamGuestScore"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
         </LinearLayout>
 
