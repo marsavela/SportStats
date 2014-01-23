@@ -1,5 +1,7 @@
 package adm.werock.sportstats;
 
+import adm.werock.sportstats.basics.Event;
+
 //Event types
 //-------------------
 //AS - Assign Starter

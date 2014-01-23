@@ -227,7 +227,7 @@ public class FragmentBasketEventList extends Fragment{
 			scrollView.scrollTo(0, scrollY);
 			boolean ret = parent.searchAndRemoveEvent(event);
 			parent.rebuildFromEvents();
-			//parent.rebuild();
+			parent.rebuild();
 			return ret;
 		}
 	}

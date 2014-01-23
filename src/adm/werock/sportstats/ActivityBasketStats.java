@@ -1,6 +1,11 @@
 package adm.werock.sportstats;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+
+import dao.ActDBHelper;
+
+import adm.werock.sportstats.basics.*;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,6 +41,8 @@ public class ActivityBasketStats extends FragmentActivity
     // Players
     private ArrayList<ActPlayer> homePlayers = new ArrayList<ActPlayer>();
     private ArrayList<ActPlayer> awayPlayers = new ArrayList<ActPlayer>();
+    private Hashtable<Integer,Integer> homeLicenses = new Hashtable<Integer,Integer>();
+    private Hashtable<Integer,Integer> awayLicenses = new Hashtable<Integer,Integer>();
     private ActPlayer selectedPlayer = null;
     private int selectedPlayerIndex;
     private boolean bSelectedHomePlayer;
@@ -57,12 +64,17 @@ public class ActivityBasketStats extends FragmentActivity
     
     // Events
     private ArrayList<ActEvent> events = new ArrayList<ActEvent>();
+    private int maxEventID = 0;
+    
+    // Database
+    private int actID;
+    private ActDBHelper helper;
     
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         this.setContentView(R.layout.layout_basket_stats);
- 
+        
         // Instantiate a ViewPager
         this.pager = (ViewPager) this.findViewById(R.id.actViewPager);
  
@@ -75,6 +87,18 @@ public class ActivityBasketStats extends FragmentActivity
         this.pager.setAdapter(pagerAdapter);
         this.pager.setOnPageChangeListener(new PageListener());
         this.pager.setCurrentItem(2);
+        
+        // Get the Act ID from the bundle
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            actID = extras.getInt("actID");
+            Log.i("BasketStats.onCreate()","Act ID: " + actID);
+        }else{
+        	Log.e("BasketStats.onCreate()","No data received through the Extras.");
+        }
+        
+        // Initialize the DB helper
+        helper = new ActDBHelper(getApplicationContext());
         
         setPlayers();
     }
@@ -216,6 +240,49 @@ public class ActivityBasketStats extends FragmentActivity
     	return false;
     }
     
+    public void saveEventsInDatabase()
+    {
+    	maxEventID++;
+    	
+    	// Preprocessing the event list to save in local db a list of events sorted by minute.
+    	ArrayList<ArrayList<ActEvent>> actEvents = new ArrayList<ArrayList<ActEvent>>();
+    	
+    	for(int i=0; i<=maximumMinute; i++){
+    		actEvents.add(new ArrayList<ActEvent>());
+    	}
+    	
+    	for(int i=0; i<events.size(); i++){
+			ActEvent event = events.get(i);
+			actEvents.get(event.getMinute()).add(event);
+		}
+    	
+    	// Add the events to de local db
+    	for(int i=0; i<=maximumMinute; i++)
+    	{
+    		ArrayList<ActEvent> eventsInMinute = actEvents.get(i);
+    		
+    		for(int j=0; j<eventsInMinute.size(); j++)
+    		{
+    			// Convert the "ActEvent" to "Event"
+    			ActEvent actEvent = eventsInMinute.get(j);
+    			
+    			String type = actEvent.getType();
+    			String value = String.valueOf(actEvent.getValue());
+    			int playerLicense;
+    			
+    			if(actEvent.isHomePlayer()){
+    				playerLicense = homePlayers.get(actEvent.getPlayerPosition()).getLicenseNumber();
+    			}else{
+    				playerLicense = awayPlayers.get(actEvent.getPlayerPosition()).getLicenseNumber();
+    			}
+    			
+    			// Insert in the database
+    			helper.insertEvent(new Event(maxEventID, actID, i, type, value, playerLicense));
+    			maxEventID++;
+    		}
+    	}
+    }
+    
     public ArrayList<ActEvent> getEvents(){
     	return events;
     }
@@ -313,20 +380,125 @@ public class ActivityBasketStats extends FragmentActivity
     // TODO: PLAYERS
     
     public void setPlayers(){
-    	homePlayers.add(new ActPlayer(4,"Sergiu", "Marsavela","001"));
-    	homePlayers.add(new ActPlayer(5,"Fran", "Martin","002"));
-    	homePlayers.add(new ActPlayer(6,"Patrick", "Mondria","003"));
-    	homePlayers.add(new ActPlayer(7,"Diego", "Panadero","004"));
-    	homePlayers.add(new ActPlayer(8,"Alvaro", "Peris","005"));
-    	homePlayers.add(new ActPlayer(9,"Josep", "Tomas","006"));
+    	/*homePlayers.add(new ActPlayer(4,"Sergiu", "Marsavela",1));
+    	homePlayers.add(new ActPlayer(5,"Fran", "Martin",2));
+    	homePlayers.add(new ActPlayer(6,"Patrick", "Mondria",3));
+    	homePlayers.add(new ActPlayer(7,"Diego", "Panadero",4));
+    	homePlayers.add(new ActPlayer(8,"Alvaro", "Peris",5));
+    	homePlayers.add(new ActPlayer(9,"Josep", "Tomas",6));
     	
-    	awayPlayers.add(new ActPlayer(32,"Earvin","Johnson", "007"));
-    	awayPlayers.add(new ActPlayer(33,"Larry","Bird", "008"));
-    	awayPlayers.add(new ActPlayer(34,"Charles","Barkley", "009"));
-    	awayPlayers.add(new ActPlayer(6,"LeBron","James", "010"));
-    	awayPlayers.add(new ActPlayer(23,"Michael","Jordan", "011"));
-    	awayPlayers.add(new ActPlayer(24,"Kobe","Bryant", "012"));
-    	awayPlayers.add(new ActPlayer(55,"Dikembe","Mutombo","013"));
+    	awayPlayers.add(new ActPlayer(32,"Earvin","Johnson", 7));
+    	awayPlayers.add(new ActPlayer(33,"Larry","Bird", 8));
+    	awayPlayers.add(new ActPlayer(34,"Charles","Barkley", 9));
+    	awayPlayers.add(new ActPlayer(6,"LeBron","James", 10));
+    	awayPlayers.add(new ActPlayer(23,"Michael","Jordan", 11));
+    	awayPlayers.add(new ActPlayer(24,"Kobe","Bryant", 12));
+    	awayPlayers.add(new ActPlayer(55,"Dikembe","Mutombo", 13));*/
+    	
+    	// NEW
+    	Log.i("BasketStats.setPlayers()","requesting act");
+    	Act act = helper.selectAct(actID);
+    	
+    	Log.i("BasketStats.setPlayers()", "Home Team ID: " + act.getIdTeamHome());
+    	Log.i("BasketStats.setPlayers()", "Away Team ID: " + act.getIdTeamGuest());
+    	
+    	// Import the players from the database
+    	ArrayList<Player> homeActPlayers = helper.selectPlayers(act.getIdTeamHome());
+    	Log.i("BasketStats.setPlayers()", "Imported "+ String.valueOf(homeActPlayers.size())+" HOME players.");
+    	ArrayList<Player> awayActPlayers = helper.selectPlayers(act.getIdTeamGuest());
+    	Log.i("BasketStats.setPlayers()", "Imported "+ String.valueOf(awayActPlayers.size())+" AWAY players.");
+    	
+    	// Convert the home players
+    	for(int i=0; i<homeActPlayers.size(); i++){
+    		//homePlayers.add(new ActPlayer(homeActPlayers.get(i)));
+    		homeLicenses.put(new Integer(homeActPlayers.get(i).getLicenseNumber()), new Integer(i));
+    	}
+    	
+    	// Convert the away players
+    	for(int i=0; i<awayActPlayers.size(); i++){
+    		//awayPlayers.add(new ActPlayer(awayActPlayers.get(i)));
+    		awayLicenses.put(new Integer(awayActPlayers.get(i).getLicenseNumber()), new Integer(i));
+    	}
+    	
+    	// Get the assign events from the list
+    	ArrayList<Event> actEvents = helper.selectEvents(actID);
+    	
+    	int homeNumbersAssigned = 0;
+    	int homeStartersAssigned = 0;
+    	int homeCaptainAssigned = 0;
+    	
+    	int awayNumbersAssigned = 0;
+    	int awayStartersAssigned = 0;
+    	int awayCaptainAssigned = 0;
+    	
+    	for(int i=0; i<actEvents.size(); i++)
+    	{
+    		Event event = actEvents.get(i);
+    		String type = event.getType();
+    		String value = event.getValue();
+    		boolean bHome = false;
+    		int playerLicense = event.getPlayer();
+    		
+    		if(event.getId() > maxEventID){
+    			maxEventID = event.getId();
+    		}
+    		
+    		if(homeLicenses.containsKey(new Integer(playerLicense)))
+    		{
+    			bHome = true;
+    		}
+    		
+    		if(type.equals("AN"))
+    		{
+    			Player player;
+    			
+    			if(bHome){
+    				player = homeActPlayers.get(homeLicenses.get(new Integer(playerLicense)));
+    				homePlayers.add(new ActPlayer(player));
+    				homeNumbersAssigned++;
+    			}else{
+    				player = awayActPlayers.get(awayLicenses.get(new Integer(playerLicense)));
+    				awayPlayers.add(new ActPlayer(player));
+    				homeNumbersAssigned++;
+    			}
+    			
+    			/*if(bHome){
+    				homePlayers.get(homeLicenses.get(player)).setNumber(Integer.parseInt(value));
+    				homeNumbersAssigned++;
+    			}else{
+    				awayPlayers.get(awayLicenses.get(player)).setNumber(Integer.parseInt(value));
+    				awayNumbersAssigned++;
+    			}*/
+    		}
+    		else if(type.equals("AS"))
+    		{
+    			if(bHome){
+    				homePlayers.get(homeLicenses.get(playerLicense)).setAsStarter();
+    				homeStartersAssigned++;
+    			}else{
+    				awayPlayers.get(awayLicenses.get(playerLicense)).setAsStarter();
+    				awayStartersAssigned++;
+    			}
+    		}
+    		else if(type.equals("AC"))
+    		{
+    			if(bHome){
+    				homePlayers.get(homeLicenses.get(playerLicense)).setAsCaptain();
+    				homeCaptainAssigned++;
+    			}else{
+    				awayPlayers.get(awayLicenses.get(playerLicense)).setAsCaptain();
+    				awayCaptainAssigned++;
+    			}
+    		}
+    	}
+    	
+    	// Check events received
+    	Log.i("BasketStats.setPlayers()","HOME  NUMBERS: " + homeNumbersAssigned + " OUT OF " + homePlayers.size());
+    	Log.i("BasketStats.setPlayers()","HOME STARTERS: " + homeStartersAssigned);
+    	Log.i("BasketStats.setPlayers()","HOME CAPTAINS: " + homeCaptainAssigned);
+    	Log.i("BasketStats.setPlayers()","AWAY  NUMBERS: " + awayNumbersAssigned + " OUT OF " + awayPlayers.size());
+    	Log.i("BasketStats.setPlayers()","AWAY STARTERS: " + awayStartersAssigned);
+    	Log.i("BasketStats.setPlayers()","AWAY CAPTAINS: " + awayCaptainAssigned);
     }
     
     public ArrayList<ActPlayer> getHomePlayers(){
@@ -636,11 +808,13 @@ public class ActivityBasketStats extends FragmentActivity
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 		                //do things
+		        	   
 		           }
 		       });
 		builder.setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 		                //do nothing
+		        	   saveEventsInDatabase();
 		           }
 		       });
 		AlertDialog alert = builder.create();

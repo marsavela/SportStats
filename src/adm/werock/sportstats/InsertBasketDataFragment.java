@@ -6,6 +6,7 @@ import android.R.color;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -268,6 +269,9 @@ public class InsertBasketDataFragment extends Fragment
 		{
 			if(i < homePlayers.size()){
 				homeButtons.get(i).setText(new Integer(homePlayers.get(i).getNumber()).toString());
+				if(homePlayers.get(i).isCaptain()){
+					homeButtons.get(i).setTypeface(null, Typeface.BOLD);
+				}
 			}else{
 				homeButtons.get(i).setBackgroundResource(R.drawable.button_player_out);
 				homeButtons.get(i).setText("");

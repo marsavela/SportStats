@@ -1,27 +1,46 @@
 package adm.werock.sportstats;
 
+import adm.werock.sportstats.basics.Player;
+
 public class ActPlayer {
 	
 	private int number;
 	private String name;
 	private String surname;
-	private String licenseNumber;
+	private int licenseNumber;
+	
+	private boolean bStarter;
+	private boolean bCaptain;
 	
 	private int points;
 	private int freeThrowsMade;
 	private int freeThrowsMissed;
 	private int fouls;
 	
-	public ActPlayer(int number, String name, String surname, String licenseNumber)
+	public ActPlayer(int number, String name, String surname, int licenseNumber)
 	{
 		this.number = number;
 		this.name = name;
 		this.surname = surname;
 		this.licenseNumber = licenseNumber;
+		
+		this.bStarter = false;
+		this.bCaptain = false;
+		
 		this.points = 0;
 		this.freeThrowsMade = 0;
 		this.freeThrowsMissed = 0;
 		this.fouls = 0;
+	}
+	
+	public ActPlayer(Player player)
+	{
+		this.name = player.getName();
+		this.surname = player.getSurname();
+		this.licenseNumber = player.getLicenseNumber();
+		this.number = 0;
+		
+		resetStats();
 	}
 	
 	public String toString(){
@@ -37,13 +56,38 @@ public class ActPlayer {
 		fouls = 0;
 	}
 	
-	//
+	// Setters
+	
+	public void setAsStarter()
+	{
+		bStarter = true;
+	}
+	
+	public void setAsCaptain()
+	{
+		bCaptain = true;
+	}
+	
+	public void setNumber(int number)
+	{
+		this.number = number;
+	}
+	
+	// Getters
+	
+	public boolean isStarter(){
+		return bStarter;
+	}
+	
+	public boolean isCaptain(){
+		return bCaptain;
+	}
 	
 	public int getNumber(){
 		return number;
 	}
 	
-	public String getLicenseNumber(){
+	public int getLicenseNumber(){
 		return licenseNumber;
 	}
 	

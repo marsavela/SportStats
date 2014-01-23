@@ -145,7 +145,6 @@
     <style name="PlayerButton">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:scaleX">0.95</item>
         <item name="android:scaleY">0.95</item>
         <item name="android:background">@drawable/button_player</item>

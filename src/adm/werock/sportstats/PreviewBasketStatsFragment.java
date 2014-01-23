@@ -3,6 +3,7 @@ package adm.werock.sportstats;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -74,6 +75,13 @@ public class PreviewBasketStatsFragment extends Fragment{
     		playerFreeThrows.setText(String.valueOf(player.getFreeThrowsMade())+"/"+String.valueOf(player.getFreeThrowsTotal()));
     		playerFouls.setText(String.valueOf(player.getFouls()));
     		
+    		if(player.isCaptain()){
+    			playerName.setTypeface(null, Typeface.BOLD_ITALIC);
+    		}
+    		else if(player.isStarter()){
+    			playerName.setTypeface(null, Typeface.BOLD);
+    		}
+    		
     		homePlayersContainer.addView(playerItem);
     	}
     	
@@ -96,6 +104,13 @@ public class PreviewBasketStatsFragment extends Fragment{
     		playerPoints.setText(String.valueOf(player.getPoints()));
     		playerFreeThrows.setText(String.valueOf(player.getFreeThrowsMade())+"/"+String.valueOf(player.getFreeThrowsTotal()));
     		playerFouls.setText(String.valueOf(player.getFouls()));
+    		
+    		if(player.isCaptain()){
+    			playerName.setTypeface(null, Typeface.BOLD_ITALIC);
+    		}
+    		else if(player.isStarter()){
+    			playerName.setTypeface(null, Typeface.BOLD);
+    		}
     		
     		awayPlayersContainer.addView(playerItem);
     	}
