@@ -186,14 +186,7 @@ public class TeamAOnlineFragment extends Fragment {
 
 						bigParent.setPlayerNumbersA(adapter.getCount());
 						bigParent.inicializePlayerNumbersA();
-						//COsas para borrar despues
-						for (int i = 0; i < adapter.getCount(); i++) {
-							numbers[i] = i+"";
-							bigParent.playerNumberA[i] = Integer.parseInt(numbers[i]);
-						}
-						playerNumber.setText(numbers[position]);
-						////////
-
+				
 						for(int iterador=0;iterador<numbers.length;++iterador){
 							//Log.i(numbers[iterador].length()+"",numbers[iterador]+"");
 							if(numbers[iterador]!= null && numbers[iterador].length() > 0 ){
@@ -239,7 +232,7 @@ public class TeamAOnlineFragment extends Fragment {
 		View rootView = inflater.inflate(
 				adm.werock.sportstats.R.layout.layout_team_a_online_fragment,
 				container, false);
-
+		bigParent.viewTeamA = rootView;
 		list = (ListView) rootView.findViewById(R.id.teamAplayers);
 		list.setItemsCanFocus(true);
 

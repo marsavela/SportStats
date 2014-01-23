@@ -3,6 +3,7 @@ package adm.werock.sportstats;
 
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -14,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 public class GeneralTabFragment extends Fragment {
-	
+	ActivityBasketAct bigParent;
 
 	/* (non-Javadoc)
 	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
@@ -29,10 +30,10 @@ public class GeneralTabFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-	
+		
 		View rootView = inflater.inflate(adm.werock.sportstats.R.layout.layout_general_tab, container, false);
-
+		bigParent.viewGeneral = rootView;
+		
 		return rootView;
 	}
 	
@@ -69,7 +70,18 @@ public class GeneralTabFragment extends Fragment {
 
 
 
+	@Override
+	public void onActivityCreated (Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 
+		Activity activity = getActivity();
+
+		if(activity instanceof ActivityBasketAct){
+			bigParent = ((ActivityBasketAct)activity);
+		
+		}
+
+	}
 
 
 

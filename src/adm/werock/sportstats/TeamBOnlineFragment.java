@@ -180,13 +180,7 @@ public class TeamBOnlineFragment extends Fragment {
 
 						bigParent.setPlayerNumbersB(adapter.getCount());
 						bigParent.inicializePlayerNumbersB();
-						//COsas para borrar despues
-						for (int i = 0; i < adapter.getCount(); i++) {
-							numbers[i] = i+"";
-							bigParent.playerNumberA[i] = Integer.parseInt(numbers[i]);
-						}
-						playerNumber.setText(numbers[position]);
-						////////
+				
 						for(int iterador=0;iterador<numbers.length;++iterador){
 							if(numbers[iterador]!= null && numbers[iterador].length() > 0 ){
 								bigParent.playerNumberB[iterador] = Integer.parseInt(numbers[iterador]);
@@ -229,6 +223,7 @@ public class TeamBOnlineFragment extends Fragment {
 		View rootView = inflater.inflate(
 				adm.werock.sportstats.R.layout.layout_team_b_online_fragment,
 				container, false);
+		bigParent.viewTeamB = rootView;
 		
 		list = (ListView) rootView
 				.findViewById(R.id.teamBplayers);

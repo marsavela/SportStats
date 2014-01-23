@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import dao.ActDBHelper;
@@ -34,6 +35,9 @@ public class StartTabFragment extends Fragment {
 	private ArrayList<Player> finalPlayersListB = new ArrayList<Player>();
 	public ActDBHelper myDb;
 	private Act myAct;
+	
+	
+	private EditText mainRefText,scndRefText,dateText,townText,timeText,coachA,coachB = null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -49,6 +53,18 @@ public class StartTabFragment extends Fragment {
 		((TextView)rootView.findViewById(R.id.localTeamFinal)).setText(local);
 		((TextView)rootView.findViewById(R.id.visitorTeamFinal)).setText(visitor);
 		Button startButton = (Button) rootView.findViewById(R.id.ButtonStartGame);
+		
+		
+		
+		
+		mainRefText = (EditText) bigParent.viewGeneral.findViewById(R.id.MainRefereeText);
+		scndRefText = (EditText) bigParent.viewGeneral.findViewById(R.id.SecondRefereeText);
+		townText = (EditText) bigParent.viewGeneral.findViewById(R.id.TownText);
+		dateText = (EditText) bigParent.viewGeneral.findViewById(R.id.DateText);
+		timeText = (EditText) bigParent.viewGeneral.findViewById(R.id.TimeText);
+		
+		coachA = (EditText) bigParent.viewTeamA.findViewById(R.id.CoachText);
+		coachB = (EditText) bigParent.viewTeamB.findViewById(R.id.CoachTextB);
 
 		//set a onclick listener  when the button gets clicked
 		startButton.setOnClickListener(new OnClickListener() {
@@ -58,7 +74,7 @@ public class StartTabFragment extends Fragment {
 			public void onClick(View v) {
 				finalPlayersListA.clear();
 				finalPlayersListB.clear();
-
+				boolean errores = false;
 
 				//LOCAL TEAM PLAYERS
 				for(int i=0;i<bigParent.playerStateA.length;i++){
@@ -70,7 +86,7 @@ public class StartTabFragment extends Fragment {
 					if(bigParent.playerStateB[i] !=0)
 						finalPlayersListB.add(bigParent.playersListB.get(i));
 				}
-		
+
 				myDb.insertPlayers(finalPlayersListA);
 				myDb.insertPlayers(finalPlayersListB);
 
@@ -81,107 +97,129 @@ public class StartTabFragment extends Fragment {
 				starterCounterVisitor = pref.getInt("prefStarterCounterVisitor", 0);
 				totalPlayersHome = pref.getInt("prefTotalPlayersHome", 0);
 				totalPlayersVisitor = pref.getInt("prefTotalPlayersVisitor", 0);
-				
+
 				//Comprueba que no haya jugadores activos sin dorsal.
-				
+
 				boolean nonumberA = false;
 				if(bigParent.playerNumberA == null) nonumberA = true;
 				else
-				for (int i = 0; i< bigParent.playerStateA.length;i ++){
-					if(bigParent.playerStateA[i]!=0 &&(bigParent.playerNumberA[i]==-1)){ 
-						nonumberA =true;
-						break;
+					for (int i = 0; i< bigParent.playerStateA.length;i ++){
+						if(bigParent.playerStateA[i]!=0 &&(bigParent.playerNumberA[i]==-1)){ 
+							nonumberA =true;
+							break;
+						}
 					}
-				}
 
 				boolean nonumberB = false;
 				if(bigParent.playerNumberB == null) nonumberB = true;
 				else
-				for (int i = 0; i< bigParent.playerStateB.length;i ++){
-					if(bigParent.playerStateB[i]!=0 &&bigParent.playerNumberB[i]==-1){ 
-						nonumberB =true;
-						break;
+					for (int i = 0; i< bigParent.playerStateB.length;i ++){
+						if(bigParent.playerStateB[i]!=0 &&bigParent.playerNumberB[i]==-1){ 
+							nonumberB =true;
+							break;
+						}
+
 					}
 
-				}
 
-
-				if(nonumberA)
+				if(nonumberA){
 					Toast.makeText(getActivity().getApplicationContext(), "TeamA has players without number.", Toast.LENGTH_SHORT).show();
-
-				if(nonumberB)
+					errores = true;
+				}
+				if(nonumberB){
 					Toast.makeText(getActivity().getApplicationContext(), "TeamB has players without number.", Toast.LENGTH_SHORT).show();
+					errores = true;
+				}
 
-			
-				
-				
-				
-				
-				if(!nonumberA&&!nonumberB){
+
+
+
 				if(captainCounterHome != 1 || starterCounterHome<4){
-					if(captainCounterHome!=1)
+					if(captainCounterHome!=1){
 						Toast.makeText(getActivity().getApplicationContext(), "TeamA needs a captain", Toast.LENGTH_SHORT).show();
-					if(starterCounterHome <4)
+						errores = true;}
+					if(starterCounterHome <4){
 						Toast.makeText(getActivity().getApplicationContext(), "TeamA needs 4 starter players", Toast.LENGTH_SHORT).show();
+						errores = true;}
 				}
-				else if(captainCounterVisitor != 1 || starterCounterVisitor<4){
-					if(captainCounterVisitor!=1)
+				if(captainCounterVisitor != 1 || starterCounterVisitor<4){
+					if(captainCounterVisitor!=1){
 						Toast.makeText(getActivity().getApplicationContext(), "TeamB needs a captain", Toast.LENGTH_SHORT).show();
-					if(starterCounterVisitor <4)
+						errores = true;}
+					if(starterCounterVisitor <4){
 						Toast.makeText(getActivity().getApplicationContext(), "TeamB needs 4 starter players", Toast.LENGTH_SHORT).show();
+						errores = true;}
 				}
-				else if(totalPlayersHome > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamA have more than 12 players", Toast.LENGTH_SHORT).show();
-				else if(totalPlayersVisitor > 12)Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
-				else {
-					
-					//myAct = new Act(1, bigParent.date, "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
+				if(totalPlayersHome > 12){Toast.makeText(getActivity().getApplicationContext(), "TeamA have more than 12 players", Toast.LENGTH_SHORT).show();
+
+				errores = true;}
+
+				if(totalPlayersVisitor > 12){Toast.makeText(getActivity().getApplicationContext(), "TeamB have more than 12 players", Toast.LENGTH_SHORT).show();
+
+				errores = true;}
+				if(mainRefText== null || mainRefText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce Main Referee of the match", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				if(townText== null || townText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce a town for the match", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				if(scndRefText== null || scndRefText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce Second Referee of the match", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				if(dateText== null || dateText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce the date of the match", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				if(timeText== null || timeText.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce the time of the match", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				if(coachA== null || coachA.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce coach of team A", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				if(coachB== null || coachB.getText().toString().length()==0){Toast.makeText(getActivity().getApplicationContext(), "Introduce coach of team B", Toast.LENGTH_SHORT).show();
+				errores = true;}
+				
+				if(!errores){
 
 					Event event;
-					
+
 					//Creación de eventos:
 					for (int i = 0; i< bigParent.playerNumberA.length;i ++){
-						
+
 						//Asignación de dorsales
 						event = new Event(0, 1, 0, "A", bigParent.playerNumberA[i]+"", bigParent.playersListA.get(i).getLicenseNumber()); 
 						myDb.insertEvent(event);
 						switch(bigParent.playerStateA[i]){
-					
+
 						case 0 : break;
 						case 1 : event = new Event(0, 1, 0, "AN", bigParent.playerNumberA[i]+"", bigParent.playersListA.get(i).getLicenseNumber()); 
-								//myDb.insertEvent(event);
-								break;
+						//myDb.insertEvent(event);
+						break;
 						case 2 : event = new Event(0, 1, 0, "AS", bigParent.playerNumberA[i]+"", bigParent.playersListA.get(i).getLicenseNumber()); 
-								 myDb.insertEvent(event);
-								 break;
+						myDb.insertEvent(event);
+						break;
 						case 3 : event = new Event(0, 1, 0, "AC", bigParent.playerNumberA[i]+"", bigParent.playersListA.get(i).getLicenseNumber()); 
-								myDb.insertEvent(event);
-								break;
-						
+						myDb.insertEvent(event);
+						break;
+
 						}
-					
-						
+
+
 					}
 
 					//Equipo visitante:
 					for (int i = 0; i< bigParent.playerNumberB.length;i ++){
 						event = new Event(0, 1, 0, "A", bigParent.playerNumberB[i]+"", bigParent.playersListB.get(i).getLicenseNumber()); 
 						myDb.insertEvent(event);
-						
+
 						switch(bigParent.playerStateB[i]){
-						
+
 						case 0 : break;
 						case 1 : event = new Event(0, 1, 0, "AN", bigParent.playerNumberB[i]+"", bigParent.playersListB.get(i).getLicenseNumber()); 
-								//myDb.insertEvent(event);
-								break;
+						//myDb.insertEvent(event);
+						break;
 						case 2 : event = new Event(0, 1, 0, "AS", bigParent.playerNumberB[i]+"", bigParent.playersListB.get(i).getLicenseNumber()); 
-								 myDb.insertEvent(event);
-								 break;
+						myDb.insertEvent(event);
+						break;
 						case 3 : event = new Event(0, 1, 0, "AC", bigParent.playerNumberB[i]+"", bigParent.playersListB.get(i).getLicenseNumber()); 
-								
-							
-								myDb.insertEvent(event);
-								break;
-						
+
+
+						myDb.insertEvent(event);
+						break;
+
 						}
 					}
 
@@ -195,7 +233,7 @@ public class StartTabFragment extends Fragment {
 					startActivity(i);
 				}
 
-			}
+
 			}
 		});
 		return rootView;

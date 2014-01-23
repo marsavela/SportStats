@@ -46,7 +46,7 @@
     <string name="labelStart">Start</string>
     <string name="ToastSpinnerAdapter">You have selected: </string>
     <string name="localTeam">Local team</string>
-    <string name="title_activity_activity_basket_data">ActivityBasketData</string>
+    <string name="title_activity_activity_basket_data">Act preparation</string>
 
     <!-- pantalla... -->
     <string name="visitorTeam">Visitor team</string>

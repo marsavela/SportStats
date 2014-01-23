@@ -38,12 +38,18 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 
 	private int hour, minute, syear, month, day;	
 	TimePicker timePicker;
-	TextView timeText;
 	DatePicker datePicker;
 	Date date;
-	EditText dateText;
+	
 	static final int TIME_DIALOG_ID = 999;
 	static final int DATE_DIALOG_ID = 888;
+	
+	
+	static View viewGeneral;
+	static View viewTeamA;
+	static View viewTeamB;
+	public EditText dateText;
+	public TextView timeText;
 	
 	public int homeTeamId, awayTeamId;
 	private ViewPager viewPager;
@@ -72,8 +78,9 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		String visitor= pref.getString("prefVisitorTeam", "VISITOR");
 		//editor.remove("myPref");
 		editor.commit();
-
-
+		
+		
+		
 		// Tab titles
 		String[] tabs = { this.getString(R.string.general),local, visitor, this.getString(R.string.start) };
 
