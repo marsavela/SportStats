@@ -160,15 +160,13 @@ public class TeamAOnlineFragment extends Fragment {
 			final EditText playerNumber = (EditText) itemView
 					.findViewById(R.id.player_number);
 			playerNumber.setText(numbers[position]);
+
 			playerNumber.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					for (int i = 0; i < adapter.getCount(); i++) {
-						numbers[i] = i+"";
-					}
-					
+
 					String dorsal = playerNumber.getText().toString();
 					boolean unico = true;
 					for (int i = 0; i < numbers.length; i++) {
@@ -188,6 +186,13 @@ public class TeamAOnlineFragment extends Fragment {
 
 						bigParent.setPlayerNumbersA(adapter.getCount());
 						bigParent.inicializePlayerNumbersA();
+						//COsas para borrar despues
+						for (int i = 0; i < adapter.getCount(); i++) {
+							numbers[i] = i+"";
+							bigParent.playerNumberA[i] = Integer.parseInt(numbers[i]);
+						}
+						playerNumber.setText(numbers[position]);
+						////////
 
 						for(int iterador=0;iterador<numbers.length;++iterador){
 							//Log.i(numbers[iterador].length()+"",numbers[iterador]+"");
