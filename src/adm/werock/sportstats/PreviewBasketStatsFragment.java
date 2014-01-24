@@ -45,7 +45,7 @@ public class PreviewBasketStatsFragment extends Fragment{
 		
 		view = v;
 		this.container = container;
-		Log.i("BasketStatsFragment","VIEW CREATED");
+		//Log.i("BasketStatsFragment","VIEW CREATED");
 		
 		return v;
 	}
@@ -121,19 +121,19 @@ public class PreviewBasketStatsFragment extends Fragment{
     		awayPlayersContainer.addView(playerItem);
     	}
     	
-    	Log.i("BasketStatsFragment","ACTIVITY CREATED");
+    	//Log.i("BasketStatsFragment","ACTIVITY CREATED");
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.i("BasketStatsFragment","STARTED");
+		//Log.i("BasketStatsFragment","STARTED");
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.i("BasketStatsFragment","RESUMED");
+		//Log.i("BasketStatsFragment","RESUMED");
 	}
 	
 	

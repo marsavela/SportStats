@@ -108,9 +108,9 @@ public class ActivityBasketStats extends FragmentActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             actID = extras.getInt("actID");
-            Log.i("BasketStats.onCreate()","Act ID: " + actID);
+            //Log.i("BasketStats.onCreate()","Act ID: " + actID);
         }else{
-        	Log.e("BasketStats.onCreate()","No data received through the Extras.");
+        	//Log.e("BasketStats.onCreate()","No data received through the Extras.");
         }
         
         // Initialize the DB helper
@@ -289,11 +289,11 @@ public class ActivityBasketStats extends FragmentActivity
     		   event.getValue() == e.getValue() &&
     		   event.getType().equals(e.getType())){
     			events.remove(i);
-    			Log.d("ActivityBasketStats","Event deleted");
+    			//Log.d("ActivityBasketStats","Event deleted");
     			return true;
     		}
     	}
-    	Log.e("ActivityBasketStats","Event not found");
+    	//Log.e("ActivityBasketStats","Event not found");
     	return false;
     }
     
@@ -309,7 +309,7 @@ public class ActivityBasketStats extends FragmentActivity
     	maxEventID++;
     	
     	// Preprocessing the event list to save in local db a list of events sorted by minute.
-    	Log.d("BasketStats.saveEventsInDatabase()","Preprocessing");
+    	//Log.d("BasketStats.saveEventsInDatabase()","Preprocessing");
     	ArrayList<ArrayList<ActEvent>> actEvents = new ArrayList<ArrayList<ActEvent>>();
     	
     	for(int i=0; i<=maximumMinute; i++){
@@ -322,7 +322,7 @@ public class ActivityBasketStats extends FragmentActivity
 		}
     	
     	// Add the events to de local db
-    	Log.d("BasketStats.saveEventsInDatabase()","Adding events");
+    	//Log.d("BasketStats.saveEventsInDatabase()","Adding events");
     	for(int i=0; i<=maximumMinute; i++)
     	{
     		ArrayList<ActEvent> eventsInMinute = actEvents.get(i);
@@ -347,7 +347,7 @@ public class ActivityBasketStats extends FragmentActivity
     			maxEventID++;
     		}
     	}
-    	Log.d("BasketStats.saveEventsInDatabase()","Finished");
+    	//Log.d("BasketStats.saveEventsInDatabase()","Finished");
     }
     
     
@@ -497,38 +497,38 @@ public class ActivityBasketStats extends FragmentActivity
     	awayPlayers.add(new ActPlayer(55,"Dikembe","Mutombo", 13));*/
     	
     	// NEW
-    	Log.i("BasketStats.setPlayers()","requesting act");
+    	//log.i("BasketStats.setPlayers()","requesting act");
     	Act act = helper.selectAct(actID);
     	
-    	Log.i("BasketStats.setPlayers()", "Home Team ID: " + act.getIdTeamHome());
-    	Log.i("BasketStats.setPlayers()", "Away Team ID: " + act.getIdTeamGuest());
+    	//log.i("BasketStats.setPlayers()", "Home Team ID: " + act.getIdTeamHome());
+    	//log.i("BasketStats.setPlayers()", "Away Team ID: " + act.getIdTeamGuest());
     	
     	// Import the players from the database
     	ArrayList<Player> homeActPlayers = helper.selectPlayers(act.getIdTeamHome());
-    	Log.i("BasketStats.setPlayers()", "Imported "+ String.valueOf(homeActPlayers.size())+" HOME players.");
+    	//log.i("BasketStats.setPlayers()", "Imported "+ String.valueOf(homeActPlayers.size())+" HOME players.");
     	ArrayList<Player> awayActPlayers = helper.selectPlayers(act.getIdTeamGuest());
-    	Log.i("BasketStats.setPlayers()", "Imported "+ String.valueOf(awayActPlayers.size())+" AWAY players.");
+    	//log.i("BasketStats.setPlayers()", "Imported "+ String.valueOf(awayActPlayers.size())+" AWAY players.");
     	
     	// Convert the home players
     	for(int i=0; i<homeActPlayers.size(); i++){
     		//homePlayers.add(new ActPlayer(homeActPlayers.get(i)));
     		homeLicenses.put(new Integer(homeActPlayers.get(i).getLicenseNumber()), new Integer(i));
     	}
-    	Log.i("BasketStats.setPlayers()", "Home license numbers obtained.");
+    	//log.i("BasketStats.setPlayers()", "Home license numbers obtained.");
     	
     	// Convert the away players
     	for(int i=0; i<awayActPlayers.size(); i++){
     		//awayPlayers.add(new ActPlayer(awayActPlayers.get(i)));
     		awayLicenses.put(new Integer(awayActPlayers.get(i).getLicenseNumber()), new Integer(i));
     	}
-    	Log.i("BasketStats.setPlayers()", "Away license numbers obtained.");
+    	//log.i("BasketStats.setPlayers()", "Away license numbers obtained.");
     	
     	
     	// Get the assign events from the list
-    	Log.i("BasketStats.setPlayers()", "Requesting events.");
+    	//Log.i("BasketStats.setPlayers()", "Requesting events.");
     	ArrayList<Event> actEvents = helper.selectEvents(actID);
     	
-    	Log.i("BasketStats.setPlayers()", "Received: "+ actEvents.size() +" events.");
+    	//log.i("BasketStats.setPlayers()", "Received: "+ actEvents.size() +" events.");
     	
     	int homeNumbersAssigned = 0;
     	int homeStartersAssigned = 0;
@@ -598,12 +598,12 @@ public class ActivityBasketStats extends FragmentActivity
     	}
     	
     	// Check events received
-    	Log.i("BasketStats.setPlayers()","HOME  NUMBERS: " + homeNumbersAssigned + " OUT OF " + homePlayers.size());
-    	Log.i("BasketStats.setPlayers()","HOME STARTERS: " + homeStartersAssigned);
-    	Log.i("BasketStats.setPlayers()","HOME CAPTAINS: " + homeCaptainAssigned);
-    	Log.i("BasketStats.setPlayers()","AWAY  NUMBERS: " + awayNumbersAssigned + " OUT OF " + awayPlayers.size());
-    	Log.i("BasketStats.setPlayers()","AWAY STARTERS: " + awayStartersAssigned);
-    	Log.i("BasketStats.setPlayers()","AWAY CAPTAINS: " + awayCaptainAssigned);
+    	//log.i("BasketStats.setPlayers()","HOME  NUMBERS: " + homeNumbersAssigned + " OUT OF " + homePlayers.size());
+    	//log.i("BasketStats.setPlayers()","HOME STARTERS: " + homeStartersAssigned);
+    	//log.i("BasketStats.setPlayers()","HOME CAPTAINS: " + homeCaptainAssigned);
+    	//log.i("BasketStats.setPlayers()","AWAY  NUMBERS: " + awayNumbersAssigned + " OUT OF " + awayPlayers.size());
+    	//log.i("BasketStats.setPlayers()","AWAY STARTERS: " + awayStartersAssigned);
+    	//log.i("BasketStats.setPlayers()","AWAY CAPTAINS: " + awayCaptainAssigned);
     }
     
     

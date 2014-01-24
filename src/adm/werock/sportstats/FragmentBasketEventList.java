@@ -54,7 +54,7 @@ public class FragmentBasketEventList extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Log.d("FragmentEventList","onCreate");
+		//log.d("FragmentEventList","onCreate");
 		view = getActivity().getLayoutInflater().inflate(R.layout.fragment_event_list, null);
 		scrollView = (ScrollView)view.findViewById(R.id.scrollViewEvents);
 	}
@@ -66,7 +66,7 @@ public class FragmentBasketEventList extends Fragment{
 		
 		view = v;
 		this.container = container;
-		Log.i("BasketStatsFragment","VIEW CREATED");
+		//log.i("BasketStatsFragment","VIEW CREATED");
 		
 		return v;*/
 		Log.d("FragmentEventList","onCreateView");
@@ -77,7 +77,7 @@ public class FragmentBasketEventList extends Fragment{
 	public void onActivityCreated (Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 
-	    Log.d("FragmentEventList","onActivityCreated");
+	    //log.d("FragmentEventList","onActivityCreated");
 	    Activity activity = getActivity();
     	
     	if(activity instanceof ActivityBasketStats){
@@ -163,13 +163,13 @@ public class FragmentBasketEventList extends Fragment{
 	@Override
 	public void onStart() {
 		super.onStart();
-		Log.d("FragmentEventList","onStart");
+		//Log.d("FragmentEventList","onStart");
 	}
 	
 	
 	@Override
 	public void onResume() {
-		Log.d("FragmentEventList","onResume");
+		//log.d("FragmentEventList","onResume");
 		super.onResume();
 	}
 
