@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="appName">SportStats</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_id">192418660947338</string>
+
+    <!--
+     Para encontrar de forma mas facil los Strings aconsejo que los 
+	 separemos por pantallas, login, mis actas, etc...
+    -->
+
+    <!-- Login -->
+    <string name="titleLogin">Entrar</string>
+    <string name="labelLogin">Entrar</string>
+    <string name="labelRegister">Registrarse</string>
+    <string name="labelSkip">Saltar</string>
+    <string name="logo">Logo</string>
+    <string name="hintLoginMail">e-mail</string>
+    <string name="hintPassword">contraseña</string>
+
+    <!-- Register -->
+    <string name="titleRegister">Registro</string>
+    <string name="labelNewUserRegistration">Registro de nuevo usuario</string>
+    <string name="hintName">Nombre</string>
+    <string name="hintPassword2">Reescriba la contraseña</string>
+    <string name="hintMail">e-mail</string>
+    <string name="labelCancel">Cancelar</string>
+
+    <!-- My Acts -->
+    <string name="titleMyActs">Mis Actas</string>
+    <string name="actionAddAct">Añadir acta</string>
+    <string name="labelTeamHome">C.B. Sports</string>
+    <string name="labelTeamHomeScore">130</string>
+    <string name="labelTeamGuest">C.B. Stats</string>
+    <string name="labelTeamGuestScore">100</string>
+    <string name="labelDate">02/01/2014</string>
+
+    <!-- Act Details -->
+    <string name="titleActDetails">Detalles del acta</string>
+
+    <!-- Create Act -->
+    <string name="titleCreateAct">Nueva acta</string>
+    <string name="labelSelectSport">Seleccione un deporte</string>
+    <string name="labelStart">Comenzar</string>
+    <string name="ToastSpinnerAdapter">Ha elegido: </string>
+    <string name="localTeam">Equipo local</string>
+    <string name="title_activity_activity_basket_data">Preparación de acta</string>
+
+    <!-- pantalla... -->
+    <string name="visitorTeam">Equipo visitante</string>
+    <string name="town">Lugar</string>
+    <string name="mainReferee">Árbitro principal</string>
+    <string name="secondReferee">Árbitro secundario</string>
+    <string name="time">Hora</string>
+    <string name="date">Fecha</string>
+
+    <!-- pantalla.... -->
+    <string name="general">General</string>
+    <string name="teamA">Equipo A</string>
+    <string name="teamB">Equipo B</string>
+    <string name="start">Comenzar</string>
+    <string name="titleBasketData">Datos Básket</string>
+    <string name="labelStartGame">¡Comenzar partido!</string>
+    <string name="coach">Entrenador</string>
+    <string name="secondCoach">Segundo entrenador</string>
+    <string name="secondCoachText">Segundo entrenador</string>
+    <string name="coachText">Entrenador</string>
+
+    <!-- Activity Basket Acts -->
+    <string name="licNum">Nº lic</string>
+    <string name="playerName">Nombre jugador</string>
+    <string name="playerNum">Dorsal</string>
+    <string name="playerDefaultText">Nombre</string>
+    <string name="playerDefaultNumText">00</string>
+    <string name="cancel">Cancelar</string>
+    <string name="licDeafaultText">000</string>
+    <string name="selectCaptain">Seleccionar como capitán</string>
+    <string name="selectNotPlaying">Jugador no convocado</string>
+    <string name="selectStartingPlayer">Jugador titular</string>
+
+    <string name="errorPlayerNumberA">El equipo local tiene jugadores sin dorsal.</string>
+    <string name="errorPlayerNumberB">El equipo visitante tiene jugadores sin dorsal</string>
+    <string name="errorCaptainA">El equipo local necesita un capitán.</string>
+    <string name="errorStartingPlayersA">El equipo local necesita 5 titulares.</string>
+    <string name="errorCaptainB">El equipo visitante necesita un capitán.</string>
+    <string name="errorStartingPlayersB">El equipo visitante necesita 5 titulares.</string>
+    <string name="errorTooManyPlayersA">El equipo local tiene más de 12 jugadores.</string>
+    <string name="errorTooManyPlayersB">El equipo visitante tiene más de 12 jugadores.</string>
+    <string name="errorMainRef">Por favor, introduzca un árbitro principal.</string>
+    <string name="errorTown">Por favor, introduzca el lugar del partido.</string>
+    <string name="errorScndRef">Por favor, introduzca el segundo árbitro.</string>
+    <string name="errorDate">Por favor, introduzca la fecha del partido.</string>
+    <string name="errorTime">Por favor, introduzca la hora del partido.</string>
+    <string name="errorCoachA">Por favor, introduzca el entrenador del equipo local.</string>
+    <string name="errorCoachB">Por favor, introduzca el entrenador del equipo visitante.</string>
+
+    
+    
+    
+    
+    <!-- Activity Basket Stats -->
+    <string name="menuHelp">Ayuda</string>
+    
+    <!-- Act Fragment -->
+    <string name="titleActFragment">Partido</string>
+    <string name="labelHome">LOCAL</string>
+    <string name="labelAway">VISITANTE</string>
+    <string name="labelBonus">BONUS</string>
+    <string name="labelEnd">FINAL</string>
+    <string name="playerFouledOutDialog">El jugador seleccionado ha sido eliminado por faltas personales. No puede haber acciones sobre el mismo.</string>
+    <string name="finishActDialog">"El acta actual será almacenada. No se podrán realizar más cambios. ¿Continuar?"</string>
+
+    <!-- Player Fragment -->
+    <string name="titlePlayerFragment">Introducción de evento</string>
+    <string name="labelAdd2points">+2 Puntos</string>
+    <string name="labelAdd3points">+3 Puntos</string>
+    <string name="labelRemove2Points">-2 Puntos</string>
+    <string name="labelRemove3Points">-3 Puntos</string>
+    <string name="labelAddFreeThrowMade">+1 TL metido</string>
+    <string name="labelAddFreeThrowMissed">+1 TL fallado</string>
+    <string name="labelRemoveFreeThrowMade">-1 TL metido</string>
+    <string name="labelRemoveFreeThrowMissed">-1 TL fallado</string>
+    <string name="labelAddFoul">+1 Falta</string>
+    <string name="labelRemoveFoul">-1 Falta</string>
+    <string name="labelConfirm">Confirmar</string>
+    <string name="labelPoints">"Puntos: "</string>
+    <string name="labelFouls">"Faltas: "</string>
+    <string name="labelFreeThrows">"Tiros libres: "</string>
+    <string name="title_activity_activity_basket">Preparación de partido</string>
+    <string name="title_activity_activity_choose_team_online">Selección de equipos</string>
+    <string name="labelSelectLeague">Seleccione liga</string>
+    <string name="labelSelectLocalTeam">Seleccione equipo local</string>
+    <string name="labelSelectAwayTeam">Seleccione equipo visitante</string>
+    <string name="title_activity_activity_choose_team_offline">Elegir equipo</string>
+    <string name="sameTeams">Por favor, seleccione equipos diferentes.</string>
+    <string name="emptyTeams">Por favor, rellene todos los campos</string>
+    
+    <!-- Preview Stats Fragment -->
+    <string name="headerPreviewStatsHomeTeam">LOCAL</string>
+    <string name="headerPreviewStatsAwayTeam">VISITANTE</string>
+    <string name="headerPreviewStatsNumber">Nº</string>
+    <string name="headerPreviewStatsName">NOMBRE</string>
+    <string name="headerPreviewStatsPoints">PTS</string>
+    <string name="headerPreviewStatsFreeThrows">TL</string>
+    <string name="headerPreviewStatsFouls">F</string>
+    
+    <!-- Event List Fragment -->
+    <string name="headerFirstQuarter">1er Cuarto</string>
+    <string name="headerSecondQuarter">2º Cuarto</string>
+    <string name="headerThirdQuarter">3er Cuarto</string>
+    <string name="headerFourthQuarter">4º Cuarto</string>
+    <string name="headerOvertime">Prórroga</string>
+    <string name="headerMinute">Minuto</string>
+    <string name="optionDeleteEvent">Borrar</string>
+    <string name="Next">Siguiente</string>
+    <string name="matchInfo">Información de partido</string>
+    <string name="contactingServers">Contactando con servidores</string>
+    <string name="downloadingData">Descargando datos...</string>
+    <string name="match">Partido</string>
+    <string name="localTeam">Equipo local</string>
+    <string name="vs">Vs</string>
+    <string name="visitorTeam">Equipo visitante</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</resources>

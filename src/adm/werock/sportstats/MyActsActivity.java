@@ -1,20 +1,13 @@
 package adm.werock.sportstats;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
-import dao.DAOActs;
-import dao.DAOLeagues;
-import dao.DAOPlayers;
-import dao.DAOTeams;
-import dao.DAOUsers;
+import java.util.Random;
 
 import adm.werock.sportstats.basics.Act;
-import adm.werock.sportstats.basics.League;
-import adm.werock.sportstats.basics.Team;
-import adm.werock.sportstats.basics.User;
+import adm.werock.sportstats.basics.Event;
+import adm.werock.sportstats.basics.Player;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -24,57 +17,46 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SimpleAdapter;
+import dao.DAOActs;
+import dao.DAOEvents;
+import dao.DAOTeams;
 
 public class MyActsActivity extends ListActivity {
 
 	ArrayList<Act> actsList = new ArrayList<Act>();
 	MyActsAdapter acts;
-	
-	
+	public ListView list;
+	ArrayList<Player> playersList = new ArrayList<Player>();
+	public HashMap<String, Object> item = null;
+	ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
+	SimpleAdapter adapter = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		
+		//requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		setContentView(R.layout.activity_my_acts);  
 		List<Act> actsList = new ArrayList<Act>();
-	//	ArrayList<Act> actsList = new ArrayList<Act>();
+		list = (ListView) findViewById(android.R.id.list);
+	    new Task(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 		
-/*		Date currentDate = new Date(System.currentTimeMillis());
-		Act act = new Act(1, currentDate, "dieparo@gmail.com",1,2);
-		actsList.add(act);*/
-		
-		
-	/*	ActProv act1 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
-		actsList.add(act1);
-		ActProv act2 = new ActProv("C.B. Sports","C.B. Stats",114,110,"02/01/2014");
-		actsList.add(act2);
-		public Act(int id, Date date, String emailUser, int idTeamHome, int idTeamGuest)
-		*/
-		
-	//	AsyncTask myTask = new Task(this);
-		new Task(this).execute();
-		
-		
-		setContentView(R.layout.activity_my_acts);
-	
-/*		acts = new MyActsAdapter(this, actsList);
-		
-		
-		setListAdapter(new MyActsAdapter(this, actsList));*/
-		
-		
+
+    	
+ 
+	/*	list.setItemsCanFocus(true);
+
+		MyActsAdapter adapter = new MyActsAdapter(this, data, R.layout.team_item,
+				new String[] { "Local", "Visitor" }, new int[] { R.id.teamHome,
+			R.id.teamGuest });
+		list.setAdapter(adapter);
+*/
 		
 	}
 	
@@ -138,6 +120,8 @@ public class MyActsActivity extends ListActivity {
 
 
 	}
+	
+
 
 private class Task extends AsyncTask<Void, Void, Void> {
         
@@ -148,7 +132,10 @@ private class Task extends AsyncTask<Void, Void, Void> {
 			this.activity = a;
 		}
     
-        @Override
+		
+
+		
+		@Override
         protected void onPreExecute() {
         	super.onPreExecute();
     //    	setProgressBarIndeterminateVisibility(true);
@@ -172,10 +159,33 @@ private class Task extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPostExecute(Void params) {
         	
-        	acts = new MyActsAdapter(activity, actsList);	
+       // 	acts = new MyActsAdapter(activity, actsList);	
+    	String[] equipos = {"F.C. Barcelona","Estudiantes","Valencia Básket", "Real Madrid","Unicaja","Laboral Kutxa Baskonia", "UCAM Murcia"};
+           	for (int i = 0; i < actsList.size(); i++) {
+    			item = new HashMap<String, Object>();
+    			 actsList.get(i).getIdTeamHome();
     		
-        	
-        	setListAdapter(acts);
+    		
+    			item.put("Date", actsList.get(i).getDate().toString());
+    			
+    			//Habría que seleccionar el equipo con el DAO teams.
+    			//item.put("Local", actsList.get(i).getIdTeamHome()+"");
+    			//item.put("Visitor",actsList.get(i).getIdTeamHome()+"");
+    			
+    			item.put("Local", equipos[i]);
+    			item.put("Visitor",equipos[i+1]);
+    			
+    			//Habría que calcular los puntos según el acta.
+    			item.put("LocalPoints",(int)(50 + Math.random()*((120 - 50)+1))+"");
+    			item.put("VisitorPoints",(int)(50 + Math.random()*((120 - 50)+1))+"");
+    			
+    			data.add(item);
+    		}
+        	adapter = new SimpleAdapter(getApplicationContext(), data, R.layout.activity_my_acts_row,
+    				new String[] { "Date", "Local", "Visitor","LocalPoints","VisitorPoints" }, new int[] { R.id.date,R.id.teamHome,R.id.teamGuest,R.id.pointsHome,R.id.pointsGuest });
+
+    	    list.setAdapter(adapter);
+     //   	setListAdapter(acts);
     //		acts.notifyDataSetChanged(); 
 
     		pDialog.dismiss();

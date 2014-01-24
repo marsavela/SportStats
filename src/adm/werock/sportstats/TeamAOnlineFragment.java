@@ -46,6 +46,12 @@ public class TeamAOnlineFragment extends Fragment {
 	public ListView list;
 
 	public ActivityBasketAct bigParent;
+
+
+	ArrayList<Player> playersList = new ArrayList<Player>();
+	public HashMap<String, Object> item = null;
+	ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
+	
 	class myAdapter extends SimpleAdapter {
 
 		public myAdapter(Context context, List<? extends Map<String, ?>> data,
@@ -206,9 +212,6 @@ public class TeamAOnlineFragment extends Fragment {
 
 	public myAdapter adapter;
 
-	ArrayList<Player> playersList = new ArrayList<Player>();
-	public HashMap<String, Object> item = null;
-	ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

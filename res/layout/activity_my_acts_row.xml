@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ActItemWithShadow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:background="#FFFFFF"
-        style="@style/ActItemWithShadow" >
+    android:orientation="horizontal" >
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-         >
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/labelDate"
-            android:textSize="20sp"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -33,17 +33,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" 
-                android:paddingRight="10dp">
+                android:orientation="vertical"
+                android:paddingRight="10dp" >
 
                 <TextView
                     android:id="@+id/teamHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="26sp"
                     android:text="@string/labelTeamHome"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/pointsHome"
@@ -52,11 +53,11 @@
                     android:layout_gravity="right|bottom"
                     android:text="@string/labelTeamHomeScore"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
-                
+
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="90dp"
@@ -69,16 +70,17 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingLeft="10dp">
+                android:paddingLeft="10dp" >
 
                 <TextView
                     android:id="@+id/teamGuest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textSize="26sp"
                     android:text="@string/labelTeamGuest"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
+                    android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/pointsGuest"
@@ -87,12 +89,11 @@
                     android:layout_gravity="left|bottom"
                     android:text="@string/labelTeamGuestScore"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 
     <ImageView
@@ -101,5 +102,5 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:src="@drawable/square_online_available" />
-    
+
 </LinearLayout>

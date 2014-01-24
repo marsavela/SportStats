@@ -128,8 +128,8 @@
     <string name="labelPoints">"Points: "</string>
     <string name="labelFouls">"Fouls: "</string>
     <string name="labelFreeThrows">"Free Throws: "</string>
-    <string name="title_activity_activity_basket">ActivityBasketAct</string>
-    <string name="title_activity_activity_choose_team_online">ActivityChooseTeamOnline</string>
+    <string name="title_activity_activity_basket">Game Overview</string>
+    <string name="title_activity_activity_choose_team_online">Choose teams</string>
     <string name="labelSelectLeague">Select league</string>
     <string name="labelSelectLocalTeam">Select local team</string>
     <string name="labelSelectAwayTeam">Select away team</string>

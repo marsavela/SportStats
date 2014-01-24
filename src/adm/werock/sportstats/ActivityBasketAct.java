@@ -23,7 +23,6 @@ import android.net.ParseException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -187,7 +186,6 @@ We have to manually change the view using Tab change listener.*/
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Log.i("asddas",v.getId()+"" );	
 	}
 
 	@Override

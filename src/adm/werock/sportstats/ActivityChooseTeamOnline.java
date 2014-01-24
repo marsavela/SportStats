@@ -154,7 +154,6 @@ public class ActivityChooseTeamOnline extends Activity {
                 protected Void doInBackground(Void... params) {
                         // TODO Auto-generated method stub
                         leaguesList = DAOLeagues.getAllLeagues();
-                        Log.v("LIGAS: ",Integer.toString(leaguesList.size()));
                         return null;
                 }
 
