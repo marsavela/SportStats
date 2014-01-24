@@ -68,15 +68,6 @@ public class LoginActivity extends Activity {
             }
         });
 		
-		// Boton Skip
-		Button bSkip = (Button) findViewById(R.id.ButtonSkip);
-		bSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            	launchMyActs();
-            	//new Task().execute();
-            }
-        });
 		
 		//	final TextView txtSaludo = (TextView)findViewById(R.id.txtSaludo);
 		  

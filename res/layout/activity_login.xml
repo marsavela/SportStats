@@ -74,18 +74,6 @@
             android:textStyle="bold" >
         </Button>
 
-        <Button
-            android:id="@+id/ButtonSkip"
-            style="@style/buttonColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/btn_red_matte"
-            android:clickable="true"
-            android:text="@string/labelSkip"
-            android:textStyle="bold" >
-        </Button>
-
         <com.facebook.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
