@@ -1,28 +1,15 @@
 package adm.werock.sportstats;
 
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import adm.werock.sportstats.basics.User;
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.facebook.FacebookException;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
-import com.facebook.widget.LoginButton.OnErrorListener;
 
 import dao.DAOUsers;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,7 +36,7 @@ public class RegisterActivity extends Activity{
 		setContentView(R.layout.activity_register);
 		
 		
-		// Comprobar formato del mail
+		// Check email format
 		userMail = (EditText) findViewById(R.id.registerMail);
 		userMail.addTextChangedListener(new TextWatcher() {
 
@@ -77,7 +64,7 @@ public class RegisterActivity extends Activity{
 			}
 		  });
 
-		  // Comprobar que los passwords sean iguales
+		  // Check that the passwords are the same
 		  userName = (EditText) findViewById(R.id.registerName);
 		  userPassword = (EditText) findViewById(R.id.registerPassword);
 		  userPassword2 = (EditText) findViewById(R.id.registerPassword2);
@@ -105,7 +92,7 @@ public class RegisterActivity extends Activity{
 			}
 		});
 		
-		
+		// Cancel button
 		Button bCancel = (Button) findViewById(R.id.ButtonCancelRegistration);
 		bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,13 +100,8 @@ public class RegisterActivity extends Activity{
             	launchCancelRegistration();
             }
         });
-		
-/*		// Obtener los datos para guardarlos en la base de datos
-		userNameString=userName.getText().toString();
-        passwordString=password.getText().toString();
-        mailString=userMail.getText().toString();*/
         
-        
+		// Register Button
         Button bRegister = (Button) findViewById(R.id.ButtonRegister);
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,21 +115,14 @@ public class RegisterActivity extends Activity{
 	}
 
 
-
+	// If cancel button clicked, we finish the register activity and go back to login
 	protected void launchCancelRegistration() {
 		// TODO Auto-generated method stub
 		this.finish();
 	}
-	
-	protected void launchRegistration(String email, String name, String pass){
-		
-		PostNewUserTask task = new PostNewUserTask();
-        task.execute();
-		
-	}
 
 
-
+	// isEmailValid checks if the email is correct
 	public static boolean isEmailValid(String email) {
 	    boolean isValid = false;
 
@@ -168,27 +143,10 @@ public class RegisterActivity extends Activity{
 		return super.onCreateOptionsMenu(menu);
 	}
 	
+	// launch MyActs activity
 	private void launchMyActs(){
 		Intent i = new Intent(this, MyActsActivity.class);
         startActivity(i);
 	}
-	
-	
-	private class PostNewUserTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-        // TODO Auto-generated method stub
-        	//DAOUsers.addUser(mailString, userNameString, passwordString);
-			return null;
-            
-        }
-
-    }
 	
 }

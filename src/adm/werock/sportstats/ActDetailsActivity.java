@@ -1,13 +1,7 @@
 package adm.werock.sportstats;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class ActDetailsActivity extends Activity{
 
@@ -17,8 +11,8 @@ public class ActDetailsActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_act);
 		
+		/*
 
-/*    	
     	// Home Team Stats
     	ArrayList<ActPlayer> homePlayers = parent.getHomePlayers();
     	LinearLayout homePlayersContainer = (LinearLayout)view.findViewById(R.id.homePlayersContainer);
@@ -64,13 +58,11 @@ public class ActDetailsActivity extends Activity{
     		
     		awayPlayersContainer.addView(playerItem);
     	}
+    	
+    	
     	*/
+    	
 	}
-
-
-
-	
-	
 	
 	
 }

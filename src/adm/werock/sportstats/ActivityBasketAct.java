@@ -108,7 +108,7 @@ public class ActivityBasketAct extends FragmentActivity implements ActionBar.Tab
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
 
 		/*Adding Tabs to Action Bar
-6. In order to display tabs we don’t have to use any other UI element like TabHost. 
+6. In order to display tabs we dont have to use any other UI element like TabHost. 
 Action bar has the inbuilt capability of adding tabs. 
 All we have to do is enable it using setNavigationMode(ActionBar.NAVIGATION_MODE_TABS) method.
 Here I am adding three tabs Top Rated, Games, Movies to action bar. 
@@ -121,7 +121,7 @@ So I just stored all the tab names in a String array and added them to action ba
 
 		/*
 		 View Change Listener
-	14. As well if you swipe the view, you can’t see respected tab selected. 
+	14. As well if you swipe the view, you cant see respected tab selected. 
 	Here also using ViewPager setOnPageChangeListener() we have to select the respected tab manually.
 		 */
 		/**
@@ -160,8 +160,8 @@ So I just stored all the tab names in a String array and added them to action ba
 
 
 	/*Tab Change Listener
-If you run the project you can see the swiping views working, but if you select a tab, view won’t change automatically. 
-This is because ViewPager didn’t know about the tab change event. 
+If you run the project you can see the swiping views working, but if you select a tab, view wont change automatically. 
+This is because ViewPager didnt know about the tab change event. 
 We have to manually change the view using Tab change listener.*/
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -209,6 +209,7 @@ We have to manually change the view using Tab change listener.*/
 	//////////////////////SET TIME////////////////////////////////////
 	//Set the current hour and calls the time picker dialog//////////
 
+	@SuppressWarnings("deprecation")
 	public void setTime(View view){
 
 
@@ -260,6 +261,7 @@ We have to manually change the view using Tab change listener.*/
 
 
 	/////////////////////////SET DATE////////////////////////////////////
+	@SuppressWarnings("deprecation")
 	public void setDate(View view){	
 		dateText = (EditText) findViewById(R.id.DateText);
 		datePicker = (DatePicker) findViewById(R.id.datePicker1);

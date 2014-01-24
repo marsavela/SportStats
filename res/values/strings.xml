@@ -6,10 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="app_id">192418660947338</string>
 
-    <!--
-     Para encontrar de forma mas facil los Strings aconsejo que los 
-	 separemos por pantallas, login, mis actas, etc...
-    -->
 
     <!-- Login -->
     <string name="titleLogin">Login</string>
@@ -20,6 +16,7 @@
     <string name="hintLoginMail">mail</string>
     <string name="hintPassword">password</string>
 
+    
     <!-- Register -->
     <string name="titleRegister">Register</string>
     <string name="labelNewUserRegistration">New User Registration</string>
@@ -28,6 +25,7 @@
     <string name="hintMail">mail</string>
     <string name="labelCancel">Cancel</string>
 
+    
     <!-- My Acts -->
     <string name="titleMyActs">My Acts</string>
     <string name="actionAddAct">Add Act</string>
@@ -37,9 +35,11 @@
     <string name="labelTeamGuestScore">100</string>
     <string name="labelDate">02/01/2014</string>
 
+    
     <!-- Act Details -->
     <string name="titleActDetails">Act Details</string>
 
+    
     <!-- Create Act -->
     <string name="titleCreateAct">New Act</string>
     <string name="labelSelectSport">Select a Sport</string>
@@ -48,6 +48,7 @@
     <string name="localTeam">Local team</string>
     <string name="title_activity_activity_basket_data">Act preparation</string>
 
+    
     <!-- pantalla... -->
     <string name="visitorTeam">Visitor team</string>
     <string name="town">Town</string>
@@ -56,6 +57,7 @@
     <string name="time">Time</string>
     <string name="date">Date</string>
 
+    
     <!-- pantalla.... -->
     <string name="general">General</string>
     <string name="teamA">Team A</string>
@@ -68,6 +70,7 @@
     <string name="secondCoachText">Second coach</string>
     <string name="coachText">Coach </string>
 
+    
     <!-- Activity Basket Acts -->
     <string name="licNum">Lic Nº</string>
     <string name="playerName">Player name</string>
@@ -97,11 +100,9 @@
     <string name="errorCoachB">Please, introduce a coach for Visitor team.</string>
 
     
-    
-    
-    
     <!-- Activity Basket Stats -->
     <string name="menuHelp">Help</string>
+    
     
     <!-- Act Fragment -->
     <string name="titleActFragment">Match</string>
@@ -112,6 +113,7 @@
     <string name="playerFouledOutDialog">The selected player is fouled out. You cannot apply actions.</string>
     <string name="finishActDialog">"The current act will be saved. You won't be able to make changes. Continue?"</string>
 
+    
     <!-- Player Fragment -->
     <string name="titlePlayerFragment">Event input</string>
     <string name="labelAdd2points">+2 Points</string>
@@ -137,6 +139,7 @@
     <string name="sameTeams">Choose different teams!</string>
     <string name="emptyTeams">You cannot have empty teams</string>
     
+    
     <!-- Preview Stats Fragment -->
     <string name="headerPreviewStatsHomeTeam">HOME TEAM</string>
     <string name="headerPreviewStatsAwayTeam">AWAY TEAM</string>
@@ -145,6 +148,7 @@
     <string name="headerPreviewStatsPoints">PTS</string>
     <string name="headerPreviewStatsFreeThrows">FT</string>
     <string name="headerPreviewStatsFouls">F</string>
+    
     
     <!-- Event List Fragment -->
     <string name="headerFirstQuarter">1st Quarter</string>
@@ -162,12 +166,6 @@
     <string name="localTeam">Local Team</string>
     <string name="vs">Vs</string>
     <string name="visitorTeam">Visitor Team</string>
-    
-    
-    
-    
-    
-    
     
     
     

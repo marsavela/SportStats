@@ -10,8 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,8 +25,6 @@ import android.widget.Toast;
 import dao.ActDBHelper;
 import dao.DAOLeagues;
 import dao.DAOTeams;
-
-
 
 
 public class ActivityChooseTeamOnline extends Activity {

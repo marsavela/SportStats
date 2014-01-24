@@ -3,10 +3,8 @@ package adm.werock.sportstats;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import adm.werock.sportstats.basics.Act;
-import adm.werock.sportstats.basics.Event;
 import adm.werock.sportstats.basics.Player;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -24,8 +22,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import dao.DAOActs;
-import dao.DAOEvents;
-import dao.DAOTeams;
 
 public class MyActsActivity extends ListActivity {
 
@@ -41,7 +37,6 @@ public class MyActsActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_my_acts);  
 		List<Act> actsList = new ArrayList<Act>();
 		list = (ListView) findViewById(android.R.id.list);
@@ -115,13 +110,8 @@ public class MyActsActivity extends ListActivity {
 			i = new Intent(this, ActivityChooseTeamOnline.class);
 		else i = new Intent(this, ActivityChooseTeamOffline.class);
 
-
 		startActivity(i);
-
-
 	}
-	
-
 
 private class Task extends AsyncTask<Void, Void, Void> {
         
@@ -131,14 +121,11 @@ private class Task extends AsyncTask<Void, Void, Void> {
 		public Task(Activity a) {
 			this.activity = a;
 		}
-    
-		
 
 		
 		@Override
         protected void onPreExecute() {
         	super.onPreExecute();
-    //    	setProgressBarIndeterminateVisibility(true);
             pDialog = new ProgressDialog(MyActsActivity.this);
             pDialog.setTitle("Contacting Servers");
             pDialog.setMessage("Downloading data...");
@@ -160,7 +147,7 @@ private class Task extends AsyncTask<Void, Void, Void> {
         protected void onPostExecute(Void params) {
         	
        // 	acts = new MyActsAdapter(activity, actsList);	
-    	String[] equipos = {"F.C. Barcelona","Estudiantes","Valencia Básket", "Real Madrid","Unicaja","Laboral Kutxa Baskonia", "UCAM Murcia"};
+    	String[] equipos = {"F.C. Barcelona","Estudiantes","Valencia Basket", "Real Madrid","Unicaja","Laboral Kutxa Baskonia", "UCAM Murcia"};
            	for (int i = 0; i < actsList.size(); i++) {
     			item = new HashMap<String, Object>();
     			 actsList.get(i).getIdTeamHome();
@@ -168,14 +155,14 @@ private class Task extends AsyncTask<Void, Void, Void> {
     		
     			item.put("Date", actsList.get(i).getDate().toString());
     			
-    			//Habría que seleccionar el equipo con el DAO teams.
+    			//Habra que seleccionar el equipo con el DAO teams.
     			//item.put("Local", actsList.get(i).getIdTeamHome()+"");
     			//item.put("Visitor",actsList.get(i).getIdTeamHome()+"");
     			
     			item.put("Local", equipos[i]);
     			item.put("Visitor",equipos[i+1]);
     			
-    			//Habría que calcular los puntos según el acta.
+    			//Habra que calcular los puntos segun el acta.
     			item.put("LocalPoints",(int)(50 + Math.random()*((120 - 50)+1))+"");
     			item.put("VisitorPoints",(int)(50 + Math.random()*((120 - 50)+1))+"");
     			
