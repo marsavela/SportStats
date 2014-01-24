@@ -1,17 +1,13 @@
-/**
- * 
- */
 package adm.werock.sportstats.basics;
 
 /**
- * @author SergiuDaniel
- *
+ * @author Sergiu Daniel Marsavela This class represents a League.
  */
 public class League {
-	
+
 	private int leagueId;
 	private String name;
-	
+
 	/**
 	 * @param leagueId
 	 * @param name
@@ -21,6 +17,8 @@ public class League {
 		this.leagueId = leagueId;
 		this.name = name;
 	}
+
+	// Setters and Getters
 
 	public int getLeagueId() {
 		return leagueId;
@@ -37,6 +35,5 @@ public class League {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
 }

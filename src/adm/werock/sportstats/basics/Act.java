@@ -1,13 +1,9 @@
-/**
- * This Class represents an Act of a registered game.
- */
 package adm.werock.sportstats.basics;
 
 import java.util.Date;
 
 /**
- * @author SergiuDaniel
- *
+ * @author SergiuDaniel This Class represents an Act of a registered game.
  */
 public class Act {
 
@@ -24,7 +20,8 @@ public class Act {
 	 * @param date
 	 * @param emailUser
 	 */
-	public Act(int id, Date date, String emailUser, int idTeamHome, int idTeamGuest) {
+	public Act(int id, Date date, String emailUser, int idTeamHome,
+			int idTeamGuest) {
 		super();
 		this.id = id;
 		this.teamHomeId = idTeamHome;
@@ -32,6 +29,8 @@ public class Act {
 		this.date = date;
 		this.emailUser = emailUser;
 	}
+
+	// Setters and Getters
 
 	public int getId() {
 		return id;

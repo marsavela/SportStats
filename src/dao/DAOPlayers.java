@@ -1,6 +1,3 @@
-/**
- * 
- */
 package dao;
 
 import java.util.ArrayList;
@@ -18,8 +15,7 @@ import adm.werock.sportstats.basics.Team;
 import android.util.Log;
 
 /**
- * @author sergiu
- *
+ * @author Sergiu Daniel Marsavela DAO to manage the online Players
  */
 public class DAOPlayers {
 
@@ -34,17 +30,19 @@ public class DAOPlayers {
 
 		ArrayList<Player> playersList = new ArrayList<Player>();
 
-		// url to create new product
+		// url to check players
 		String url_check_user = "http://sergiu.es/sportstats/check_players.php";
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair(TAG_TID, Integer.toString(team.getTeamId())));
+		params.add(new BasicNameValuePair(TAG_TID, Integer.toString(team
+				.getTeamId())));
 
 		// getting JSON Object
-		// Note that create product url accepts POST method
+		// Note that check player url accepts POST method
 		JSONParser jsonParser = new JSONParser();
-		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
+				params);
 
 		try {
 			// Check your log cat for JSON reponse
@@ -55,10 +53,10 @@ public class DAOPlayers {
 
 			if (success == 1) {
 				// products found
-				// Getting Array of Products
+				// Getting Array of players
 				JSONArray players = json.getJSONArray(TAG_PLAYERS);
 
-				// looping through All Products
+				// looping through All players
 				for (int i = 0; i < players.length(); i++) {
 					JSONObject c = players.getJSONObject(i);
 
@@ -68,7 +66,8 @@ public class DAOPlayers {
 					String surname = c.getString(TAG_SURNAME);
 					int idTeam = c.getInt(TAG_TID);
 
-					playersList.add(new Player(licensnumber, name, surname, idTeam));
+					playersList.add(new Player(licensnumber, name, surname,
+							idTeam));
 				}
 			}
 
@@ -78,8 +77,13 @@ public class DAOPlayers {
 
 		return playersList;
 	}
-	
 
+	/**
+	 * Pull a Player with a given licensnumber
+	 * 
+	 * @param licensnumber
+	 * @return requested player
+	 */
 	public static Player getTeamByID(int licensnumber) {
 
 		// url to create new product
@@ -87,17 +91,18 @@ public class DAOPlayers {
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("licensnumber", Integer.toString(licensnumber)));
+		params.add(new BasicNameValuePair("licensnumber", Integer
+				.toString(licensnumber)));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method
 		JSONParser jsonParser = new JSONParser();
-		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
-		
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
+				params);
 
 		// Check your log cat for JSON reponse
 		Log.d("Player: ", json.toString());
-		
+
 		try {
 			if (json.getInt(TAG_SUCCESS) == 1) {
 				// products found
@@ -105,7 +110,7 @@ public class DAOPlayers {
 				String name = json.getString(TAG_NAME);
 				String surname = json.getString(TAG_SURNAME);
 				int idTeam = json.getInt(TAG_TID);
-				
+
 				return new Player(licensnumber, name, surname, idTeam);
 			}
 		} catch (JSONException e) {

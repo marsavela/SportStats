@@ -1,6 +1,3 @@
-/**
- * 
- */
 package dao;
 
 import java.text.ParseException;
@@ -19,13 +16,11 @@ import org.json.JSONObject;
 import adm.werock.sportstats.JSONParser;
 import adm.werock.sportstats.basics.Act;
 import adm.werock.sportstats.basics.Event;
-import adm.werock.sportstats.basics.User;
 import android.content.Context;
 import android.util.Log;
 
 /**
- * @author sergiu
- * 
+ * @author Sergiu Daniel Marsavela DAO to manage the online Acts
  */
 public class DAOActs {
 
@@ -37,6 +32,12 @@ public class DAOActs {
 	private static final String TAG_LID = "id_teamlocal";
 	private static final String TAG_GID = "id_teamguest";
 
+	/**
+	 * Returns a list of a given mail
+	 * 
+	 * @param mail
+	 * @return list of Acts
+	 */
 	public static ArrayList<Act> getAct(String mail) {
 
 		ArrayList<Act> playersList = new ArrayList<Act>();
@@ -76,7 +77,8 @@ public class DAOActs {
 					String email = c.getString(TAG_EMAIL);
 					int idLocal = c.getInt(TAG_LID);
 					int idGuest = c.getInt(TAG_GID);
-					playersList.add(new Act(id, putDateTime(dateString), email, idLocal, idGuest));
+					playersList.add(new Act(id, putDateTime(dateString), email,
+							idLocal, idGuest));
 
 				}
 			}
@@ -88,6 +90,12 @@ public class DAOActs {
 		return playersList;
 	}
 
+	/**
+	 * Insert an Act given to the online DB.
+	 * 
+	 * @param act
+	 * @return True if everything went well. False if not
+	 */
 	private Boolean insertAct(Act act) {
 
 		// url to create new product
@@ -97,8 +105,10 @@ public class DAOActs {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_DATE, getDateTime(act.getDate())));
 		params.add(new BasicNameValuePair(TAG_EMAIL, act.getEmailUser()));
-		params.add(new BasicNameValuePair(TAG_LID, Integer.toString(act.getIdTeamHome())));
-		params.add(new BasicNameValuePair(TAG_GID, Integer.toString(act.getIdTeamGuest())));
+		params.add(new BasicNameValuePair(TAG_LID, Integer.toString(act
+				.getIdTeamHome())));
+		params.add(new BasicNameValuePair(TAG_GID, Integer.toString(act
+				.getIdTeamGuest())));
 
 		// getting JSON Object
 		// Note that create product url accepts POST method
@@ -124,45 +134,64 @@ public class DAOActs {
 
 		return false;
 	}
-	
+
+	/**
+	 * Upload an Act that it's only in the local DB.
+	 * 
+	 * @param context
+	 * @param act_id
+	 * @return True if everything went well. False if not
+	 */
 	public Boolean uploadLocalAct(Context context, int act_id) {
-		
+
 		ActDBHelper helper = new ActDBHelper(context);
 		Act act = helper.selectAct(act_id);
 		ArrayList<Event> eventsList = helper.selectEvents(act.getId());
-		
-		if(!insertAct(act)) {
+
+		if (!insertAct(act)) {
 			return false;
 		}
-		
-		for(Event event : eventsList) {
-			if(!DAOEvents.insertEvent(event)) {
+
+		for (Event event : eventsList) {
+			if (!DAOEvents.insertEvent(event)) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
 	// --------------- other methods ----------------//
-	
+
+	/**
+	 * Convert Date to String
+	 * 
+	 * @param date
+	 * @return Date as a String
+	 */
 	private String getDateTime(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        return dateFormat.format(date);
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		return dateFormat.format(date);
 	}
-	
-	private static Date putDateTime(String dateString){
+
+	/**
+	 * Convert String to Date
+	 * 
+	 * @param dateString
+	 * @return Date
+	 */
+	private static Date putDateTime(String dateString) {
 		Date date = null;
-		SimpleDateFormat  dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());  
-		try {  
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+		try {
 			date = dateFormat.parse(dateString);
-		} catch (ParseException e) {  
-			// TODO Auto-generated catch block  
-			e.printStackTrace();  
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+
 		return date;
 	}
 

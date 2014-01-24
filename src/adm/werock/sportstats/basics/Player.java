@@ -1,11 +1,7 @@
-/**
- * This Class represents a Player.
- */
 package adm.werock.sportstats.basics;
 
 /**
- * @author SergiuDaniel
- *
+ * @author Sergiu Daniel Marsavela This Class represents a Player.
  */
 public class Player {
 
@@ -27,6 +23,8 @@ public class Player {
 		this.surname = surname;
 		this.teamId = teamId;
 	}
+
+	// Setters and Getters
 
 	public int getLicenseNumber() {
 		return licenseNumber;

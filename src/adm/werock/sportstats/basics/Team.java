@@ -1,18 +1,14 @@
-/**
- * This Class represents a Team.
- */
 package adm.werock.sportstats.basics;
 
 /**
- * @author SergiuDaniel
- *
+ * @author Sergiu Daniel Marsavela This Class represents a Team.
  */
 public class Team {
-	
+
 	private int teamId;
 	private String name;
 	private int leagueId;
-	
+
 	/**
 	 * @param teamId
 	 * @param name
@@ -24,6 +20,8 @@ public class Team {
 		this.name = name;
 		this.leagueId = leagueId;
 	}
+
+	// Setters and Getters
 
 	public int getTeamId() {
 		return teamId;
@@ -48,5 +46,5 @@ public class Team {
 	public void setLeagueId(int leagueId) {
 		this.leagueId = leagueId;
 	}
-	
+
 }

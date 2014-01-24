@@ -1,18 +1,15 @@
-/**
- * This Class represents a User that will use the service.
- */
 package adm.werock.sportstats.basics;
 
 /**
- * @author SergiuDaniel
- *
+ * @author Sergiu Daniel Marsavela This Class represents a User that will use
+ *         the service.
  */
 public class User {
-	
+
 	private String email;
 	private String name;
 	private String password;
-	
+
 	/**
 	 * @param email
 	 * @param name
@@ -25,11 +22,17 @@ public class User {
 		this.password = password;
 	}
 
+	/**
+	 * @param email
+	 * @param password
+	 */
 	public User(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
+
+	// Setters and Getters
 
 	public String getEmail() {
 		return email;

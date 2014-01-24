@@ -1,6 +1,3 @@
-/**
- * 
- */
 package dao;
 
 import java.util.ArrayList;
@@ -18,8 +15,7 @@ import adm.werock.sportstats.basics.Event;
 import android.util.Log;
 
 /**
- * @author SergiuDaniel
- *
+ * @author Sergiu Daniel Marsavela DAO to manage the online Events
  */
 public class DAOEvents {
 
@@ -32,21 +28,29 @@ public class DAOEvents {
 	private static final String TAG_VALUE = "value";
 	private static final String TAG_PLNUMBER = "licensnumber_players";
 
+	/**
+	 * Given an Act ID, pull a list of Events.
+	 * 
+	 * @param act
+	 * @return list of events
+	 */
 	public static ArrayList<Event> getEventsOfAAct(Act act) {
 
 		ArrayList<Event> eventsList = new ArrayList<Event>();
 
-		// url to create new product
-		String url_check_user = "http://sergiu.es/sportstats/check_players.php";
+		// url to check events
+		String url_check_user = "http://sergiu.es/sportstats/check_events.php";
 
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("id_acts", Integer.toString(act.getId())));
+		params.add(new BasicNameValuePair("id_acts", Integer.toString(act
+				.getId())));
 
 		// getting JSON Object
-		// Note that create product url accepts POST method
+		// Note that event url accepts POST method
 		JSONParser jsonParser = new JSONParser();
-		JSONObject json = jsonParser.makeHttpRequest(url_check_user,"POST", params);
+		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
+				params);
 
 		try {
 			// Check your log cat for JSON reponse
@@ -56,11 +60,11 @@ public class DAOEvents {
 			int success = json.getInt(TAG_SUCCESS);
 
 			if (success == 1) {
-				// products found
-				// Getting Array of Products
+				// event found
+				// Getting Array of events
 				JSONArray events = json.getJSONArray(TAG_EVENTS);
 
-				// looping through All Products
+				// looping through All Events
 				for (int i = 0; i < events.length(); i++) {
 					JSONObject c = events.getJSONObject(i);
 
@@ -72,7 +76,8 @@ public class DAOEvents {
 					String value = c.getString(TAG_VALUE);
 					int playersLicensnumber = c.getInt(TAG_PLNUMBER);
 
-					eventsList.add(new Event(id, idAct, minute, type, value, playersLicensnumber));
+					eventsList.add(new Event(id, idAct, minute, type, value,
+							playersLicensnumber));
 				}
 			}
 
@@ -83,6 +88,12 @@ public class DAOEvents {
 		return eventsList;
 	}
 
+	/**
+	 * Insert an Event in the DB.
+	 * 
+	 * @param event
+	 * @return True if everything went well. False if not
+	 */
 	public static Boolean insertEvent(Event event) {
 
 		// url to create new product
@@ -91,13 +102,15 @@ public class DAOEvents {
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair(TAG_AID, event.getType()));
-		params.add(new BasicNameValuePair(TAG_MINUTE, Integer.toString(event.getMinute())));
+		params.add(new BasicNameValuePair(TAG_MINUTE, Integer.toString(event
+				.getMinute())));
 		params.add(new BasicNameValuePair(TAG_TYPE, event.getType()));
 		params.add(new BasicNameValuePair(TAG_VALUE, event.getValue()));
-		params.add(new BasicNameValuePair(TAG_PLNUMBER, Integer.toString(event.getPlayer())));
+		params.add(new BasicNameValuePair(TAG_PLNUMBER, Integer.toString(event
+				.getPlayer())));
 
 		// getting JSON Object
-		// Note that create product url accepts POST method
+		// Note new event url accepts POST method
 		JSONParser jsonParser = new JSONParser();
 		JSONObject json = jsonParser.makeHttpRequest(url_check_user, "POST",
 				params);
@@ -120,5 +133,5 @@ public class DAOEvents {
 
 		return false;
 	}
-	
+
 }
