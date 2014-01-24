@@ -15,20 +15,21 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import dao.DAOPlayers;
-
+/*
+ * Fragment where coach and players from guest team are included.
+ * User must input valid numbers and states to players.
+ * 
+ */
 public class TeamBOnlineFragment extends Fragment {
 	private int[] states;
 	private String[] numbers;
@@ -291,7 +292,6 @@ public class TeamBOnlineFragment extends Fragment {
 			playersList1 = DAOPlayers.getPlayersOfATeam(new Team(awayTeamId,
 					awayTeam, leagueID));
 			bigParent.awayTeamId = awayTeamId;
-			Log.v("JUGADORES:", Integer.toString(playersList1.size()));
 			return null;
 		}
 

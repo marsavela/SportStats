@@ -5,34 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import adm.werock.sportstats.R;
-import adm.werock.sportstats.TeamBOnlineFragment.myAdapter;
 import adm.werock.sportstats.basics.Player;
-import android.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.webkit.WebView.FindListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 
+/*
+ * Fragment for local team when there's no internet connection.
+ * 
+ * */
 public class TeamAFragment extends Fragment {
 	private int[] states;
 	private String[] licNumbers;
@@ -286,8 +278,7 @@ public class TeamAFragment extends Fragment {
 		SharedPreferences pref = this.getActivity().getSharedPreferences(
 				"myPrefs", Context.MODE_MULTI_PROCESS);
 		Editor editor = pref.edit();
-		Log.i("captainCounter", captainCounter + "");
-		Log.i("activeCounter", activeCounter + "");
+		
 		editor.putInt("prefCaptainCounterHome", captainCounter);
 		editor.putInt("prefActiveCounterHome", activeCounter);
 		editor.commit();

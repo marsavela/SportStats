@@ -31,7 +31,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-
+/*
+ * Activity where the new act is set. It has 4 tabs where different game info must be introduced.
+ * This activity manages time and date dialogs and tabs for swipe view. 
+ * 
+ * */
 @SuppressLint("ValidFragment")
 public class ActivityBasketAct extends FragmentActivity implements ActionBar.TabListener,OnClickListener {
 

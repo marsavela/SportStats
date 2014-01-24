@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
+/*
+ * Fragment general game information is set.
+ * 
+ */
 public class GeneralTabFragment extends Fragment {
 	ActivityBasketAct bigParent;
 

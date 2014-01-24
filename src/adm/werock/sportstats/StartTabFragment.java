@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import dao.ActDBHelper;
 
+
+/*
+ * Fragment from Start tab.
+ * It checks all the previous info is correct and launches next activity.
+ * It also creates a new act with the initial events.
+ * 
+ * */
 public class StartTabFragment extends Fragment {
 	int captainCounterHome, captainCounterVisitor;
 	int starterCounterHome, starterCounterVisitor;
@@ -225,8 +231,7 @@ public class StartTabFragment extends Fragment {
 
 					myAct = new Act(1, 
 							new Date(), "pepito", bigParent.homeTeamId, bigParent.awayTeamId);
-					Log.i("date","DATE: "+(new Date()).toString());
-					Log.i("pedooo",  myAct.getId()+"");
+					
 					myDb.insertAct(myAct);
 					Intent i = new Intent(getActivity(), ActivityBasketStats.class);
 					i.putExtra("actID", myAct.getId());

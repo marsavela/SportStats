@@ -14,9 +14,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore.Audio.PlaylistsColumns;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,9 +24,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import dao.ActDBHelper;
 import dao.DAOPlayers;
-
+/*
+ * Fragment where coach and players from local team are included.
+ * User must input valid numbers and states to players.
+ * 
+ */
 public class TeamAOnlineFragment extends Fragment {
 	private int[] states;
 	private String[] numbers;
@@ -194,7 +195,6 @@ public class TeamAOnlineFragment extends Fragment {
 						bigParent.inicializePlayerNumbersA();
 				
 						for(int iterador=0;iterador<numbers.length;++iterador){
-							//Log.i(numbers[iterador].length()+"",numbers[iterador]+"");
 							if(numbers[iterador]!= null && numbers[iterador].length() > 0 ){
 								bigParent.playerNumberA[iterador] = Integer.parseInt(numbers[iterador]);
 							}
@@ -309,7 +309,6 @@ public class TeamAOnlineFragment extends Fragment {
 			playersList = DAOPlayers.getPlayersOfATeam(new Team(homeTeamId,
 					homeTeam, leagueID));
 			bigParent.homeTeamId = homeTeamId;
-			Log.v("JUGADORES:", Integer.toString(playersList.size()));
 			return null;
 		}
 
